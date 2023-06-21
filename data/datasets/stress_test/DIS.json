@@ -1,0 +1,1851 @@
+{
+    "data": {
+        "paragraphs": [
+            [
+                {
+                    "context": "Valencia\n\n== Wirtschaft ==\nReisfelder bei Sueca im Frühjahr 1966\nEin großer Arbeitgeber ist das nahe Kernkraftwerk Cofrentes sowie das Automobilwerk von Ford in Almussafes 20 km südlich der Stadt. Letzteres produzierte seit Gründung im Jahr 1976 über neun Millionen Automobile. Derzeit werden die Modelle Kuga, Mondeo, Connect sowie SMAX gefertigt. Das Ford-Werk beschäftigt 7.000 Menschen direkt und sorgt für 21.000 weitere indirekte Arbeitsplätze in Zulieferbetrieben. Außerdem wird in der Region auch Reis u. ä. angebaut.",
+                    "qas": [
+                        {
+                            "question": "Wie viele Autos werden von Ford südlich von Valencia gebaut?",
+                            "answers": [
+                                {
+                                    "text": "seit Gründung im Jahr 1976 über neun Millionen Automobile"
+                                },
+                                {
+                                    "text": "seit Gründung im Jahr 1976 über neun Millionen Automobile"
+                                },
+                                {
+                                    "text": "über neun Millionen"
+                                }
+                            ]
+                        },
+                        {
+                            "question": "Wie viele Arbeitsplätze schafft das Ford Werk südlich von Valencia?",
+                            "answers": [
+                                {
+                                    "text": "7.000 Menschen direkt und sorgt für 21.000 weitere indirekte"
+                                },
+                                {
+                                    "text": "7.000 Menschen direkt und sorgt für 21.000 weitere indirekte Arbeitsplätze"
+                                },
+                                {
+                                    "text": "7.000 Menschen direkt und sorgt für 21.000 weitere indirekte Arbeitsplätze"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "Haushund\n\n=== Grenzübertritt in der EU ===\nBei Grenzübertritt muss seit 2004 in EU-Europa ein EU-Heimtierausweis mit dem Nachweis einer gültigen Tollwutimpfung zur Identifikation mitgeführt werden; weiterhin muss dem Hund ein passiver Nurlese-RFID-Chip (Transponder), der der ISO-Norm 11784 entspricht (HDX- oder FDX-B-Übertragung) und mit einem der ISO-Norm 11785 entsprechenden Lesegerät abgelesen werden kann, implantiert sein, dessen Nummer im Heimtierausweis eingetragen ist. Der Sinn dieser Regelung ist der Kampf gegen die Tollwut.",
+                    "qas": [
+                        {
+                            "question": "Was brauch man seit 2004 beim EU-Grenzübertritt für seinen Hund?",
+                            "answers": [
+                                {
+                                    "text": "EU-Heimtierausweis mit dem Nachweis einer gültigen Tollwutimpfung zur Identifikation mitgeführt werden; weiterhin muss dem Hund ein passiver Nurlese-RFID-Chip (Transponder), der der ISO-Norm 11784 entspricht (HDX- oder FDX-B-Übertragung) und mit einem der ISO-Norm 11785 entsprechenden Lesegerät abgelesen werden kann, implantiert sein, dessen Nummer im Heimtierausweis eingetragen ist"
+                                },
+                                {
+                                    "text": "ein EU-Heimtierausweis mit dem Nachweis einer gültigen Tollwutimpfung"
+                                },
+                                {
+                                    "text": "ein EU-Heimtierausweis mit dem Nachweis einer gültigen Tollwutimpfung"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "Liberia\n\n=== Migration und Urbanisierung ===\n2017 waren 2,1 % der Bevölkerung im Ausland geboren; dazu kommt starke interne Migration.\nDer Prozess der Migration und Urbanisierung hält in der Metropolregion Monrovia an; das Siedlungsgebiet reicht bis zu 30 Kilometer in das Hinterland und führt zu einem Anstieg sozialer Spannungen. Ein Großteil der ländlichen Bevölkerung lebt in der nördlichen Grenzregion zu Guinea. Bei der letzten Volkszählung wurden etwa  bewohnte Siedlungen in Liberia ermittelt.\nDie sechs größten Städte waren 2008:",
+                    "qas": [
+                        {
+                            "question": "Wie viel Prozent der Einwohner von Liberia waren 2017 nicht in dem Land geboren?",
+                            "answers": [
+                                {
+                                    "text": "2,1 %"
+                                },
+                                {
+                                    "text": "2,1 %"
+                                },
+                                {
+                                    "text": "2,1"
+                                }
+                            ]
+                        },
+                        {
+                            "question": "Welches Land grenzt im Norden an Liberia?",
+                            "answers": [
+                                {
+                                    "text": "Guinea"
+                                },
+                                {
+                                    "text": "Guinea"
+                                },
+                                {
+                                    "text": "Guinea"
+                                }
+                            ]
+                        },
+                        {
+                            "question": "Wo in Liberia lebt die Landbevölkerung vor allem?",
+                            "answers": [
+                                {
+                                    "text": " in der nördlichen Grenzregion zu Guinea"
+                                },
+                                {
+                                    "text": "in der nördlichen Grenzregion"
+                                },
+                                {
+                                    "text": "nördlichen Grenzregion"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "Glas\n\n== Märkte für Glas ==\nGlas ist ein vielseitiges Material, das in vielen Bereichen des täglichen Lebens zum Einsatz kommt. So spielt Glas eine wichtige Rolle in Forschung und Wissenschaft, in der modernen Architektur sowie in Zukunftsbranchen. Kernbereiche, in denen Glas eingesetzt wird, sind: Bauindustrie, Ernährungs- und Getränkeindustrie, Kraftfahrzeugindustrie, Elektro(nik)industrie, Haushalt und Gastronomie, Medizin, Forschung und Wissenschaft, Chemie, Pharmazie, Kosmetik, Möbelindustrie und Innenausbau, Kunststoff- und Textilindustrie.",
+                    "qas": [
+                        {
+                            "question": "Wo wird Glas benutzt?\n",
+                            "answers": [
+                                {
+                                    "text": "in vielen Bereichen des täglichen Lebens"
+                                },
+                                {
+                                    "text": "Bauindustrie, Ernährungs- und Getränkeindustrie, Kraftfahrzeugindustrie, Elektro(nik)industrie, Haushalt und Gastronomie, Medizin, Forschung und Wissenschaft, Chemie, Pharmazie, Kosmetik, Möbelindustrie und Innenausbau, Kunststoff- und Textilindustrie"
+                                },
+                                {
+                                    "text": "Bauindustrie, Ernährungs- und Getränkeindustrie, Kraftfahrzeugindustrie, Elektro(nik)industrie, Haushalt und Gastronomie, Medizin, Forschung und Wissenschaft, Chemie, Pharmazie, Kosmetik, Möbelindustrie und Innenausbau, Kunststoff- und Textilindustrie"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "51._Bundesstaat\n\n=== Organisationen ===\nNGOs und andere Organisationen, die ihren Hauptsitz in den USA haben, betreiben Filialen an anderen Orten, die manchmal als der 51. Bundesstaat der Gruppe bezeichnet werden.\nDas Democratic National Committee kümmert sich bei Wahlen um die Anerkennung jedes Bundesstaates, gestattet aber den rund sieben Millionen US-Bürgern, die im Ausland leben, an parteiinternen Abstimmungen wie der Präsidentschaftsvorwahl teilzunehmen. In diesem Zusammenhang wird die Gruppe ''Democrats Abroad'' als 51. Bundesstaat bezeichnet.",
+                    "qas": [
+                        {
+                            "question": "Als was bezeichnen die Demokraten bei Wahlen die im Ausland lebenden Wähler?",
+                            "answers": [
+                                {
+                                    "text": "51. Bundesstaat"
+                                },
+                                {
+                                    "text": "Democrats Abroad"
+                                },
+                                {
+                                    "text": "Democrats Abroad"
+                                }
+                            ]
+                        },
+                        {
+                            "question": "Wie viele US-Amerikaner leben im Ausland?",
+                            "answers": [
+                                {
+                                    "text": "sieben Millionen"
+                                },
+                                {
+                                    "text": "rund sieben Millionen "
+                                },
+                                {
+                                    "text": "rund sieben Millionen"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "Haushund\n\n=== Jagdhunde ===\nDie Begleitung bei der Jagd war wahrscheinlich die erste und über lange Zeit wichtigste Nutzung von Hunden. Die dazu notwendigen Fähigkeiten und Fertigkeiten hatten die Tiere von ihren Vorfahren, den Wölfen, geerbt, so dass dazu keine besonderen züchterischen Leistungen nötig waren. Erst viel später wurden spezielle Jagdhundrassen gezüchtet. Für die Treibjagd benötigte man beispielsweise Hunde, die schnell laufen konnten, während kleine Hunde (Dackel oder ''Dachshund'', Terrier) leicht in Fuchs- oder Dachsbaue eindringen konnten.",
+                    "qas": [
+                        {
+                            "question": "Was war die erste Funktion von Hunden für den Menschen?",
+                            "answers": [
+                                {
+                                    "text": "Begleitung bei der Jagd "
+                                },
+                                {
+                                    "text": "Die Begleitung bei der Jagd"
+                                },
+                                {
+                                    "text": "Begleitung bei der Jagd"
+                                }
+                            ]
+                        },
+                        {
+                            "question": "von wem stammen Hunde ab?",
+                            "answers": [
+                                {
+                                    "text": "Wölfen"
+                                },
+                                {
+                                    "text": "den Wölfen"
+                                },
+                                {
+                                    "text": "Wölfen"
+                                }
+                            ]
+                        },
+                        {
+                            "question": "Welche Eigenschaft benötigen Hunde für die Treibjagd?",
+                            "answers": [
+                                {
+                                    "text": "Hunde, die schnell laufen konnten"
+                                },
+                                {
+                                    "text": "Hunde, die schnell laufen konnten, während kleine Hunde (Dackel oder ''Dachshund'', Terrier) leicht in Fuchs- oder Dachsbaue eindringen konnten."
+                                },
+                                {
+                                    "text": "schnell laufen"
+                                }
+                            ]
+                        },
+                        {
+                            "question": "Wozu wurden Dackel gezüchtet?",
+                            "answers": [
+                                {
+                                    "text": "n Fuchs- oder Dachsbaue eindringen"
+                                },
+                                {
+                                    "text": "während kleine Hunde (Dackel oder ''Dachshund'', Terrier) leicht in Fuchs- oder Dachsbaue eindringen konnten"
+                                },
+                                {
+                                    "text": "in Fuchs- oder Dachsbaue eindringen"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "Gletscher\n\n=== Gleichgewichtslinie ===\nDie Gleichgewichtslinie ist eine Höhengrenze der Glaziologie. Unterhalb dieser Linie im sogenannten Zehrgebiet (Ablationsgebiet) des Gletschers ist der Massenverlust durch Ablation größer als der Zuwachs an Gletschereis. Im oberhalb liegenden Nährgebiet (Akkumulationsgebiet) wird mehr Gletschereis gebildet als durch Ablation verloren geht. In vielen Gebieten entspricht die Gleichgewichtslinie größtenteils der Firngrenze. Die Gleichgewichtslinie wird im Fachjargon auch als ''Equilibrium Line Altitude'' (ELA) bezeichnet.",
+                    "qas": [
+                        {
+                            "question": "Was ist der Fachbegriff für die Gleichgewichtslinie beim Gletscher?",
+                            "answers": [
+                                {
+                                    "text": "Equilibrium Line Altitude"
+                                },
+                                {
+                                    "text": " ''Equilibrium Line Altitude'' (ELA)"
+                                },
+                                {
+                                    "text": "'Equilibrium Line Altitude"
+                                }
+                            ]
+                        },
+                        {
+                            "question": "Was wird als Gleichgewichtslinie eines Gletschers bezeichnet?",
+                            "answers": [
+                                {
+                                    "text": "Höhengrenze"
+                                },
+                                {
+                                    "text": " eine Höhengrenze der Glaziologie"
+                                },
+                                {
+                                    "text": "Höhengrenze"
+                                }
+                            ]
+                        },
+                        {
+                            "question": "Wie ist das Zehrgebiet des Gletschers definiert?",
+                            "answers": [
+                                {
+                                    "text": "im sogenannten Zehrgebiet (Ablationsgebiet) des Gletschers ist der Massenverlust durch Ablation größer als der Zuwachs an Gletschereis"
+                                },
+                                {
+                                    "text": "ist der Massenverlust durch Ablation größer als der Zuwachs an Gletschereis"
+                                },
+                                {
+                                    "text": "der Massenverlust durch Ablation größer als der Zuwachs an Gletschereis"
+                                }
+                            ]
+                        },
+                        {
+                            "question": "Wie heißt der Bereich oberhalb der Gleichgewichtslinie des Gletschers?",
+                            "answers": [
+                                {
+                                    "text": "Nährgebiet"
+                                },
+                                {
+                                    "text": "Akkumulationsgebiet"
+                                },
+                                {
+                                    "text": "Nährgebiet (Akkumulationsgebiet)"
+                                }
+                            ]
+                        },
+                        {
+                            "question": "Wie heißt der Bereich unterhalb der Gleichgewichtslinie des Gletschers?",
+                            "answers": [
+                                {
+                                    "text": "Zehrgebiet "
+                                },
+                                {
+                                    "text": "Ablationsgebiet"
+                                },
+                                {
+                                    "text": "Zehrgebiet (Ablationsgebiet)"
+                                }
+                            ]
+                        },
+                        {
+                            "question": "Wie ist das Akkumulationsgebiet des Gletschers definiert?",
+                            "answers": [
+                                {
+                                    "text": "mehr Gletschereis gebildet als durch Ablation verloren geht"
+                                },
+                                {
+                                    "text": "wird mehr Gletschereis gebildet als durch Ablation verloren geht"
+                                },
+                                {
+                                    "text": "mehr Gletschereis gebildet als durch Ablation verloren geht"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "Softwaretest\n\n=== Testabschluss ===\nAbschluss-Aktivitäten finden auf allen Testebenen statt: Testfall, Testobjekt, Teststufe, Projekt. Der Status zum Abschluss von Teststufen wird (z. B. mit Hilfe von Teststatistiken) dokumentiert und kommuniziert, Entscheidungen sind herbeizuführen und Unterlagen zu archivieren. Grundsätzlich ist dabei zu unterscheiden nach:\n* Regel-Abschluss = Ziele erreicht, nächste Schritte einleiten\n* Alternativ möglich: Teststufe ggf. vorzeitig beenden oder unterbrechen (aus diversen, zu dokumentierenden Gründen); in Zusammenarbeit mit dem Projektmanagement",
+                    "qas": [
+                        {
+                            "question": "Welche Ebenen von Softwaretests gibt es?",
+                            "answers": [
+                                {
+                                    "text": "Testfall, Testobjekt, Teststufe, Projekt"
+                                },
+                                {
+                                    "text": "Testfall, Testobjekt, Teststufe, Projekt"
+                                },
+                                {
+                                    "text": "Testfall, Testobjekt, Teststufe, Projekt"
+                                }
+                            ]
+                        },
+                        {
+                            "question": "Durch was ist ein Regel-Abschluss bei Softwaretests definiert?",
+                            "answers": [
+                                {
+                                    "text": "Ziele erreicht, nächste Schritte einleiten"
+                                },
+                                {
+                                    "text": "Ziele erreicht, nächste Schritte einleiten"
+                                },
+                                {
+                                    "text": "Ziele erreicht, nächste Schritte einleiten"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "Südostasien\nSüdostasien ist ein Teil des asiatischen Kontinents und umfasst die Länder, die sich östlich von Indien und südlich von China befinden. Die Region unterteilt sich dabei in das südostasiatische Festland ''(Hinterindische Halbinsel)'' und das insulare Südostasien ''(Malaiischer Archipel),'' das Indonesien, die Andamanen und Nikobaren, die Philippinen, Brunei, Osttimor und Teile Malaysias umfasst. Die meisten der Länder Südostasiens sind Mitglieder der internationalen südostasiatischen Organisation ASEAN mit dem Hauptsitz in Jakarta und dem bruneiischen Generalsekretär Lim Jock Hoi.",
+                    "qas": [
+                        {
+                            "question": "Welche Länder sind Teil der insulare Südostasiens?",
+                            "answers": [
+                                {
+                                    "text": " Indonesien, die Andamanen und Nikobaren, die Philippinen, Brunei, Osttimor und Teile Malaysias"
+                                },
+                                {
+                                    "text": " Indonesien, die Andamanen und Nikobaren, die Philippinen, Brunei, Osttimor und Teile Malaysias "
+                                },
+                                {
+                                    "text": "Indonesien, die Andamanen und Nikobaren, die Philippinen, Brunei, Osttimor und Teile Malaysias"
+                                }
+                            ]
+                        },
+                        {
+                            "question": "Welche Länder sind ein Teil von Südostasien?",
+                            "answers": [
+                                {
+                                    "text": "Südostasien ist ein Teil des asiatischen Kontinents und umfasst die Länder, die sich östlich von Indien und südlich von China befinden."
+                                },
+                                {
+                                    "text": "die Länder, die sich östlich von Indien und südlich von China befinden"
+                                },
+                                {
+                                    "text": "östlich von Indien und südlich von China"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "Hannover\n\n=== Gesundheitswesen ===\nAußer der Medizinischen Hochschule (MHH) gibt es in Hannover weitere Krankenhäuser in unterschiedlicher Trägerschaft. Zum Verbund Klinikum Region Hannover gehören das Klinikum Nordstadt, das Klinikum Oststadt-Heidehaus und das Klinikum Siloah. Die Hautklinik Linden wurde zum 1. April 2011 in die MHH integriert. Zu kirchlichen Trägern gehören das Friederikenstift mit der Unfallklinik, das Henriettenstift sowie das Vinzenzkrankenhaus. Des Weiteren gibt es noch einige Privatkliniken, beispielsweise das International Neuroscience Institute, das zu Asklepios gehört.",
+                    "qas": [
+                        {
+                            "question": "Welche Krankenhäuser zählen zu den Verbund Klinikum Region Hannover?",
+                            "answers": [
+                                {
+                                    "text": "das Klinikum Nordstadt, das Klinikum Oststadt-Heidehaus und das Klinikum Siloah."
+                                },
+                                {
+                                    "text": " das Klinikum Nordstadt, das Klinikum Oststadt-Heidehaus und das Klinikum Siloah"
+                                },
+                                {
+                                    "text": "das Klinikum Nordstadt, das Klinikum Oststadt-Heidehaus und das Klinikum Siloah"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "Galicien\n\n== Politische Gliederung ==\nDie Autonome Gemeinschaft Galicien gliedert sich in die vier Provinzen, die jeweils nach dem Verwaltungssitz benannt sind:\nDie Provinzen umfassen ihrerseits 53 Landkreise mit 315 Gemeinden und 3.781 sogenannten ''Parroquias''.\nBemerkenswert ist, dass Galicien mit einem Anteil von lediglich 5,8 % an der Gesamtfläche Spaniens über die Hälfte der Ortschaften Spaniens umfasst. Im Jahre 1996 waren es 20.947, von denen einige jedoch nur ein einziges Haus zählten.\n Gemeinden in der Provinz A Coruña\n Gemeinden in der Provinz Ourense\n Gemeinden in der Provinz Pontevedra",
+                    "qas": [
+                        {
+                            "question": "Wie viele Provinzen hat Galicien?",
+                            "answers": [
+                                {
+                                    "text": "vier"
+                                },
+                                {
+                                    "text": "vier Provinzen"
+                                },
+                                {
+                                    "text": "vier "
+                                }
+                            ]
+                        },
+                        {
+                            "question": "Wie viel Prozent der Fläche Spaniens hat Galicien?",
+                            "answers": [
+                                {
+                                    "text": "5,8 %"
+                                },
+                                {
+                                    "text": "5,8 %"
+                                },
+                                {
+                                    "text": "5,8 % "
+                                }
+                            ]
+                        },
+                        {
+                            "question": "Wie viel Prozent der Ortschaften Spaniens liegen in Galicien?",
+                            "answers": [
+                                {
+                                    "text": "über die Hälfte"
+                                },
+                                {
+                                    "text": "über die Hälfte"
+                                },
+                                {
+                                    "text": "über die Hälfte "
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "Central_Intelligence_Agency\n\n==  Director of the Central Intelligence Agency (D/CIA) ==\nMit dem ''Intelligence Reform and Terrorism Prevention Act'' wurde das Amt des D/CIA auf die Leitung der Central Intelligence Agency beschränkt. Er leitet administrativ die Operationen der CIA sowie die Personal- und Haushaltsplanung. Ferner ist er ''National Human Source Intelligence'' (HUMINT) ''Manager''. Er untersteht dem Director of National Intelligence (DNI).\n''siehe: Director of the Central Intelligence Agency''\nOffice of the Director of the Central Intelligence Agency\n Christopher Sharpley (kommissarisch)",
+                    "qas": [
+                        {
+                            "question": "Was ist die Aufgabe von dem Director of the Central Intelligence Agency?",
+                            "answers": [
+                                {
+                                    "text": "Er leitet administrativ die Operationen der CIA sowie die Personal- und Haushaltsplanung."
+                                },
+                                {
+                                    "text": "Er leitet administrativ die Operationen der CIA sowie die Personal- und Haushaltsplanung. Ferner ist er ''National Human Source Intelligence'' (HUMINT) ''Manager''"
+                                },
+                                {
+                                    "text": "Er leitet administrativ die Operationen der CIA sowie die Personal- und Haushaltsplanung. Ferner ist er ''National Human Source Intelligence'' (HUMINT) ''Manager''."
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "Adoleszenz\n\n== Die Entstehung des Adoleszenzbegriffs ==\nAdoleszenz ist ein Produkt der Moderne, das man historisch aus der Geschichte des 20. Jahrhunderts betrachten muss, da hier die Unbestimmtheit individueller Lebensläufe sichtbar wurde. Die soziale Herkunft tritt in den Hintergrund und der bevorstehende Lebensabschnitt ist durch Entscheidungen geprägt, wie der „Wahl“ des Bildungsweges. Diese Entscheidungen gehen einher mit den sich vollziehenden und schwerwiegenden Veränderungen, wie die Trennungs- und Neuorientierungsprozesse in Bezug auf die Elterngeneration sowie auf die Gleichaltrigengruppe (Wischmann, 2010. S. 33 f.).",
+                    "qas": [
+                        {
+                            "question": "Welcher Epoche ist das Konzept Adoleszenz zuzuordnen?",
+                            "answers": [
+                                {
+                                    "text": "der Moderne"
+                                },
+                                {
+                                    "text": "der Moderne"
+                                },
+                                {
+                                    "text": "Adoleszenz ist ein Produkt der Moderne"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "Europäische_Zentralbank\n\n=== Geldpolitische Ziele ===\nIhr geldpolitisches Instrumentarium setzt die EZB ein, um das ihr im EG-Vertrag vorgegebene Ziel der Preisniveaustabilität zu erreichen. Dieses definiert sie selbst als ein Wachstum des harmonisierten Verbraucherpreisindexes HVPI im Euro-Raum, das unter, aber nahe bei zwei Prozent pro Jahr liegen sollte. Das heißt, dass die Inflation unter 2 % gehalten werden soll. Die EZB versucht die Inflationsrate pro Jahr nahe, aber unter 2 % zu halten. Die geldpolitische Strategie wurde im Oktober 1998 vom EZB-Rat festgelegt. Untergeordnetes Ziel ist Unterstützung der allgemeinen Wirtschaftspolitik der EU.",
+                    "qas": [
+                        {
+                            "question": "Was ist Preisniveaustabilität?",
+                            "answers": [
+                                {
+                                    "text": "Dieses definiert sie selbst als ein Wachstum des harmonisierten Verbraucherpreisindexes HVPI im Euro-Raum, das unter, aber nahe bei zwei Prozent pro Jahr liegen sollte. Das heißt, dass die Inflation unter 2 % gehalten werden soll."
+                                },
+                                {
+                                    "text": "ein Wachstum des harmonisierten Verbraucherpreisindexes HVPI im Euro-Raum, das unter, aber nahe bei zwei Prozent pro Jahr liegen sollte"
+                                },
+                                {
+                                    "text": " Wachstum des harmonisierten Verbraucherpreisindexes HVPI im Euro-Raum"
+                                }
+                            ]
+                        },
+                        {
+                            "question": "Welche Inflationsrate will die EZB erreichen?",
+                            "answers": [
+                                {
+                                    "text": "unter 2 %"
+                                },
+                                {
+                                    "text": "nahe, aber unter 2 %"
+                                },
+                                {
+                                    "text": "2 %"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "Labour_Party\n\n=== Labour in Nordirland ===\nÜber viele Jahre hinweg konnten Bewohner Nordirlands nicht Labour-Parteimitglied werden. Stattdessen arbeitete die Labour Party mit der nordirischen Social Democratic and Labour Party (SDLP) zusammen. Die gewählten SDLP-Abgeordneten unterstützten dafür in Westminster die Labour-Politik. Seit 2003 ist es Bewohnern Nordirlands erlaubt, Labour-Mitglied zu werden, jedoch hat die Partei bisher keine eigenen Kandidaturen bei Wahlen betrieben. Spätestens seit 2015 gibt es jedoch eine intensive Diskussion unter den Labour-Mitgliedern und -Anhängern in Nordirland, ob nicht eigene Kandidaten aufgestellt werden sollten.",
+                    "qas": [
+                        {
+                            "question": "Seit wann dürfen Menschen in Nordirland der Labour Party beitreten?",
+                            "answers": [
+                                {
+                                    "text": "2003"
+                                },
+                                {
+                                    "text": "Seit 2003"
+                                },
+                                {
+                                    "text": "2003"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "Houston\n\n=== Theater ===\nIn der sorgfältig restaurierten Downtown Houston gibt es in unmittelbarer Nähe zahlreiche bedeutende Kulturinstitutionen: das Schauspielhaus ''Alley Theatre'', das ''Wortham Center'' (Heimstätte der Houston Grand Opera), ''Jones Hall'' (Konzerthalle des Houston Symphony Orchestra) und das ''Hobby Center for the Performing Arts'' (Kulturzentrum für Gastspiele unter anderem von Shows, Musicals und für Konzerte).\nHouston Texas Alley Theater 2003.jpg|Alley Theatre\nWortham Center.jpg|Wortham Center\nHouston Jones Hall 2003.jpg|Jones Hall\nMain Street in Downtown Houston, Richtung Nordnordost, von der Lamar Street aus aufgenommen, März 2011",
+                    "qas": [
+                        {
+                            "question": "In welcher Stadt steht das Alley Theatre",
+                            "answers": [
+                                {
+                                    "text": "Downtown Houston"
+                                },
+                                {
+                                    "text": "Houston"
+                                },
+                                {
+                                    "text": "Houston"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "Bahnstrom\n\n===== Bergern =====\nDie Abdeckung des erhöhten Strombedarfs wegen weiterer Elektrifizierungen, Verdichtung des Nahverkehrs, Geschwindigkeitserhöhungen und Komfortverbesserungen durch den Einsatz von klimatisierten Reisezugwagen machte die Errichtung einer zusätzlichen Energiequelle für Bahnstrom in Ostösterreich erforderlich. Etwa sechs Kilometer westlich von Melk wurde in den Jahren 1979 bis 1983 das Umformerwerk Bergern errichtet. Der Standort des Umformerwerkes ergab sich durch die Einspeisung des Donaukraftwerkes Melk und durch die Lage der Gemeinschaftsanlage mit der Energieversorgung Niederösterreich Aktiengesellschaft (EVN AG) und mit der Verbund AG.",
+                    "qas": [
+                        {
+                            "question": "Was hat die Errichtung einer zusätzlichen Energiequelle für Bahnstrom in Ostösterreich erforderlich gemacht? ",
+                            "answers": [
+                                {
+                                    "text": "Die Abdeckung des erhöhten Strombedarfs wegen weiterer Elektrifizierungen, Verdichtung des Nahverkehrs, Geschwindigkeitserhöhungen und Komfortverbesserungen durch den Einsatz von klimatisierten Reisezugwagen"
+                                },
+                                {
+                                    "text": " erhöhten Strombedarfs wegen weiterer Elektrifizierungen, Verdichtung des Nahverkehrs, Geschwindigkeitserhöhungen und Komfortverbesserungen durch den Einsatz von klimatisierten Reisezugwagen"
+                                },
+                                {
+                                    "text": "erhöhten Strombedarfs wegen weiterer Elektrifizierungen, Verdichtung des Nahverkehrs, Geschwindigkeitserhöhungen und Komfortverbesserungen durch den Einsatz von klimatisierten Reisezugwagen"
+                                }
+                            ]
+                        },
+                        {
+                            "question": "Wo befindet sich das Umformerwerk Bergern?",
+                            "answers": [
+                                {
+                                    "text": "Etwa sechs Kilometer westlich von Melk"
+                                },
+                                {
+                                    "text": "Etwa sechs Kilometer westlich von Melk"
+                                },
+                                {
+                                    "text": "Etwa sechs Kilometer westlich von Melk"
+                                }
+                            ]
+                        },
+                        {
+                            "question": "Wie wurde der Standort des Umformerwerkes Bergern ausgewählt?",
+                            "answers": [
+                                {
+                                    "text": "durch die Einspeisung des Donaukraftwerkes Melk und durch die Lage der Gemeinschaftsanlage mit der Energieversorgung Niederösterreich Aktiengesellschaft (EVN AG) und mit der Verbund AG"
+                                },
+                                {
+                                    "text": "durch die Einspeisung des Donaukraftwerkes Melk und durch die Lage der Gemeinschaftsanlage mit der Energieversorgung Niederösterreich Aktiengesellschaft (EVN AG) und mit der Verbund AG"
+                                },
+                                {
+                                    "text": "Einspeisung des Donaukraftwerkes Melk und durch die Lage der Gemeinschaftsanlage mit der Energieversorgung Niederösterreich Aktiengesellschaft (EVN AG) und mit der Verbund AG"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "Gedächtnis\n\n==== Arbeitsgedächtnis ====\nDas ursprüngliche Modell des Kurzzeitgedächtnisses wurde seit 1974 durch das Arbeitsgedächtnismodell von Baddeley ergänzt, das folgende drei Systeme anführt:\n* Der ''räumlich-visuelle Notizblock'' zur kurzfristigen Speicherung visueller Eindrücke.\n* Die ''artikulatorische'' oder ''phonologische Schleife'' dient zur Speicherung von verbalen Informationen, welche durch ein inneres Wiederholen relativ lange verfügbar bleiben können.\n* Die ''zentrale Exekutive'' verwaltet die beiden Teilsysteme und verknüpft Informationen aus diesen mit dem Langzeitgedächtnis.\nZuletzt ist das Modell um einen ''episodischen Puffer'' erweitert worden.",
+                    "qas": [
+                        {
+                            "question": "Wer ergänzte das Modell eines Kurzzeitgedächtnis?",
+                            "answers": [
+                                {
+                                    "text": "Baddeley"
+                                },
+                                {
+                                    "text": "Baddeley"
+                                },
+                                {
+                                    "text": "das Arbeitsgedächtnismodell von Baddeley"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "Dialekt\n\n=== Vogelgesang ===\nDer Begriff „Dialekt“ hat auch in der Ornithologie, der Vogelkunde, Bedeutung: Als Dialekte werden in der ornithologischen Fachliteratur regionaltypisch unterschiedliche Gesänge und Rufe sehr vieler Singvögel bezeichnet. Diese Unterschiede sind bei manchen Arten, wie zum Beispiel Goldammer, Ortolan oder Buchfink, sehr auffällig und können von geübten Bestimmern deutlich herausgehört und zugeordnet werden; bei anderen Arten sind sie weniger hörbar und nur im Sonagramm zu differenzieren. In der europäischen Avifauna ist der Gesang des Ortolan eines der besten Beispiele und auch das am besten untersuchte Beispiel der Dialektausprägung bei Vögeln.",
+                    "qas": [
+                        {
+                            "question": "Was sind Dialekte im Bezug zu Vögeln?",
+                            "answers": [
+                                {
+                                    "text": "Als Dialekte werden in der ornithologischen Fachliteratur regionaltypisch unterschiedliche Gesänge und Rufe sehr vieler Singvögel bezeichnet."
+                                },
+                                {
+                                    "text": "Als Dialekte werden in der ornithologischen Fachliteratur regionaltypisch unterschiedliche Gesänge und Rufe sehr vieler Singvögel bezeichnet"
+                                },
+                                {
+                                    "text": "regionaltypisch unterschiedliche Gesänge und Rufe sehr vieler Singvögel"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "Alpen\n\n=== Zweiteilung der Alpen ===\nIn Österreich, Südtirol und Deutschland werden die Alpen in die Haupteinheiten ''West-'' und ''Ostalpen'' unterteilt. Diese Gliederung greift die geologischen und die davon abgeleiteten geomorphologischen Unterschiede auf, die sich im Übergang von der Schweiz zu Österreich etwa an der Linie Alpenrheintal – Comer See vor allem in Bezug auf die nördliche Hälfte der Alpenkette ergeben. Verbreitet ist diese Zweiteilung sowohl im wissenschaftlichen und legislativen Kontext wie auch in der Alpenvereinseinteilung der Ostalpen (Moriggl 1924, Rev. 1984), oder der SOIUSA (''Suddivisione Orografica Internazionale Unificata del Sistema Alpino'', Marazzi 2005)",
+                    "qas": [
+                        {
+                            "question": "Wie werden die Alpen in Österreich, Südtirol und Deutschland unterteilt?",
+                            "answers": [
+                                {
+                                    "text": "in die Haupteinheiten ''West-'' und ''Ostalpen''"
+                                },
+                                {
+                                    "text": "in die Haupteinheiten ''West-'' und ''Ostalpen'' "
+                                },
+                                {
+                                    "text": "''West-'' und ''Ostalpen''"
+                                }
+                            ]
+                        },
+                        {
+                            "question": "Warum werden die Alpen in \"West-\" und \"Ostalpen\" unterteilt?",
+                            "answers": [
+                                {
+                                    "text": "Diese Gliederung greift die geologischen und die davon abgeleiteten geomorphologischen Unterschiede auf, die sich im Übergang von der Schweiz zu Österreich etwa an der Linie Alpenrheintal – Comer See vor allem in Bezug auf die nördliche Hälfte der Alpenkette ergeben."
+                                },
+                                {
+                                    "text": "Diese Gliederung greift die geologischen und die davon abgeleiteten geomorphologischen Unterschiede auf, die sich im Übergang von der Schweiz zu Österreich etwa an der Linie Alpenrheintal – Comer See vor allem in Bezug auf die nördliche Hälfte der Alpenkette ergeben"
+                                },
+                                {
+                                    "text": " greift die geologischen und die davon abgeleiteten geomorphologischen Unterschiede auf"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "Eritrea\n\n==== Verwaltungsgliederung ====\nBis 1996 war Eritrea in neun Regionen (''awraja'') gegliedert. Diese Regionen stammten noch aus der italienischen Kolonialzeit und ihre Regionshauptstädte waren Akkele Guzay (Adi Keyh),  Barka (Agordat), Denkalia (Assab), Gash Setit (Barentu), Hamasien (Asmara), Sahel (Nakfa), Semhar (Massaua), Senhit (Keren) und Seraye (Mendefera).\nMit der Verwaltungsreform vom 15. Juli 1996 wurde die Zahl der Regionen (''zoba'') auf sechs reduziert:\n* Maekel ''(Zentral-Region)'' (Asmara)\n* Debub ''(Süd-Region)'' (Mendefera)\n* Semienawi Kayih Bahri ''(Region des nördlichen Roten Meeres)'' (Massaua)\n* Debubawi Kayih Bahri ''(Region des südlichen Roten Meeres)'' (Assab)",
+                    "qas": [
+                        {
+                            "question": "Wie viele Regionen hatte Eritrea vor der Verwaltungsreform von 1996?\n",
+                            "answers": [
+                                {
+                                    "text": "neun"
+                                },
+                                {
+                                    "text": "neun"
+                                },
+                                {
+                                    "text": "neun"
+                                }
+                            ]
+                        },
+                        {
+                            "question": "Welches Land kolonialisierte Eritrea?",
+                            "answers": [
+                                {
+                                    "text": "italienischen"
+                                },
+                                {
+                                    "text": "italienischen"
+                                },
+                                {
+                                    "text": "italienischen"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "Datenkompression\n\n==  Verlustfreie Kompression ==\nBei der verlustfreien Kompression können die Originaldaten exakt aus den komprimierten Daten wiederhergestellt werden. Dabei geht keinerlei Information verloren. Im Wesentlichen nutzen verlustfreie Kompressionsverfahren die Redundanz von Daten aus, man spricht auch von Redundanzreduktion.\nDie theoretische Grundlage bildet die Informationstheorie (verwandt mit der algorithmischen Informationstheorie). Sie gibt durch den Informationsgehalt eine minimale Anzahl an Bits vor, die zur Kodierung eines Symbols benötigt werden. Verlustlose Kompressionsverfahren versuchen nun Nachrichten so zu kodieren, dass sie sich ihrer Entropie möglichst gut annähern.",
+                    "qas": [
+                        {
+                            "question": "Was ist das Ziel der verlustfreien Datenkompression?",
+                            "answers": [
+                                {
+                                    "text": "Originaldaten exakt aus den komprimierten Daten wiederhergestellt werden. Dabei geht keinerlei Information verloren"
+                                },
+                                {
+                                    "text": "die Originaldaten exakt aus den komprimierten Daten wiederhergestellt werden"
+                                },
+                                {
+                                    "text": "Bei der verlustfreien Kompression können die Originaldaten exakt aus den komprimierten Daten wiederhergestellt werden."
+                                }
+                            ]
+                        },
+                        {
+                            "question": "Auf welcher Theorie beruht die verlustfreie Datenkompression?",
+                            "answers": [
+                                {
+                                    "text": "Informationstheorie"
+                                },
+                                {
+                                    "text": "die Informationstheorie"
+                                },
+                                {
+                                    "text": "Informationstheorie"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "Montana\n\n=== Sport ===\nIn den USA populäre Sportarten wie Baseball werden auch in Montana betrieben, und es gibt eine Reihe von Teams, die in der Minor League spielen. Große Bedeutung besitzen Natur- oder ''Outdoor''-Sportarten wie Wandern, Fischen, Jagen und Klettern. Im Winter ist der Skisport populär. Es gibt 16 Skigebiete; die zwei bekanntesten sind wohl Bridger Bowl bei Bozeman und das Red Lodge Mountain Resort bei Red Lodge.\n Big Sky resort.jpg|''Big Sky resort''\n SnowmobilesYellowstone.jpg|Schneemobilfahren im Yellowstone-Park\n Autumn approaches (8051869068).jpg|Landschaft im Herbst\n A108, Bighorn Canyon National Recreation Area, Montana, USA, 2004.jpg|''Bighorn Canyon National Recreation Area''",
+                    "qas": [
+                        {
+                            "question": "Welche Sportart wird in der Minor League gespielt?\n",
+                            "answers": [
+                                {
+                                    "text": "Baseball"
+                                },
+                                {
+                                    "text": "Baseball"
+                                },
+                                {
+                                    "text": "In den USA populäre Sportarten wie Baseball"
+                                }
+                            ]
+                        },
+                        {
+                            "question": "Wie viele Skigebiete hat Montana?",
+                            "answers": [
+                                {
+                                    "text": "16"
+                                },
+                                {
+                                    "text": "16"
+                                },
+                                {
+                                    "text": "16 "
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "Iran\n\n=== Landwirtschaft ===\nDie landwirtschaftliche Nutzfläche beträgt trotz zahlreicher Gebirge und Wüsten 10 % der Landesfläche, wobei ein Drittel künstlich bewässert wird. Die Landwirtschaft ist einer der größten Arbeitgeber des Landes. Wichtige Produkte sind Pistazien, Weizen, Reis, Zucker, Baumwolle, Früchte, Nüsse, Datteln, Wolle und Kaviar. Seit der Revolution von 1979 wurde der Anbau von Weintrauben wegen des islamischen Alkoholverbots auf den 200.000 Hektar Rebfläche fast vollständig auf Tafeltrauben und Rosinen umgestellt. Bei Rosinen ist der Iran inzwischen nach der Türkei der zweitgrößte Exporteur der Welt, bei Safran mit ungefähr 90 % Marktanteil des globalen Bedarfs mit Abstand der größte.",
+                    "qas": [
+                        {
+                            "question": "Wer ist der größte Rosinen Exporteur der Welt?",
+                            "answers": [
+                                {
+                                    "text": "Türkei"
+                                },
+                                {
+                                    "text": "Türkei"
+                                },
+                                {
+                                    "text": "Türkei"
+                                }
+                            ]
+                        },
+                        {
+                            "question": "Welches Land ist der größte Safran Exporteur?",
+                            "answers": [
+                                {
+                                    "text": "der Iran"
+                                },
+                                {
+                                    "text": "der Iran"
+                                },
+                                {
+                                    "text": "Iran"
+                                }
+                            ]
+                        },
+                        {
+                            "question": "Wie viel Prozent des Irans werden für die Landwirtschaft benutzt?",
+                            "answers": [
+                                {
+                                    "text": "10 %"
+                                },
+                                {
+                                    "text": "10 % der Landesfläche"
+                                },
+                                {
+                                    "text": "10 %"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "Zink\n\n=== Wirkung im Körper ===\nZink zählt zu den unentbehrlichen (essentiellen) Spurenelementen für den Stoffwechsel. Es ist Bestandteil einer Vielzahl von Enzymen, beispielsweise der RNA-Polymerase und der Carboanhydrase. Zink erfüllt im Körper viele verschiedene Funktionen. So nimmt es Schlüsselrollen im Zucker-, Fett- und Eiweißstoffwechsel ein und ist beteiligt am Aufbau der Erbsubstanz und beim Zellwachstum. Sowohl das Immunsystem als auch viele Hormone benötigen Zink für ihre Funktion. Zink fördert das Immunsystem u. a. durch eine Abschwächung der Immunreaktion bei überschießenden Reaktionen des Immunsystems. Zink ist ebenfalls Bestandteil von Zinkfingerproteinen, die wichtige Transkriptionsfaktoren sind. Im Blut ist Zink überwiegend an Albumin gebunden.",
+                    "qas": [
+                        {
+                            "question": "Was ist das Zinkfingerprotein?",
+                            "answers": [
+                                {
+                                    "text": "Transkriptionsfaktoren"
+                                },
+                                {
+                                    "text": "die wichtige Transkriptionsfaktoren sind"
+                                },
+                                {
+                                    "text": "Transkriptionsfaktoren"
+                                }
+                            ]
+                        },
+                        {
+                            "question": "Wie tritt Zink im Blutkreislauf auf?",
+                            "answers": [
+                                {
+                                    "text": "an Albumin gebunden"
+                                },
+                                {
+                                    "text": "überwiegend an Albumin gebunden"
+                                }
+                            ]
+                        },
+                        {
+                            "question": "Welche Enzyme benötigen Zink?",
+                            "answers": [
+                                {
+                                    "text": "RNA-Polymerase und der Carboanhydrase"
+                                },
+                                {
+                                    "text": "beispielsweise der RNA-Polymerase und der Carboanhydrase"
+                                },
+                                {
+                                    "text": "RNA-Polymerase und der Carboanhydrase"
+                                }
+                            ]
+                        },
+                        {
+                            "question": "Wofür benötigt der Körper Zink?",
+                            "answers": [
+                                {
+                                    "text": "ink erfüllt im Körper viele verschiedene Funktionen. So nimmt es Schlüsselrollen im Zucker-, Fett- und Eiweißstoffwechsel ein und ist beteiligt am Aufbau der Erbsubstanz und beim Zellwachstum. Sowohl das Immunsystem als auch viele Hormone benötigen Zink für ihre Funktion."
+                                },
+                                {
+                                    "text": "Schlüsselrollen im Zucker-, Fett- und Eiweißstoffwechsel ein und ist beteiligt am Aufbau der Erbsubstanz und beim Zellwachstum"
+                                },
+                                {
+                                    "text": "Schlüsselrollen im Zucker-, Fett- und Eiweißstoffwechsel ein und ist beteiligt am Aufbau der Erbsubstanz und beim Zellwachstum"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "Softwaretest\n\n=== Testautomatisierung ===\nInsbesondere bei Tests, die häufig wiederholt werden, ist deren Automatisierung angeraten. Dies ist vor allem bei Regressionstests und bei testgetriebener Entwicklung der Fall. Darüber hinaus kommt Testautomatisierung bei manuell nicht oder nur schwer durchführbaren Tests zum Einsatz (z. B. Lasttests).\n* Durch Regressionstests wird nach Softwareänderungen meist im Zuge des System- oder Abnahmetests der fehlerfreie Erhalt der bisherigen Funktionalität überprüft.\n* Bei der testgetriebenen Entwicklung werden die Tests im Zuge der Softwareentwicklung im Idealfall vor jeder Änderung ergänzt und nach jeder Änderung ausgeführt.\nBei nicht automatisierten Tests ist in beiden Fällen der Aufwand so groß, dass häufig auf die Tests verzichtet wird.",
+                    "qas": [
+                        {
+                            "question": "Bei welchen Softwaretests wird die Automatisierung empfohlen?",
+                            "answers": [
+                                {
+                                    "text": "Insbesondere bei Tests, die häufig wiederholt werden, ist deren Automatisierung angeraten. Dies ist vor allem bei Regressionstests und bei testgetriebener Entwicklung der Fall. Darüber hinaus kommt Testautomatisierung bei manuell nicht oder nur schwer durchführbaren Tests zum Einsatz (z. B. Lasttests)."
+                                },
+                                {
+                                    "text": "Insbesondere bei Tests, die häufig wiederholt werden"
+                                },
+                                {
+                                    "text": "Regressionstests "
+                                }
+                            ]
+                        },
+                        {
+                            "question": "Wozu dienen Regressionstests beim Testen von Software?",
+                            "answers": [
+                                {
+                                    "text": "Durch Regressionstests wird nach Softwareänderungen meist im Zuge des System- oder Abnahmetests der fehlerfreie Erhalt der bisherigen Funktionalität überprüft."
+                                },
+                                {
+                                    "text": "Durch Regressionstests wird nach Softwareänderungen meist im Zuge des System- oder Abnahmetests der fehlerfreie Erhalt der bisherigen Funktionalität überprüft"
+                                },
+                                {
+                                    "text": "Softwareänderungen "
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "Aufzugsanlage\n\n==== Güteraufzug ====\nEin Güteraufzug ist nach der bisherigen deutschen Aufzugsverordnung eine Aufzugsanlage, die ausschließlich zum Transport von Gütern ohne die Begleitung von Personen gedacht ist. Das Betreten – außer zum Be- und Entladen – sowie die Mitfahrt sind verboten. Aus diesem Grund dürfen die Güteraufzüge nur von außen herbeigeholt und bedient werden. In der Kabine darf sich kein Bedientableau befinden.\nSonderformen der Güteraufzüge sind Kleinlastenaufzüge wie sie in Bürogebäuden zum Aktentransport oder als Laborlifte zur Anwendung kommen, sowie Speise- und Wäscheaufzüge in Villen oder Restaurationsbetrieben. Häufig im Straßenbild anzutreffen sind Möbellifte, die für den Transport von Mobiliar bei Umzügen, vorzugsweise aus höheren Etagen, Anwendung finden.",
+                    "qas": [
+                        {
+                            "question": "Was ist ein Güteraufzug?",
+                            "answers": [
+                                {
+                                    "text": "nach der bisherigen deutschen Aufzugsverordnung eine Aufzugsanlage, die ausschließlich zum Transport von Gütern ohne die Begleitung von Personen gedacht ist"
+                                },
+                                {
+                                    "text": "eine Aufzugsanlage, die ausschließlich zum Transport von Gütern ohne die Begleitung von Personen gedacht ist"
+                                },
+                                {
+                                    "text": "Aufzugsanlage, die ausschließlich zum Transport von Gütern ohne die Begleitung von Personen gedacht ist"
+                                }
+                            ]
+                        },
+                        {
+                            "question": "Warum dürfen die Güteraufzüge nur von außen bedient werden?",
+                            "answers": [
+                                {
+                                    "text": "Das Betreten – außer zum Be- und Entladen – sowie die Mitfahrt sind verboten."
+                                },
+                                {
+                                    "text": "Das Betreten – außer zum Be- und Entladen – sowie die Mitfahrt sind verboten"
+                                },
+                                {
+                                    "text": "Ein Güteraufzug ist nach der bisherigen deutschen Aufzugsverordnung eine Aufzugsanlage, die ausschließlich zum Transport von Gütern ohne die Begleitung von Personen gedacht ist."
+                                }
+                            ]
+                        },
+                        {
+                            "question": "Was ist eine Sonderform von Güteraufzügen?",
+                            "answers": [
+                                {
+                                    "text": "Kleinlastenaufzüge"
+                                },
+                                {
+                                    "text": "Kleinlastenaufzüge"
+                                },
+                                {
+                                    "text": "Kleinlastenaufzüge"
+                                }
+                            ]
+                        },
+                        {
+                            "question": "Wozu werden Kleinlastenaufzüge genutzt?",
+                            "answers": [
+                                {
+                                    "text": "Kleinlastenaufzüge wie sie in Bürogebäuden zum Aktentransport oder als Laborlifte zur Anwendung kommen, sowie Speise- und Wäscheaufzüge in Villen oder Restaurationsbetrieben"
+                                },
+                                {
+                                    "text": " in Bürogebäuden zum Aktentransport oder als Laborlifte zur Anwendung kommen, sowie Speise- und Wäscheaufzüge in Villen oder Restaurationsbetrieben"
+                                },
+                                {
+                                    "text": "Aktentransport oder als Laborlifte zur Anwendung kommen, sowie Speise- und Wäscheaufzüge"
+                                }
+                            ]
+                        },
+                        {
+                            "question": "Wofür werden Möbellifte benutzt?",
+                            "answers": [
+                                {
+                                    "text": "für den Transport von Mobiliar bei Umzügen, vorzugsweise aus höheren Etagen"
+                                },
+                                {
+                                    "text": "für den Transport von Mobiliar bei Umzügen,"
+                                },
+                                {
+                                    "text": "Transport von Mobiliar bei Umzügen"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "Zink\n\n== Nachweis ==\nEin einfacher Zinknachweis beruht auf dem Erhitzen einer Probe mit wenigen Tropfen einer verdünnten Lösung eines Cobaltsalzes auf einer Magnesiarinne im Bunsenbrenner. Ist Zink zugegen, ist nach kurzer Zeit das so genannte Rinmans Grün zu erkennen.\nDie quantitative Bestimmung kann mittels Komplexometrie mit einer EDTA-Maßlösung erfolgen. Zur Spurenbestimmung kommen die verschiedenen Methoden der Polarographie in Frage. Im Ultraspurenbereich setzt man die Graphitrohr-AAS ein. Zink ist ein relativ leicht flüchtiges Element, weshalb Matrixmodifizierer wie Palladium- und Magnesiumnitrat von Bedeutung sind, weil sie die mögliche Pyrolysetemperatur heraufsetzen. Alternativ bieten sich die Inversvoltammetrie oder die ICP-MS als äußerst empfindliche instrumentelle Methoden an.",
+                    "qas": [
+                        {
+                            "question": "Wie kann Zink nachgewiesen werden?",
+                            "answers": [
+                                {
+                                    "text": "Erhitzen einer Probe mit wenigen Tropfen einer verdünnten Lösung eines Cobaltsalzes auf einer Magnesiarinne"
+                                },
+                                {
+                                    "text": "Ein einfacher Zinknachweis beruht auf dem Erhitzen einer Probe mit wenigen Tropfen einer verdünnten Lösung eines Cobaltsalzes auf einer Magnesiarinne im Bunsenbrenner. Ist Zink zugegen, ist nach kurzer Zeit das so genannte Rinmans Grün zu erkennen"
+                                },
+                                {
+                                    "text": "Erhitzen einer Probe mit wenigen Tropfen einer verdünnten Lösung eines Cobaltsalzes auf einer Magnesiarinne im Bunsenbrenner"
+                                }
+                            ]
+                        },
+                        {
+                            "question": "Was entsteht beim Zinknachweis mit Cobaltsalzlösung?",
+                            "answers": [
+                                {
+                                    "text": "Rinmans Grün"
+                                },
+                                {
+                                    "text": "Rinmans Grün"
+                                },
+                                {
+                                    "text": "Rinmans Grün "
+                                }
+                            ]
+                        },
+                        {
+                            "question": "Für den Nachweis welcher Mengen von Zink wird die Graphitrohr-AAS benutzt?",
+                            "answers": [
+                                {
+                                    "text": "Im Ultraspurenbereich"
+                                },
+                                {
+                                    "text": "Ultraspurenbereich"
+                                },
+                                {
+                                    "text": "Ultraspurenbereich"
+                                }
+                            ]
+                        },
+                        {
+                            "question": "Welche Methode benutzt man, um kleine Spuren von Zink nachzuweisen?",
+                            "answers": [
+                                {
+                                    "text": "Graphitrohr-AAS"
+                                },
+                                {
+                                    "text": "die Graphitrohr-AAS"
+                                },
+                                {
+                                    "text": "Polarographie"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "Microsoft_Windows_8\n\n=== Rechteverwaltung ===\nWährend Desktop- und Konsolen-Anwendungen weiterhin die volle bzw. durch Benutzerkontensteuerung (UAC) eingeschränkte Berechtigung des ausführenden Benutzers haben, existiert für Modern-UI-Apps ein Rechtesystem, das demjenigen von mobilen Endgeräten nahekommt.\nModern-UI-Apps müssen zudem digital signiert sein. Für die Softwareentwicklung werden Signaturen kostenlos durch Microsoft ausgestellt. Apps können durch den Windows Store oder in Windows 8 Enterprise auch durch Side-Loading bezogen werden. Auf Windows RT, der Version für ARM-Prozessoren, können ausschließlich Modern-UI-Apps ausgeführt werden, nicht aber althergebrachte Desktop-Anwendungen. Ausnahme dafür sind vorinstallierte Desktop-Anwendungen wie Internet Explorer in der Desktopvariante.",
+                    "qas": [
+                        {
+                            "question": "Wie kann man Apps in Windows 8 herunterladen?",
+                            "answers": [
+                                {
+                                    "text": "durch den Windows Store oder in Windows 8 Enterprise auch durch Side-Loading"
+                                },
+                                {
+                                    "text": "Apps können durch den Windows Store oder in Windows 8 Enterprise auch durch Side-Loading bezogen werden"
+                                },
+                                {
+                                    "text": "durch den Windows Store oder in Windows 8 Enterprise auch durch Side-Loading"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "Universal_Serial_Bus\n\n=== USB 1.0 ===\nDer universelle serielle Bus ''(USB 1.0)'' wurde von einem Konsortium aus den Unternehmen Compaq, DEC, Intel, IBM, Microsoft, NEC und Nortel entwickelt und 1996 eingeführt. Wichtige Beiträge leistete das Entwicklungsteam um Ajay Bhatt bei Intel. USB ersetzt viele bisherige PC-Schnittstellen und vereinheitlichte den Anschluss für Tastaturen und Peripheriegeräte wie Drucker, Scanner und externe Massenspeicher.\nAls einer der ersten Chipsätze unterstützte 1996 der für den Pentium Pro entwickelte und auch mit dem Pentium II verwendete ''440FX'' das USB-Protokoll, was vor Einführung der ATX-Mainboards jedoch kaum beworben wurde. Ein Grund war die geringe USB-Unterstützung durch die Betriebssysteme Windows 95 und Windows NT 4.0. Auch fehlte es anfangs an USB-Geräten.",
+                    "qas": [
+                        {
+                            "question": "Wann wurde der USB 1.0 eingeführt?",
+                            "answers": [
+                                {
+                                    "text": "1996"
+                                },
+                                {
+                                    "text": "1996"
+                                },
+                                {
+                                    "text": "1996"
+                                }
+                            ]
+                        },
+                        {
+                            "question": "Welche Unternehmen haben den USB 1.0 entwickelt?",
+                            "answers": [
+                                {
+                                    "text": "Compaq, DEC, Intel, IBM, Microsoft, NEC und Nortel"
+                                },
+                                {
+                                    "text": " Compaq, DEC, Intel, IBM, Microsoft, NEC und Nortel"
+                                },
+                                {
+                                    "text": "Compaq, DEC, Intel, IBM, Microsoft, NEC und Nortel"
+                                }
+                            ]
+                        },
+                        {
+                            "question": "Wer hat viel zur Entwicklung vom USB 1.0 beigetragen?",
+                            "answers": [
+                                {
+                                    "text": "das Entwicklungsteam um Ajay Bhatt bei Intel"
+                                },
+                                {
+                                    "text": " das Entwicklungsteam um Ajay Bhatt bei Intel"
+                                },
+                                {
+                                    "text": "Ajay Bhatt"
+                                }
+                            ]
+                        },
+                        {
+                            "question": "Welche Fortschritte wurden mit der Herstellung vom ersten USB gemacht?",
+                            "answers": [
+                                {
+                                    "text": "USB ersetzt viele bisherige PC-Schnittstellen und vereinheitlichte den Anschluss für Tastaturen und Peripheriegeräte wie Drucker, Scanner und externe Massenspeicher."
+                                },
+                                {
+                                    "text": "USB ersetzt viele bisherige PC-Schnittstellen und vereinheitlichte den Anschluss für Tastaturen und Peripheriegeräte wie Drucker, Scanner und externe Massenspeicher."
+                                },
+                                {
+                                    "text": "ersetzt viele bisherige PC-Schnittstellen und vereinheitlichte den Anschluss für Tastaturen und Peripheriegeräte wie Drucker, Scanner und externe Massenspeicher"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "Nigeria\n\n=== Instabilität von 1967 bis 1970 ===\nNach zahlreichen inneren Unruhen, Wahlmanipulationen und Gewaltausbrüchen übernahm das Militär die Macht und beendete die I. Republik. Am 30. Mai 1967  wurde im Südosten Nigerias die Republik Biafra proklamiert, die mit dem Biafra-Krieg 1970 endete. Im Jahre 1975 wurde der Militärdiktator Yakubu Gowon unblutig durch General Murtala Mohammed gestürzt, der selbst sechs Monate später bei einem gescheiterten Putschversuch getötet wurde. Sein Nachfolger wurde General Olusegun Obasanjo, der das Demokratisierungsprogramm seines Vorgängers fortsetzte und 1979 die Regierungsgewalt an den zivil gewählten Präsidenten Shehu Shagari übergab.\nDie 1970er-Jahre waren ökonomisch durch einen massiven Ölboom gekennzeichnet, Nigeria wurde der größte Erdölexporteur Afrikas.",
+                    "qas": [
+                        {
+                            "question": "Wer beendete die erste Republik in Nigeria?",
+                            "answers": [
+                                {
+                                    "text": "das Militär"
+                                },
+                                {
+                                    "text": "das Militär"
+                                },
+                                {
+                                    "text": "das Militär"
+                                }
+                            ]
+                        },
+                        {
+                            "question": "Wie sah die Wirtschaft in den 1970er Jahren in Nigeria aus?",
+                            "answers": [
+                                {
+                                    "text": "Die 1970er-Jahre waren ökonomisch durch einen massiven Ölboom gekennzeichnet, Nigeria wurde der größte Erdölexporteur Afrikas."
+                                },
+                                {
+                                    "text": "Die 1970er-Jahre waren ökonomisch durch einen massiven Ölboom gekennzeichnet, Nigeria wurde der größte Erdölexporteur Afrikas"
+                                },
+                                {
+                                    "text": "waren ökonomisch durch einen massiven Ölboom gekennzeichnet, Nigeria wurde der größte Erdölexporteur Afrikas"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "Bakterien\n\n==== Gentransfer ====\nBei einer Konjugation können Bakterien mit Hilfe sogenannter Sexpili (Proteinröhren) DNA untereinander austauschen (horizontaler und vertikaler Gentransfer). Mittels der Sexpili können sich die Zellen annähern und dann über eine Plasmabrücke DNA (das Bakterien-„Chromosom“ ganz oder teilweise sowie Plasmide) von einer Zelle zur anderen übertragen. Da die Pili nicht direkt an der DNA-Übertragung beteiligt sind, kann diese auch ohne Pili erfolgen, wenn sich zwei Bakterienzellen eng aneinander legen. Dieser Gentransfer wird vor allem von Gram-negativen Bakterien praktiziert.\nBei Gram-positiven Bakterien herrscht vor allem der Mechanismus der Transduktion vor. Hierbei werden Bakteriophagen als Vektor benutzt.\nTransformation, die Aufnahme von nackter DNA, ist dagegen kaum verbreitet.",
+                    "qas": [
+                        {
+                            "question": "Was tauschen Bakterien mit Sexpili untereinander aus?",
+                            "answers": [
+                                {
+                                    "text": "DNA"
+                                },
+                                {
+                                    "text": "DNA"
+                                },
+                                {
+                                    "text": "DNA"
+                                }
+                            ]
+                        },
+                        {
+                            "question": "Wie können Bakterien auch ohne Sexpili DNA untereinander austauschen?",
+                            "answers": [
+                                {
+                                    "text": "wenn sich zwei Bakterienzellen eng aneinander legen"
+                                },
+                                {
+                                    "text": "wenn sich zwei Bakterienzellen eng aneinander legen"
+                                },
+                                {
+                                    "text": "wenn sich zwei Bakterienzellen eng aneinander legen"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "Slawen\n\n== Lebensweise und Traditionen ==\nDie Familienverfassung war eine patriarchalische. Die Einwohner eines Ortes bildeten eine durch Blutsverwandtschaft verknüpfte Sippe ''(obschtina, rod)'', deren Mitglieder einen gemeinsamen Namen trugen, gemeinschaftliches Gut besaßen und unter einem gewählten Ältesten standen. Aus mehreren solcher Sippen bildete sich der Stamm ''(pleme)'', an dessen Spitze das Stammesoberhaupt, der Anführer im Krieg, stand. Die Stämme ihrerseits vereinigten sich wieder zu einem größeren Ganzen, zu Einzelvölkern ''(narod)''.\nDie Ehe wurde heilig gehalten, es herrschte ursprünglich Monogamie. Noch vor der Abtrennung in einzelne Zweige hatten die Slawen durch Herkommen befestigte Rechtsnormen ''(pravo, zakon)''; der Begriff „erben“ fehlte jedoch, da die Familienverfassung Erbschaften ausschloss.",
+                    "qas": [
+                        {
+                            "question": "Wie wurde der Zusammenschluss mehrerer Sippen bei den Slawen genannt?",
+                            "answers": [
+                                {
+                                    "text": "Stamm ''(pleme)''"
+                                },
+                                {
+                                    "text": " Stamm ''(pleme)''"
+                                },
+                                {
+                                    "text": "Stamm"
+                                }
+                            ]
+                        },
+                        {
+                            "question": "Wie war das Zusammenleben in der lokalen Gemeinschaft bei den Slawen organisiert?",
+                            "answers": [
+                                {
+                                    "text": "Die Familienverfassung war eine patriarchalische. Die Einwohner eines Ortes bildeten eine durch Blutsverwandtschaft verknüpfte Sippe ''(obschtina, rod)'', deren Mitglieder einen gemeinsamen Namen trugen, gemeinschaftliches Gut besaßen und unter einem gewählten Ältesten standen."
+                                },
+                                {
+                                    "text": "Die Familienverfassung war eine patriarchalische. Die Einwohner eines Ortes bildeten eine durch Blutsverwandtschaft verknüpfte Sippe ''(obschtina, rod)'', deren Mitglieder einen gemeinsamen Namen trugen, gemeinschaftliches Gut besaßen und unter einem gewählten Ältesten standen"
+                                },
+                                {
+                                    "text": "Die Einwohner eines Ortes bildeten eine durch Blutsverwandtschaft verknüpfte Sippe ''(obschtina, rod)'', deren Mitglieder einen gemeinsamen Namen trugen, gemeinschaftliches Gut besaßen und unter einem gewählten Ältesten standen"
+                                }
+                            ]
+                        },
+                        {
+                            "question": "Welchen Stellenwert hatte die Ehe bei den Slawen?",
+                            "answers": [
+                                {
+                                    "text": "Die Ehe wurde heilig gehalten, es herrschte ursprünglich Monogamie."
+                                },
+                                {
+                                    "text": "Die Ehe wurde heilig gehalten"
+                                },
+                                {
+                                    "text": "Die Ehe wurde heilig gehalten"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "London\n\n=== Kunstschulen ===\nLondon ist das britische Zentrum der künstlerischen Ausbildung. Die vier Konservatorien sind das Royal College of Music, die Royal Academy of Music, das Trinity College of Music und die Guildhall School of Music and Drama. Auf die Schauspielerei spezialisiert sind die Royal Academy of Dramatic Art (RADA) und die Central School of Speech and Drama.\nMit Kunst befassen sich das Central Saint Martins College of Art and Design, das Chelsea College of Art and Design und die Camberwell School of Art (alle Teil der University of the Arts London), daneben auch das Goldsmiths College und die Slade School of Fine Art (beide Bestandteil der University of London) sowie das Royal College of Art und die Wimbledon School of Art. Die ehemalige Hornsey School of Art ist heute ein Teil der Middlesex University.",
+                    "qas": [
+                        {
+                            "question": "Wie heißen die vier Konservatorien in London?",
+                            "answers": [
+                                {
+                                    "text": "das Royal College of Music, die Royal Academy of Music, das Trinity College of Music und die Guildhall School of Music and Drama"
+                                },
+                                {
+                                    "text": "Royal College of Music, die Royal Academy of Music, das Trinity College of Music und die Guildhall School of Music and Drama"
+                                },
+                                {
+                                    "text": "Royal College of Music, die Royal Academy of Music, das Trinity College of Music und die Guildhall School of Music and Drama"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "Völkermord\n\n=== Abgrenzung ===\n„Verbrechen gegen die Menschlichkeit“, „Kriegsverbrechen“, „Völkermord“ und „Holocaust“ werden häufig fälschlicherweise als Synonyme verwendet. Bei den ersten drei Begriffen handelt es sich um Rechtsbegriffe, die zugleich wissenschaftliche Kategorien sind.\n* Verbrechen gegen die Menschlichkeit sind breit angelegte oder systematische Übergriffe auf die Zivilbevölkerung. Im Völkerrecht stellen sie einen Oberbegriff dar, unter den sowohl „Kriegsverbrechen“, „Verbrechen gegen den Frieden“, als auch „Völkermord“ fallen.\n* Kriegsverbrechen sind kriminelle Handlungen, die während eines bewaffneten Konflikts begangen werden und die vor allem gegen die Genfer Konventionen verstoßen.\n* Als Holocaust wird das Vorhaben der Nationalsozialisten im Zweiten Weltkrieg bezeichnet, alle europäischen Juden zu ermorden.",
+                    "qas": [
+                        {
+                            "question": "Was sind Verbrechen gegen die Menschlichkeit?",
+                            "answers": [
+                                {
+                                    "text": "Verbrechen gegen die Menschlichkeit sind breit angelegte oder systematische Übergriffe auf die Zivilbevölkerung. Im Völkerrecht stellen sie einen Oberbegriff dar, unter den sowohl „Kriegsverbrechen“, „Verbrechen gegen den Frieden“, als auch „Völkermord“ fallen."
+                                },
+                                {
+                                    "text": " breit angelegte oder systematische Übergriffe auf die Zivilbevölkerung"
+                                },
+                                {
+                                    "text": "breit angelegte oder systematische Übergriffe auf die Zivilbevölkerung"
+                                }
+                            ]
+                        },
+                        {
+                            "question": "Was sind Kriegsverbrechen?",
+                            "answers": [
+                                {
+                                    "text": "Kriegsverbrechen sind kriminelle Handlungen, die während eines bewaffneten Konflikts begangen werden und die vor allem gegen die Genfer Konventionen verstoßen"
+                                },
+                                {
+                                    "text": "kriminelle Handlungen, die während eines bewaffneten Konflikts begangen werden und die vor allem gegen die Genfer Konventionen verstoßen"
+                                },
+                                {
+                                    "text": "kriminelle Handlungen, die während eines bewaffneten Konflikts begangen werden und die vor allem gegen die Genfer Konventionen verstoßen"
+                                }
+                            ]
+                        },
+                        {
+                            "question": "Wie heißt der Völkermord an den Juden durch die Nationalsozialisten?",
+                            "answers": [
+                                {
+                                    "text": "Holocaust"
+                                },
+                                {
+                                    "text": "Holocaust"
+                                },
+                                {
+                                    "text": "Holocaust"
+                                }
+                            ]
+                        },
+                        {
+                            "question": "In welchem Abkommen werden Regeln zu Verbrechen während eines Krieges oder Konflikts festgelegt?",
+                            "answers": [
+                                {
+                                    "text": "Genfer Konventionen"
+                                },
+                                {
+                                    "text": "die Genfer Konventionen"
+                                },
+                                {
+                                    "text": "Genfer Konventionen"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "US-Dollar\n\n==== U.S. Dollar Index ====\nNach dem Zusammenbruch des Bretton-Woods-Systems wurde im März 1973 der geometrisch gewichtete U.S. Dollar Index (USDX) eingeführt und auf einen Wert von 100 gesetzt. Meist wird nur eine Währung gegen eine andere gewichtet. Beim USDX wird der US-Dollar ins Verhältnis zu sechs anderen Währungen gesetzt. Dieser Vergleich soll den Wert des US-Dollars aussagekräftig abbilden.\nDer Index stellt einen Korb mit folgenden Währungen dar: Euro (57,6 %), japanischer Yen (13,6 %), das britische Pfund (11,9 %), der kanadische Dollar (9,1 %), die schwedische Krone (4,2 %) sowie der Schweizer Franken (3,6 %). Ein US-Dollar-Index von 120 bedeutet, dass der US-Dollar 20 % mehr wert ist als der gleiche Währungskorb im Jahr 1973 (Bezugswert).\nDer USDX ist seit 1985 an der ICE Futures U.S., früher „New York Board of Trade“ (NYBOT), gelistet.",
+                    "qas": [
+                        {
+                            "question": "Welche Währungen sind Teil des Vergleich Korbes des USDX",
+                            "answers": [
+                                {
+                                    "text": "Euro (57,6 %), japanischer Yen (13,6 %), das britische Pfund (11,9 %), der kanadische Dollar (9,1 %), die schwedische Krone (4,2 %) sowie der Schweizer Franken (3,6 %)"
+                                },
+                                {
+                                    "text": "Euro (57,6 %), japanischer Yen (13,6 %), das britische Pfund (11,9 %), der kanadische Dollar (9,1 %), die schwedische Krone (4,2 %) sowie der Schweizer Franken (3,6 %)"
+                                },
+                                {
+                                    "text": ": Euro (57,6 %), japanischer Yen (13,6 %), das britische Pfund (11,9 %), der kanadische Dollar (9,1 %), die schwedische Krone (4,2 %) sowie der Schweizer Franken (3,6 %)"
+                                }
+                            ]
+                        },
+                        {
+                            "question": "Mit wie vielen Währungen wird der US-Dollar beim USDX verglichen?",
+                            "answers": [
+                                {
+                                    "text": "sechs"
+                                },
+                                {
+                                    "text": "sechs anderen Währungen"
+                                },
+                                {
+                                    "text": "sechs "
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "Ägypten\n\n=== Präsident ===\nDer Präsident ist Staatsoberhaupt und Oberbefehlshaber der Streitkräfte, ernennt den Premierminister und die Mitglieder des Kabinetts sowie die Gouverneure, die hohen Richter und Offiziere. Er hat zudem ein Vetorecht bei der Gesetzgebung, kann Dekrete erlassen und das Parlament auflösen.\nSeit einer Ankündigung des ehemaligen Präsidenten Hosni Mubarak vom 26. Februar 2005 wird der Präsident durch freie Wahlen mit mehreren zugelassenen Kandidaten gewählt.\nIm Zuge des arabischen Frühlings wurde im Mai / Juni 2012 bei der Präsidentschaftswahl Mohammed Mursi zum Präsidenten gewählt.\nAm 3. Juli 2013 wurde Mursi nach tagelangen Massenprotesten gegen seine Politik durch einen Militärputsch abgesetzt. Dies löste gewaltsame Auseinandersetzungen aus. und führte zu einer Staatskrise in Ägypten.\nSeit dem 8. Juni 2014 ist As-Sisi Präsident Ägyptens.",
+                    "qas": [
+                        {
+                            "question": "Wer ist Oberbefehlshaber des Ägyptischen Militärs?",
+                            "answers": [
+                                {
+                                    "text": " Präsident"
+                                },
+                                {
+                                    "text": "Der Präsident "
+                                },
+                                {
+                                    "text": "Der Präsident"
+                                }
+                            ]
+                        },
+                        {
+                            "question": "Wer ernennt die Gouverneure in Ägypten?",
+                            "answers": [
+                                {
+                                    "text": "Gouverneure"
+                                },
+                                {
+                                    "text": "Der Präsident"
+                                },
+                                {
+                                    "text": "Der Präsident"
+                                }
+                            ]
+                        },
+                        {
+                            "question": "Wer war 2005 Präsident in Ägypten?",
+                            "answers": [
+                                {
+                                    "text": "Hosni Mubarak "
+                                },
+                                {
+                                    "text": "Hosni Mubarak"
+                                },
+                                {
+                                    "text": "Hosni Mubarak"
+                                }
+                            ]
+                        },
+                        {
+                            "question": "Wieso hat Mohammed Mursi das Amt als Präsident Ägyptens niedergelegt?",
+                            "answers": [
+                                {
+                                    "text": "durch einen Militärputsch"
+                                },
+                                {
+                                    "text": "durch einen Militärputsch"
+                                },
+                                {
+                                    "text": "nach tagelangen Massenprotesten gegen seine Politik durch einen Militärputsch abgesetzt"
+                                }
+                            ]
+                        },
+                        {
+                            "question": "Wer ist Ägyptens Präsident?",
+                            "answers": [
+                                {
+                                    "text": "As-Sisi"
+                                },
+                                {
+                                    "text": "As-Sisi "
+                                },
+                                {
+                                    "text": "As-Sisi"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "Koreakrieg\n\n=== Schäden durch Bomben ===\n450.000 Tonnen Bomben wurden vor allem von der US Air Force abgeworfen, dabei kamen 32.357 Tonnen Napalm zum Einsatz. Dies war zum Teil verheerender als im Vietnamkrieg, weil in Nordkorea mehr Ballungszentren mit größerer Bevölkerungsdichte und mehr Industrie existierten als später in Vietnam.\nDem Historiker Conrad Crane zufolge waren zu Beginn der Waffenstillstandsverhandlungen, neben den großen Infrastrukturanlagen wie Staudämmen, 18 der 22 größten nordkoreanischen Städte wenigstens zur Hälfte dem Erdboden gleichgemacht worden. General William Dean, der ab Juli 1950 nach der Schlacht von Daejeon nordkoreanischer Kriegsgefangener gewesen war, erinnerte sich an die meisten nordkoreanischen Städte und Dörfer später als „Ruinen oder verschneite, leere Flächen“; fast jeder, der ihm begegnet sei, habe Angehörige im Bombenkrieg verloren.",
+                    "qas": [
+                        {
+                            "question": "Wie viele Tonnen Bomben wurden von den USA während des Koreakrieges abgeworfen?",
+                            "answers": [
+                                {
+                                    "text": "450.000"
+                                },
+                                {
+                                    "text": "450.000"
+                                },
+                                {
+                                    "text": "450.000"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "Wrestling\n\n=== Italien ===\nIn den letzten Jahren expandiert die Wrestling-Industrie in Italien. Die WWE hat den Markt in Italien entdeckt und hat eine Marketingoffensive gestartet. Darüber hinaus werden alle Shows im italienischen Fernsehen gezeigt. Es gibt nur vereinzelte international bekannte Wrestler aus Italien, dennoch hat sich die Gruppierung F.B.I. (Full Blooded Italians) mehrere Jahre in der WWE gehalten. Eine der bekanntesten italienischen Ligen ist Italian Championship Wrestling (ICW), die ca. 15 bis 20 Shows pro Jahr veranstaltet.\nDarüber hinaus gibt es noch die Nu-Wrestling Evolution, die 2005 gegründet wurde. Über die letzten Jahre schaffte die NWE den Sprung an die italienische Spitze. In ihrem Kader sind und waren bereits etablierte Namen wie Rikishi, Ultimo Dragon, Andrew „Test“ Martin, Scott Steiner, Jamal (Umaga), Chuck Palumbo, Juventud Guerrera und Vampiro.",
+                    "qas": [
+                        {
+                            "question": "Welche Gruppe aus Italien ist bekannt in der Welt von Wrestling?",
+                            "answers": [
+                                {
+                                    "text": "F.B.I. (Full Blooded Italians)"
+                                },
+                                {
+                                    "text": " die Gruppierung F.B.I. (Full Blooded Italians)"
+                                },
+                                {
+                                    "text": "F.B.I. (Full Blooded Italians)"
+                                }
+                            ]
+                        },
+                        {
+                            "question": "Was ist die bekannteste italienische Wrestling-Liga?",
+                            "answers": [
+                                {
+                                    "text": "Italian Championship Wrestling (ICW)"
+                                },
+                                {
+                                    "text": "Italian Championship Wrestling (ICW)"
+                                },
+                                {
+                                    "text": "Italian Championship Wrestling (ICW)"
+                                }
+                            ]
+                        },
+                        {
+                            "question": "Wo hat die WWE die Wrestling-Industrie expandiert?",
+                            "answers": [
+                                {
+                                    "text": "in Italien"
+                                },
+                                {
+                                    "text": "in Italien"
+                                },
+                                {
+                                    "text": "Italien"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "Florida\n\n=== Britische und französische Feindseligkeiten ===\n1586 wurde San Agustín von dem englischen Freibeuter und späteren Vizeadmiral Francis Drake überfallen und ausgeplündert. Im 17. Jahrhundert versuchten englische Siedler in Virginia und den Carolinas beständig, die Grenze der spanischen Kolonie weiter nach Süden zu drängen. Dasselbe taten die französischen Siedler am Unterlauf des Mississippi. 1702 ließ der britische Kolonialgouverneur von South Carolina, Colonel James Moore, mit Hilfe verbündeter Muskogee-Indianer den Ort San Agustín zerstören; eine Einnahme des spanischen Forts gelang ihm jedoch nicht. Zwei Jahre darauf begann Moore, spanische Missionen im Norden Floridas niederbrennen und Indianer töten zu lassen, die mit den Spaniern auf gutem Fuße standen. Im Westen Floridas nahmen Franzosen 1719 die seit 1696 erneut bestehende spanische Siedlung in Pensacola ein.",
+                    "qas": [
+                        {
+                            "question": "Wer ließ 1702 San Agustin zerstören?",
+                            "answers": [
+                                {
+                                    "text": "Colonel James Moore"
+                                },
+                                {
+                                    "text": "der britische Kolonialgouverneur von South Carolina, Colonel James Moore,"
+                                },
+                                {
+                                    "text": "Colonel James Moore"
+                                }
+                            ]
+                        },
+                        {
+                            "question": "Wann nahmen Franzosen die spanische Siedlung in Pensacola im Westen Floridas ein?",
+                            "answers": [
+                                {
+                                    "text": "1719"
+                                },
+                                {
+                                    "text": "1719 "
+                                },
+                                {
+                                    "text": "1719"
+                                }
+                            ]
+                        },
+                        {
+                            "question": "Wann wurde San Agustin angegriffen und ausgeräubert?",
+                            "answers": [
+                                {
+                                    "text": "1586"
+                                },
+                                {
+                                    "text": "1586"
+                                },
+                                {
+                                    "text": "1586"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "Straßburg\n\n== Sport ==\n* Der Fußballverein Racing Straßburg spielt nach zeitweiligem Absturz in die Drittklassigkeit seit der Saison 2017/18 wieder in der Ligue 1. Mit der ASPTT Strasbourg besitzt die Stadt auch einen Frauenfußballverein, der bis Mitte der 1990er Jahre erstklassig antrat und dessen Badmintonabteilung zudem im 21. Jahrhundert zu den stärksten in Frankreich zählt (unter anderem Europapokalteilnehmer 2013).\n* Strasbourg Illkirch Graffenstaden Basket hat 2004/05 die französische Meisterschaft im Basketball gewonnen. Zwischen 2013 und 2017 wurde der Verein fünfmal hintereinander Vizemeister.\n* Der Étoile noire ist einer der bekanntesten französischen Eishockeyklubs.\n* Das WTA-Damentennisturnier Internationaux de Strasbourg gilt alljährlich als wichtiges sportliches Ereignis. Zu den ehemaligen Gewinnerinnen zählen u. a. Steffi Graf, Jennifer Capriati und Lindsay Davenport.",
+                    "qas": [
+                        {
+                            "question": "In welcher Liga spielt Racing Straßburg?",
+                            "answers": [
+                                {
+                                    "text": "Ligue 1"
+                                },
+                                {
+                                    "text": "in der Ligue 1."
+                                },
+                                {
+                                    "text": "Ligue 1"
+                                }
+                            ]
+                        },
+                        {
+                            "question": "Wie heißt der Frauenfußballverein von Straßburg?",
+                            "answers": [
+                                {
+                                    "text": "ASPTT Strasbourg"
+                                },
+                                {
+                                    "text": " Racing Straßburg"
+                                },
+                                {
+                                    "text": "ASPTT Strasbourg"
+                                }
+                            ]
+                        },
+                        {
+                            "question": "Wann hat der Basketballverein aus Straßburg die Meisterschaft gewonnen?",
+                            "answers": [
+                                {
+                                    "text": "2004/05"
+                                },
+                                {
+                                    "text": "2004/05 "
+                                },
+                                {
+                                    "text": "2004/05"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "Mexiko-Stadt\n\n=== Klima ===\nDie Stadt befindet sich in den Tropen, genauer gesagt in den Kalttropen wegen ihrer hohen Lage. Tagsüber ist es im Winter mit 20 bis 25 °C recht warm, nachts jedoch deutlich kühler, teils sogar frostig. Im Sommer zwischen April und Juni wird es um die Mittagszeit mit 25 bis 30 °C sehr warm. Von Oktober bis Mai ist Trockenzeit und von Juni bis September Regenzeit, in der es meist nachmittags und abends, manchmal aber bis in den Morgen hinein, zu heftigen Schauern kommt. Dann ist es sehr schwül.\nDie durchschnittliche Jahrestemperatur beträgt 15,9 °C, die jährliche Niederschlagsmenge 816,2 Millimeter im Mittel. Der wärmste Monat ist der Mai mit durchschnittlich 18,9 °C, die kältesten Monate sind Dezember und Januar mit 12,5 °C und 12,2 °C im Mittel.\nDer meiste Niederschlag fällt im Monat Juli mit durchschnittlich 175,1 Millimetern, der wenigste im Februar mit 4,3 Millimetern im Mittel.",
+                    "qas": [
+                        {
+                            "question": "In welcher Klimazone liegt Mexiko-Stadt?",
+                            "answers": [
+                                {
+                                    "text": "in den Tropen, genauer gesagt in den Kalttropen"
+                                },
+                                {
+                                    "text": " in den Tropen"
+                                },
+                                {
+                                    "text": "Kalttropen"
+                                }
+                            ]
+                        },
+                        {
+                            "question": "Wann ist in Mexiko City Regenzeit?",
+                            "answers": [
+                                {
+                                    "text": "von Juni bis September"
+                                },
+                                {
+                                    "text": " von Juni bis September"
+                                },
+                                {
+                                    "text": "von Juni bis September"
+                                }
+                            ]
+                        },
+                        {
+                            "question": "Welche Niedeschlagsphase ist in Mexiko-Stadt im Winter und Frühjahr?",
+                            "answers": [
+                                {
+                                    "text": "Trockenzeit"
+                                },
+                                {
+                                    "text": "Trockenzeit"
+                                },
+                                {
+                                    "text": "Trockenzeit"
+                                }
+                            ]
+                        },
+                        {
+                            "question": "Was ist die Durchschnittstemperatur in Mexiko-Stadt?",
+                            "answers": [
+                                {
+                                    "text": "15,9 °C"
+                                },
+                                {
+                                    "text": "15,9 °C"
+                                },
+                                {
+                                    "text": "15,9 °C"
+                                }
+                            ]
+                        },
+                        {
+                            "question": "In welchem Monat gibt es in Mexico City durchschnittlich die höchsten Temperaturen?",
+                            "answers": [
+                                {
+                                    "text": "Mai"
+                                },
+                                {
+                                    "text": "Mai"
+                                },
+                                {
+                                    "text": "Mai"
+                                }
+                            ]
+                        },
+                        {
+                            "question": "in welchem Monat regnet es in Mexico-Stadt am meisten?",
+                            "answers": [
+                                {
+                                    "text": "Juli"
+                                },
+                                {
+                                    "text": "Juli"
+                                },
+                                {
+                                    "text": "Juli"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "Grün\n\n==  Gift ==\nIntensive Grüntöne werden als Giftgrün bezeichnet. Lange Zeit waren die farbintensiven und dauerhaften Grünpigmente allen voran das arsenhaltige Schweinfurter Grün giftige Pigmente, wie auch Chromgrün, Kupferacetat (auch Grünspan genannt) und andere Kupferpatinen. Weniger giftig waren nur wenig farbintensive grüne Erden. Die Bezeichnung „giftgrün“ wurde von den Brüdern Grimm in deren Wörterbuch anhand der Schrift Siegmund Suevus ''Spiegel des menschlichen Lebens'' bereits für das Jahr 1588 nachgewiesen.\nDie Gesichtsfarbe grün (= fahl) steht wegen des fehlenden Blutrots für Krankheit, sowohl von Körper als auch für die kranke Seele. In diesem Sinne ist die Farbe Grün als „giftig“ zusätzlich in der traditionellen abendländischen Kultur besetzt. Übertragend steht Grün sodann für Gier und Neid, wie in der Redensart „Grün ist die Gier“ oder umgangssprachlich auch „Grün vor Neid“ (neben „Gelb vor Neid“).",
+                    "qas": [
+                        {
+                            "question": "Wie werden intensive Grüntöne bezeichnet?",
+                            "answers": [
+                                {
+                                    "text": "Giftgrün"
+                                },
+                                {
+                                    "text": "Giftgrün"
+                                },
+                                {
+                                    "text": "Giftgrün "
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "Portugal\n\n=== Straßenverkehr ===\nDas Straßennetz ist nicht zuletzt dank EU-Mitteln aus Förderungsfonds seit den 1980er-Jahren schnell gewachsen und gut ausgebaut. Das gesamte Straßennetz umfasste 2008 etwa 82.900 km, wovon 71.294 km asphaltiert sind. Die wichtigen Routen werden von gebührenpflichtigen ''Autoestradas'' abgedeckt. Diese erreichen insgesamt eine Länge von 1100 km und werden größtenteils vom börsennotierten Unternehmen Brisa betrieben. Gebührenfrei sind hingegen ''Itinerários Principais (IP)'' oder ''Itinerários Complementares (IC)''. Die Investitionen in den Straßenverkehr verdeutlichen sich nicht zuletzt in den Unfallstatistiken, 2008 starben in Portugals Straßenverkehr 83 Menschen pro 1 Million Einwohner nach 323 im Jahre 1991 (zum Vergleich 54 pro 1 Million in Deutschland 2008).\nDer Fernverkehr mit Bussen hat in Portugal einen höheren Stellenwert als in Mitteleuropa. Das größte Linienbusunternehmen ist Rede Expressos.",
+                    "qas": [
+                        {
+                            "question": "Wie viele Kilometer hat das Straßennetz Portugals 2008?",
+                            "answers": [
+                                {
+                                    "text": "82.900 km"
+                                },
+                                {
+                                    "text": "etwa 82.900 km"
+                                },
+                                {
+                                    "text": "82.900 "
+                                }
+                            ]
+                        },
+                        {
+                            "question": "Wer unterhält die kostenpflichtigen Straßen Portugals größtenteils?",
+                            "answers": [
+                                {
+                                    "text": "Brisa"
+                                },
+                                {
+                                    "text": "börsennotierten Unternehmen Brisa"
+                                },
+                                {
+                                    "text": " börsennotierten Unternehmen Brisa"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "Transistor\n\n==== Sperrschicht-Feldeffekttransistor ====\nBei Sperrschicht-FETs (engl. ''junction FET'', JFET) wird die elektrisch isolierende Schicht zum ''Gate'' durch eine in Sperrrichtung betriebene Diode und deren unterschiedlich große Raumladungszone gebildet. Sperrschicht-FETs sind immer selbstleitende Transistoren: Ohne Spannung am ''Gate'' sind sie zwischen ''Source'' und ''Drain'' leitend. Durch das Anlegen einer ''Gate''-Spannung geeigneter Polarität wird die Leitfähigkeit zwischen ''Source'' und ''Drain'' reduziert.\nAuch JFETs gibt es in zwei Arten: n-Kanal und p-Kanal. Im Schaltsymbol wird bei einem n-Kanal der Pfeil zu dem Transistor gezeichnet und auf dem Gate-Anschluss eingezeichnet, wie in nebenstehender Abbildung dargestellt. Beim p-Kanal-Typ ist die Pfeilrichtung umgekehrt. Sperrschicht-FETs finden wegen der etwas komplizierteren Ansteuerung nur in speziellen Anwendungen, wie beispielsweise Mikrofonverstärkern, Anwendung.",
+                    "qas": [
+                        {
+                            "question": "Welche Arten von Sperrschicht-Feldeffekttransistoren gibt es?",
+                            "answers": [
+                                {
+                                    "text": "n-Kanal und p-Kanal"
+                                },
+                                {
+                                    "text": " n-Kanal und p-Kanal"
+                                },
+                                {
+                                    "text": "n-Kanal und p-Kanal"
+                                }
+                            ]
+                        },
+                        {
+                            "question": "Wo werden Sperrschicht-Feldeffekttransistoren angewandt?",
+                            "answers": [
+                                {
+                                    "text": "Mikrofonverstärkern"
+                                },
+                                {
+                                    "text": "Mikrofonverstärkern"
+                                },
+                                {
+                                    "text": "Mikrofonverstärkern"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "Leiterplatte\n\n=== Mehrlagige Leiterplatten ===\nSchnitt durch eine mehrlagige Platine.\nUm der Packungsdichte bei modernen SMD-Bauteilen, insbesondere in Computern, gerecht zu werden, reicht es nicht aus, wenn sich die Leiterbahnen nur auf einer Seite der Leiterplatte befinden. Nach den doppelseitigen Leiterplatten, die auf beiden Seiten der Leiterplatte eine Kupferschicht haben, begann man, mehrere dünnere Leiterplatten mit sog. Prepregs aufeinanderzukleben. Diese mehrlagigen sog. ''Multilayer''-Leiterplatten können derzeit bis zu 48 Schichten, in Einzelfällen auch mehr, haben. Üblich sind z. B. vier bis acht Lagen in Computern und bis zu zwölf Lagen in Mobiltelefonen. Die Verbindungen zwischen den Lagen werden mit Durchkontaktierungen („Vias“) hergestellt.\nIn vielen Fällen ist die Verwendung von Multilayer-Leiterplatten auch bei geringerer Packungsdichte notwendig, z. B. um die induktionsarme Stromversorgung aller Bauteile zu gewährleisten.",
+                    "qas": [
+                        {
+                            "question": "Wie viele Schichten haben mehrlagige Leiterplatten?",
+                            "answers": [
+                                {
+                                    "text": "bis zu 48"
+                                },
+                                {
+                                    "text": " derzeit bis zu 48 Schichten, in Einzelfällen auch mehr, haben. Üblich sind z. B. vier bis acht Lagen in Computern und bis zu zwölf Lagen in Mobiltelefonen"
+                                },
+                                {
+                                    "text": "bis zu 48 Schichten, in Einzelfällen auch mehr"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "Guinea-Bissau\n\n=== Drogenhandel ===\nNach Erkenntnissen des Büros der Vereinten Nationen für Drogen- und Verbrechensbekämpfung waren Guinea-Bissau und die Republik Guinea in den Jahren 2004 bis 2007 ein wichtiges Drehkreuz für den Kokainschmuggel von Südamerika über Westafrika nach Europa. Sowohl die innenpolitischen Ereignisse in den beiden Ländern, als auch internationale Bemühungen zur Bekämpfung des Kokainschmuggels in der Region führten zu einem deutlichen Rückgang der Transporte in den Jahren 2008 und 2009. Die Ereignisse des 1. April 2010 in Bissau läuteten die Wiederbelebung der Transportroute über Guinea-Bissau ein. Der in die Ereignisse verstrickte, ehemalige Chef der Marine Konteradmiral Bubo na Tchuto sowie der amtierende Luftwaffenchef Ibraima Papa Camara wurden im April von US-Behörden des Drogenschmuggels beschuldigt und deren Konten in den USA eingefroren. Im Jahr 2012 erreichten in jeder Nacht 800 bis 1000 Kilogramm Kokain das Land.",
+                    "qas": [
+                        {
+                            "question": "Warum ging der Kokainhandel 2008 und 2009 in Guinea-Bissau zurück?",
+                            "answers": [
+                                {
+                                    "text": "Sowohl die innenpolitischen Ereignisse in den beiden Ländern, als auch internationale Bemühungen zur Bekämpfung des Kokainschmuggels in der Region"
+                                },
+                                {
+                                    "text": "die innenpolitischen Ereignisse in den beiden Ländern, als auch internationale Bemühungen zur Bekämpfung des Kokainschmuggels in der Region"
+                                },
+                                {
+                                    "text": "die innenpolitischen Ereignisse in den beiden Ländern, als auch internationale Bemühungen zur Bekämpfung des Kokainschmuggels in der Region"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "Imperial_College_London\n\n== Geschichte ==\nEingangsportal des Imperial College, London\nDie Gründung erfolgte 1907 durch einen Zusammenschluss des City and Guilds College, der Royal School of Mines sowie des Royal College of Science.\nEnde des letzten Jahrhunderts haben sich die medizinische Fakultät des St Mary’s Hospital (1988) sowie das National Heart and Lung Institute (1995) und die medizinischen Fakultäten von Charing Cross und Westminster (1997) zur Imperial College School of Medicine zusammengeschlossen. Am 1. August 2000 schlossen sich das Wye College und das Kennedy Institute of Rheumatology mit dem College zusammen. Das Kennedy Institute wurde ein Bereich der medizinischen Fakultät und das Wye College ist nun bekannt als der Imperial College Wye Campus.\nDie traditionelle Abschlussfeier aller Imperial-Studenten eines Jahrgangs findet in der Royal Albert Hall statt.\nDas Imperial College ist eine der Trägerorganisationen des Francis Crick Institute.",
+                    "qas": [
+                        {
+                            "question": "Wie wurde das Imperial College in London grgründet?",
+                            "answers": [
+                                {
+                                    "text": "Zusammenschluss des City and Guilds College, der Royal School of Mines sowie des Royal College of Science."
+                                },
+                                {
+                                    "text": "1907"
+                                },
+                                {
+                                    "text": "durch einen Zusammenschluss des City and Guilds College, der Royal School of Mines sowie des Royal College of Science"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "51._Bundesstaat\n\n== Mögliche Kandidaten ==\nLaut Artikel IV, Absatz 3 der US-Verfassung, der die Beziehung zwischen den Bundesstaaten regelt, hat der Kongress die Möglichkeit, neue Bundesstaaten in die Union aufzunehmen. Diese müssen volles Vertrauen in die Handlungen der Legislative und Judikative der anderen Bundesstaaten haben, was sich in der Anerkennung rechtlicher Verträge, Ehen und strafrechtlicher Urteile zeigt. Die Bundesregierung garantiert militärische und zivile Verteidigung und eine republikanische Regierungsform für jeden Bundesstaat. Die Aufnahme neuer Bundesstaaten erfolgt gemäß den Präzedenzfällen und Prozeduren der Nordwest-Verordnung (''Northwest Ordinance''). Nach einem Präzedenzfall aus dem Jahr 1802 muss ein Ermächtigungsgesetz (''Enabling Act'') vom Kongress genehmigt werden, ehe es zugelassen wird. Anschließend können die Bewohner eines Territoriums eine Verfassung entwerfen und sie werden über die Bedingungen zur Aufnahme informiert.",
+                    "qas": [
+                        {
+                            "question": "Wie kann die USA einen neuen Bundesstaat aufnehmen? ",
+                            "answers": [
+                                {
+                                    "text": "Die Aufnahme neuer Bundesstaaten erfolgt gemäß den Präzedenzfällen und Prozeduren der Nordwest-Verordnung (''Northwest Ordinance''). Nach einem Präzedenzfall aus dem Jahr 1802 muss ein Ermächtigungsgesetz (''Enabling Act'') vom Kongress genehmigt werden, ehe es zugelassen wird. Anschließend können die Bewohner eines Territoriums eine Verfassung entwerfen und sie werden über die Bedingungen zur Aufnahme informiert."
+                                },
+                                {
+                                    "text": "Die Aufnahme neuer Bundesstaaten erfolgt gemäß den Präzedenzfällen und Prozeduren der Nordwest-Verordnung (''Northwest Ordinance''). Nach einem Präzedenzfall aus dem Jahr 1802 muss ein Ermächtigungsgesetz (''Enabling Act'') vom Kongress genehmigt werden, ehe es zugelassen wird. Anschließend können die Bewohner eines Territoriums eine Verfassung entwerfen und sie werden über die Bedingungen zur Aufnahme informiert."
+                                },
+                                {
+                                    "text": "gemäß den Präzedenzfällen und Prozeduren der Nordwest-Verordnung (''Northwest Ordinance''). Nach einem Präzedenzfall aus dem Jahr 1802 muss ein Ermächtigungsgesetz (''Enabling Act'') vom Kongress genehmigt werden, ehe es zugelassen wird. Anschließend können die Bewohner eines Territoriums eine Verfassung entwerfen und sie werden über die Bedingungen zur Aufnahme informiert"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "Sommerzeit\n\n=== Technischer Aufwand ===\nAlle Uhren müssen zweimal im Jahr umgestellt werden. Immer mehr Uhren werden heute über ein Funksignal (Funkuhr) automatisch gestellt, viele müssen aber insbesondere in Privathaushalten nach wie vor manuell umgestellt werden. Computeruhren können ebenfalls automatisch über eine Funktion des Betriebssystems gestellt werden. Allerdings gibt es Rechnerprogramme mit Echtzeitfunktion, die die Betriebssystemfunktion zur Sommerzeitumstellung nicht nutzen und manuell umkonfiguriert werden müssen. Das gleiche Problem gibt es auch bei Schaltsekunden.\nBei der Umstellung zunächst vergessene Uhren, zum Beispiel in Fotokameras, können später für Verwirrung sorgen. Problematisch können die Ereignisaufzeichnungen von solchen Uhren sein, die von einem autorisierten Personenkreis betreut werden, wenn die Umstellung erst einige Tage später vorgenommen wird und die gespeicherten Zeiten und darauf basierende Auswertungen somit falsch sind.",
+                    "qas": [
+                        {
+                            "question": "Wie oft muss eine Uhr im Jahr wegen der Sommerzeit umgestellt werden?",
+                            "answers": [
+                                {
+                                    "text": "zweimal"
+                                },
+                                {
+                                    "text": "zweimal"
+                                },
+                                {
+                                    "text": "zweimal im Jahr"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        ]
+    }
+}
