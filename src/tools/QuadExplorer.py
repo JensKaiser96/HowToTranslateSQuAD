@@ -1,4 +1,5 @@
 import json
+from src.tools.io import to_json
 
 """
 quad structure:
@@ -15,7 +16,7 @@ quad structure:
                             question: <str>
                             (is_impossible: <str>)
                             answers: [
-                                text: <str>, 
+                                text: <str>,
                                 answer_start: <int>,
                                 id: <str>
                                 ]
@@ -100,9 +101,9 @@ class QuAD:
             return json.load(f_in)
 
     def save(self, path: str, version: str = ""):
+        print(f"saving dataset '{version}' of size: '{len(self.paragraphs)}' to path: '{path}'")
         data = {}
         if version:
             data[QuADKeys.version] = version
         data = {QuADKeys.data: self.to_dict()}
-        with open(path, 'w', encoding='utf-8') as f_out:
-            json.dump(data, f_out, ensure_ascii=False, indent=4)
+        to_json(data, path)
