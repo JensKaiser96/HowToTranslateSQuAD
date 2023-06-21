@@ -85,6 +85,12 @@ class Paragraph:
 class QuAD:
     paragraphs: list[Paragraph]
 
+    class Datasets:
+        GermanQuADTest = "./data/datasets/GermanQuAD/GermanQuAD_test.json"
+        GermanQuADTrain = "./data/datasets/GermanQuAD/GermanQuAD_train.json"
+        MLQA = "./data/datasets/MLQA/test-context-de-question-de.json"
+        XQuAD = "./data/datasets/XQuAD/xquad.de.json"
+
     def __init__(self, path: str = "", paragraphs: list[Paragraph] = None):
         if path:
             data_dict = self.load(path)
