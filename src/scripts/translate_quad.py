@@ -7,7 +7,7 @@ logger = get_logger(__name__)
 
 
 def main():
-    squad1_train = QuAD(QADatasetPaths.SQUAD1_DEV)
+    squad1_train = QuAD(QADatasetPaths.SQUAD1_DEV)  # todo: set to TRAIN instead of DEV
     translator = Translator()
     for paragraph in squad1_train.paragraphs:
         paragraph.context = translator.en2de(paragraph.context)
