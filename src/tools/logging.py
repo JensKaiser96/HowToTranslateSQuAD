@@ -9,12 +9,14 @@ _log_path = str_to_safe_path(_default_log_path)
 
 
 def set_log_path(path: str):
-    if _log_path != _default_log_path:
+    global _log_path
+    global _default_log_path
+    if str(_log_path) != _default_log_path:
         logger.warn(
-                f"custom log path already set {_log_path}"
+                f"custom log path already set {_log_path} "
                 f"new path will be respected nonetheless"
                 )
-    _log_path = str_to_safe_path(path)
+    _log_path = str_to_safe_path(path, ".log")
 
 
 def set_log_name(name: str):
