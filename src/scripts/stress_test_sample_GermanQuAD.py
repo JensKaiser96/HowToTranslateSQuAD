@@ -1,20 +1,20 @@
 import random
-from src.tools.QuadExplorer import QuAD
+from src.tools.QUAD import QUAD
 from src.tools.project_paths import StressTestPaths, QADatasetPaths
 
 
 def create_NOT(paragraphs: list, size: int = 100):
-    QuAD(paragraphs=paragraphs[:size]).save(StressTestPaths.NOT, version="GermanQuAD_test_NOT")
+    QUAD(paragraphs=paragraphs[:size]).save(StressTestPaths.NOT, version="GermanQuAD_test_NOT")
 
 
 def create_DIS(paragraphs: list, size: int = 50):
     short_paragraphs = sorted(paragraphs, key=lambda p: len(p.context))[:size]
     print(f"The longest paragraph has length: {len(short_paragraphs[-1].context)}")
-    QuAD(paragraphs=short_paragraphs).save(StressTestPaths.DIS, version="GermanQuAD_test_DIS")
+    QUAD(paragraphs=short_paragraphs).save(StressTestPaths.DIS, version="GermanQuAD_test_DIS")
 
 
 def create_ONE(paragraphs: list, size: int = 100):
-    QuAD(paragraphs=paragraphs[:size]).save(StressTestPaths.ONE, version="GermanQuAD_test_ONE")
+    QUAD(paragraphs=paragraphs[:size]).save(StressTestPaths.ONE, version="GermanQuAD_test_ONE")
 
 
 def split(list_: list, n: int) -> tuple[list]:
@@ -27,7 +27,7 @@ def split(list_: list, n: int) -> tuple[list]:
 
 
 if __name__ == "__main__":
-    dataset = QuAD(QADatasetPaths.GermanQuADTest)
+    dataset = QUAD(QADatasetPaths.GermanQuADTest)
     paragraphs_NOT, paragraphs_DIS, paragraphs_ONE = split(dataset.paragraphs, 3)
     create_NOT(paragraphs_NOT)
     create_DIS(paragraphs_DIS)
