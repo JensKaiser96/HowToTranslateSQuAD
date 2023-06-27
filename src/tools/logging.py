@@ -23,7 +23,17 @@ def set_log_name(name: str):
     set_log_path(_default_log_dir + name)
 
 
-def get_logger(name: str) -> logging.Logger:
+def get_logger(name: str, script=False) -> logging.Logger:
+    """
+    This logger can be used in sub modules with script=False,
+    scripts should use the method with script=True
+    ```
+    logger = logging.get_logger(__name__)               # for modules
+    logger = logging.get_logger(__file__, script=True)  # for scripts
+    ```
+    """
+    if script:
+        set_log_name(name)
     logger = logging.getLogger(name)
     logger.setLevel(logging.DEBUG)
 
