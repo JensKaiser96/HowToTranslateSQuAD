@@ -1,4 +1,5 @@
 import logging
+from pathlib import Path
 
 from src.tools.io import str_to_safe_path
 
@@ -33,6 +34,7 @@ def get_logger(name: str, script=False) -> logging.Logger:
     ```
     """
     if script:
+        name = Path(name).name  # only keep the name of the script file
         set_log_name(name)
     logger = logging.getLogger(name)
     logger.setLevel(logging.DEBUG)
