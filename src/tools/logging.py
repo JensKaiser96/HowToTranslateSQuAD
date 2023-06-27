@@ -21,7 +21,7 @@ def set_log_name(name: str):
     set_log_path(_default_log_dir + name)
 
 
-def setup_logger(name: str) -> logging.Logger:
+def get_logger(name: str) -> logging.Logger:
     logger = logging.getLogger(name)
     logger.setLevel(logging.DEBUG)
 
@@ -44,4 +44,4 @@ def setup_logger(name: str) -> logging.Logger:
     return logger
 
 
-logger = setup_logger(__name__)
+logger = get_logger(__name__)
