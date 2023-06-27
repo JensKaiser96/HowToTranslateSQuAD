@@ -3,7 +3,7 @@ from src.tools.project_paths import QADatasetPaths
 from src.translate.fairseq import Translator
 from src.tools.logging import get_logger
 
-logger = get_logger(__name__)
+logger = get_logger(__file__, script=True)
 
 
 def main():
