@@ -82,7 +82,10 @@ class Paragraph:
                 }
 
 
-class QuAD:
+class QUAD:
+    """
+    A Object view on the QuAD structure
+    """
     paragraphs: list[Paragraph]
 
     def __init__(self, path: str = "", paragraphs: list[Paragraph] = None):
