@@ -6,7 +6,7 @@ from pathlib import Path
 
 def to_json(data: dict, path: str):
     suffix = ".json"
-    path = _str_to_safe_path(path, suffix)
+    path = str_to_safe_path(path, suffix)
     with open(path, 'w', encoding='utf-8') as f_out:
         json.dump(data, f_out, ensure_ascii=False, indent=4)
 
@@ -23,13 +23,18 @@ def _rename_old_file(path: str):
     modified_date = datetime.datetime.fromtimestamp(os.path.getmtime(path))
     modified_date_str = modified_date.strftime("%Y_%m_%d_%H_%M_%S")
     new_file_name = f"{file_name}_{modified_date_str}{file_ext}"
+    print(f"file at given path {path} already exists, renaming old file")
     os.rename(path, new_file_name)
-    print(f"Renamed '{path}' to '{new_file_name}'")
 
 
-def _str_to_safe_path(filepath: str, suffix):
+def str_to_safe_path(filepath: str, suffix: str = ""):
     fixed_path = _fix_relative_paths(filepath)
-    path = Path(fixed_path).with_suffix(suffix)  # add suffix
+    path = Path(fixed_path)
+    if not path.suffix:
+        if not suffix:
+            print("No suffix in filepath or in the suffix argument provided.")
+        else:
+            path = path.with_suffix(suffix)  # add suffix
 
     path.parent.mkdir(exist_ok=True, parents=True)  # create parent dir
 
