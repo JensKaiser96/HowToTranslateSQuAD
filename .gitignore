@@ -1,3 +1,9 @@
+# logs
+logs/
+
+# conda venv
+.conda*/
+
 # PyCharm folder
 .idea
 # Byte-compiled / optimized / DLL files
