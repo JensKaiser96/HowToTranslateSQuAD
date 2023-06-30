@@ -4,6 +4,7 @@ from src.tools.logging import get_logger
 
 logger = get_logger(__name__)
 
+
 class Translator:
     en2de_model_name = "transformer.wmt19.en-de"
     de2en_model_name = "transformer.wmt19.de-en"
