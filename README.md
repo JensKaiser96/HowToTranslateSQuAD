@@ -2,10 +2,10 @@
 Repository containing the material for my master thesis
 
 ## Timeplan
-![Timeplan](misc/timeplan.jpg)
+![Timeplan](data/misc/timeplan.jpg)
 
 ## Approach
-![Approach](misc/approach.jpg)
+![Approach](data/misc/approach.jpg)
 
 ## Stress Test
 - [x] OOD - Out of Domain: German parts of MLQA and XSQuAD
