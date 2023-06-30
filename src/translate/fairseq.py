@@ -1,4 +1,5 @@
 import torch
+import logging
 
 from src.tools.logging import get_logger
 
@@ -15,12 +16,15 @@ class Translator:
     def __init__(self):
         self.en2de_model = None
         self.de2en_model = None
+        fairseq_logger = logging.getLogger("fairseq.tasks.fairseq_task")
+        fairseq_logger.setLevel(logging.WARN)
 
     def _load_model(self, model_name: str):
         logger.info(f"Loading translation model:'{model_name}' ...")
-        model = torch.hub.load(self._repo, model_name,
-                               checkpoint_file='model1.pt:model2.pt:model3.pt:model4.pt',
-                               tokenizer=self._tokenizer, bpe=self._bpe)
+        model = torch.hub.load(
+                self._repo, model_name,
+                checkpoint_file='model1.pt:model2.pt:model3.pt:model4.pt',
+                tokenizer=self._tokenizer, bpe=self._bpe)
         model.eval()  # disable dropout
         model.cuda()  # move model to GPU
         return model
