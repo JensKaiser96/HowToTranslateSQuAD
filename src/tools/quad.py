@@ -160,6 +160,11 @@ class QUAD:
         DIS = "./data/datasets/stress_test/DIS.json"
         ONE = "./data/datasets/stress_test/ONE.json"
 
+        class Base:
+            NOT = "./data/datasets/stress_test/base/NOT.json"
+            DIS = "./data/datasets/stress_test/base/DIS.json"
+            ONE = "./data/datasets/stress_test/base/ONE.json"
+
     def __init__(self, path: str = "", _data: QuadData = None):
         if path:
             self._data = self._load(path)

@@ -7,19 +7,19 @@ logger = get_logger(__file__, script=True)
 
 def create_NOT(_data: list):
     QUAD(_data=_data).save(
-            QUAD.StressTest.NOT, version="GermanQuAD_test_NOT")
+            QUAD.StressTest.Base.NOT, version="GermanQuAD_test_NOT")
 
 
 def create_DIS(_data: list, size: int = 50):
     dis = QUAD(_data=_data)
     dis.data._data = sorted(dis.data, key=lambda p: len(p.context))[:size]
     logger.info(f"The longest paragraph has length: {len(dis.data[0].context)}")
-    dis.save(QUAD.StressTest.DIS, version="GermanQuAD_test_DIS")
+    dis.save(QUAD.StressTest.Base.DIS, version="GermanQuAD_test_DIS")
 
 
 def create_ONE(_data: list):
     QUAD(_data=_data).save(
-            QUAD.StressTest.ONE, version="GermanQuAD_test_ONE")
+            QUAD.StressTest.Base.ONE, version="GermanQuAD_test_ONE")
 
 
 def split(list_: list, n: int) -> tuple[list]:
