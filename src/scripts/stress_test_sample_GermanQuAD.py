@@ -1,20 +1,25 @@
 import random
-from src.tools.QUAD import QUAD
-from src.tools.project_paths import StressTestPaths, QADatasetPaths
+from src.tools.quad import QUAD
+from src.tools.logging import get_logger
+
+logger = get_logger(__file__, script=True)
 
 
-def create_NOT(paragraphs: list, size: int = 100):
-    QUAD(paragraphs=paragraphs[:size]).save(StressTestPaths.NOT, version="GermanQuAD_test_NOT")
+def create_NOT(_data: list):
+    QUAD(_data=_data).save(
+            QUAD.StressTest.NOT, version="GermanQuAD_test_NOT")
 
 
-def create_DIS(paragraphs: list, size: int = 50):
-    short_paragraphs = sorted(paragraphs, key=lambda p: len(p.context))[:size]
-    print(f"The longest paragraph has length: {len(short_paragraphs[-1].context)}")
-    QUAD(paragraphs=short_paragraphs).save(StressTestPaths.DIS, version="GermanQuAD_test_DIS")
+def create_DIS(_data: list, size: int = 50):
+    dis = QUAD(_data=_data)
+    dis.data._data = sorted(dis.data, key=lambda p: len(p.context))[:size]
+    logger.info(f"The longest paragraph has length: {len(dis.data[0].context)}")
+    dis.save(QUAD.StressTest.DIS, version="GermanQuAD_test_DIS")
 
 
-def create_ONE(paragraphs: list, size: int = 100):
-    QUAD(paragraphs=paragraphs[:size]).save(StressTestPaths.ONE, version="GermanQuAD_test_ONE")
+def create_ONE(_data: list):
+    QUAD(_data=_data).save(
+            QUAD.StressTest.ONE, version="GermanQuAD_test_ONE")
 
 
 def split(list_: list, n: int) -> tuple[list]:
@@ -27,8 +32,8 @@ def split(list_: list, n: int) -> tuple[list]:
 
 
 if __name__ == "__main__":
-    dataset = QUAD(QADatasetPaths.GermanQuADTest)
-    paragraphs_NOT, paragraphs_DIS, paragraphs_ONE = split(dataset.paragraphs, 3)
-    create_NOT(paragraphs_NOT)
-    create_DIS(paragraphs_DIS)
-    create_ONE(paragraphs_ONE)
+    dataset = QUAD(QUAD.Datasets.GermanQuADTest)
+    data_NOT, data_DIS, data_ONE = split(dataset.data._data, 3)
+    create_NOT(data_NOT)
+    create_DIS(data_DIS)
+    create_ONE(data_ONE)

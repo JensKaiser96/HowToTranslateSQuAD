@@ -1,12 +1,14 @@
-from src.tools.QUAD import QUAD
-from src.tools.project_paths import StressTestPaths, QADatasetPaths
+from src.tools.quad import QUAD
+from src.tools.logging import get_logger
+
+logger = get_logger(__file__, script=True)
 
 
 def main():
-    mlqa = QUAD(QADatasetPaths.MLQA)
-    xquad = QUAD(QADatasetPaths.XQuAD)
-    OOD = QUAD(paragraphs=mlqa.paragraphs + xquad.paragraphs)
-    OOD.save(StressTestPaths.OOD, version="OOD")
+    mlqa = QUAD(QUAD.Datasets.MLQA)
+    xquad = QUAD(QUAD.Datasets.XQuAD)
+    OOD = QUAD(_data=mlqa.data._data + xquad.data._data)
+    OOD.save(QUAD.StressTest.OOD, version="OOD")
 
 
 if __name__ == "__main__":
