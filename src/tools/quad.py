@@ -94,7 +94,7 @@ class QAS:
         self._data = _data
 
     def __getitem__(self, index: int) -> QA:
-        return self._data[index]
+        return QA(self._data[index])
 
     def __len__(self):
         return len(self._data)
