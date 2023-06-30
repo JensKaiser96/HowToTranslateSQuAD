@@ -117,12 +117,23 @@ class Paragraph:
         self._data[QuADKeys.context] = _context
 
 
-class QuadData:
-    def __init__(self, _data: list[Paragraph]):
+class Paragraphs:
+    def __init__(self, _data: list):
         self._data = _data
 
     def __getitem__(self, index: int) -> Paragraph:
-        return Paragraph(self._data[index][QuADKeys.paragraphs][0])
+        return Paragraph(self._data[index])
+
+    def __len__(self):
+        return len(self._data)
+
+
+class QuadData:
+    def __init__(self, _data: list):
+        self._data = _data
+
+    def __getitem__(self, index: int) -> Paragraphs:
+        return Paragraphs(self._data[index][QuADKeys.paragraphs])
 
     def __len__(self):
         return len(self._data)
