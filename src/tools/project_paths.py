@@ -7,7 +7,7 @@ class QADatasetPaths:
     SQUAD2_DEV = "./data/datasets/SQuAD/dev-v2.0.json"
     MLQA = "./data/datasets/MLQA/test-context-de-question-de.json"
     XQuAD = "./data/datasets/XQuAD/xquad.de.json"
-    RAW_SQUAD1_TRAIN = ".data/datasets/RAW_SQUAD/train-v1.0.json"
+    RAW_SQUAD1_TRAIN = "./data/datasets/RAW_SQUAD/train-v1.0.json"
 
 
 class StressTestPaths:

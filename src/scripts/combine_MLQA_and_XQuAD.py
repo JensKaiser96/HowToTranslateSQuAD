@@ -1,11 +1,11 @@
-from src.tools.QuadExplorer import QuAD
+from src.tools.QUAD import QUAD
 from src.tools.project_paths import StressTestPaths, QADatasetPaths
 
 
 def main():
-    mlqa = QuAD(QADatasetPaths.MLQA)
-    xquad = QuAD(QADatasetPaths.XQuAD)
-    OOD = QuAD(paragraphs=mlqa.paragraphs + xquad.paragraphs)
+    mlqa = QUAD(QADatasetPaths.MLQA)
+    xquad = QUAD(QADatasetPaths.XQuAD)
+    OOD = QUAD(paragraphs=mlqa.paragraphs + xquad.paragraphs)
     OOD.save(StressTestPaths.OOD, version="OOD")
 
 

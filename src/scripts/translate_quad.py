@@ -1,4 +1,4 @@
-from src.tools.QuadExplorer import QuAD
+from src.tools.QUAD import QUAD
 from src.tools.project_paths import QADatasetPaths
 from src.translate.fairseq import Translator
 from src.tools.logging import get_logger
@@ -7,7 +7,7 @@ logger = get_logger(__file__, script=True)
 
 
 def main():
-    squad1_train = QuAD(QADatasetPaths.SQUAD1_DEV)  # todo: set to TRAIN instead of DEV
+    squad1_train = QUAD(QADatasetPaths.SQUAD1_DEV)  # todo: set to TRAIN instead of DEV
     translator = Translator()
     for paragraph in squad1_train.paragraphs:
         paragraph.context = translator.en2de(paragraph.context)
