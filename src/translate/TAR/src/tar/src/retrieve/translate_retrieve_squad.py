@@ -16,7 +16,7 @@ class SquadTranslator:
                  lang_target,               # str "es" but I want "de"
                  output_dir,                # path to output
                  alignment_type,            # ????
-                 answers_from_alignment,    # bool: ?!??!
+                 answers_from_alignment,    # bool: do retrieve step
                  batch_size):               # int 32
 
         self.squad_file = squad_file

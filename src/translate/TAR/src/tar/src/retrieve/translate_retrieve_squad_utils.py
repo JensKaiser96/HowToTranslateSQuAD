@@ -29,11 +29,9 @@ def de_tokenize(text, lang):
         text = text.split()
 
     if lang == 'en':
-        text_detok = detokenizer_en.detokenize(text, return_str=True)
-        return text_detok
+        return detokenizer_en.detokenize(text, return_str=True)
     elif lang == 'es':
-        text_detok = detokenizer_es.detokenize(text, return_str=True)
-        return text_detok
+        return detokenizer_es.detokenize(text, return_str=True)
 
 
 # Chunk sentences longer than a maximum number of words/tokens based on a delimiter character.
@@ -355,7 +353,8 @@ def extract_answer_translated(answer, answer_translated, context, context_transl
             pass  # do nothing cause everything is fine
         else:  # answer found before expected
             pass  # everything is still fine
-    else:  # 
+    else:  #
+        pass
     if context_translated.lower().find(answer_translated.lower(),
                                        answer_translated_start_shifted) != -1:
 
