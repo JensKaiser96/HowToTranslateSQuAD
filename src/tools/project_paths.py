@@ -15,3 +15,9 @@ class StressTestPaths:
     NOT = "./data/datasets/stress_test/NOT.json"
     DIS = "./data/datasets/stress_test/DIS.json"
     ONE = "./data/datasets/stress_test/ONE.json"
+
+class Alignment:
+    config = ""
+    model = ""
+    bpq = ""
+    tokenizer = ""
