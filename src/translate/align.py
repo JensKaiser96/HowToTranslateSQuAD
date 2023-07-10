@@ -14,6 +14,8 @@ from fairseq.data.dictionary import Dictionary
 from torch.utils.data.dataloader import DataLoader
 from transformers import XLMRobertaConfig, XLMRobertaModel, XLMRobertaTokenizer
 
+from src.io.filepaths import Alignment
+
 
 MODEL_CLASSES = {
     "xlmr": (XLMRobertaConfig, XLMRobertaModel, XLMRobertaTokenizer),
@@ -291,16 +293,15 @@ def run(args):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('--bpe_path', type=str)
-    parser.add_argument("--test_set_dir", type=str)
+    parser.add_argument('--bpe_path', type=str, default=Alignment.bpq)
     parser.add_argument("--lang_pair", type=str, default="de-en")
-    parser.add_argument("--source_lang", type=str, default="en")
-    parser.add_argument("--target_lang", type=str, default="de")
+    # parser.add_argument("--source_lang", type=str, default="en")
+    # parser.add_argument("--target_lang", type=str, default="de")
     parser.add_argument("--wa_layer", type=int, default=8)
     parser.add_argument("--sinkhorn_iter", type=int, default=2)
-    parser.add_argument('--vocab_path',  type=str)
+    parser.add_argument('--vocab_path',  type=str, default=Alignment.vocab)
     parser.add_argument(
-        "--config_name", type=str,
+        "--config_name", type=str, default=Alignment.config,
         help="Pretrained config name or path if not the same as model_name"
     )
     parser.add_argument(
