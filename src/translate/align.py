@@ -16,8 +16,8 @@ from transformers import XLMRobertaConfig, XLMRobertaModel, XLMRobertaTokenizer
 
 
 MODEL_CLASSES = {
-        "xlmr": (XLMRobertaConfig, XLMRobertaModel, XLMRobertaTokenizer),
-        }
+    "xlmr": (XLMRobertaConfig, XLMRobertaModel, XLMRobertaTokenizer),
+}
 
 
 def move_to_device(sample, device):
@@ -70,11 +70,11 @@ class RawPair2WordAlignDataset(FairseqDataset):
     def __getitem__(self, index):
         src_line = self.src_lines[index]
         src_indices, src_gid, src_words = self.get_indices_and_gid(
-                src_line, offset=0)
+            src_line, offset=0)
 
         trg_line = self.trg_lines[index]
         trg_indices, trg_gid, trg_words = self.get_indices_and_gid(
-                trg_line, offset=0)
+            trg_line, offset=0)
 
         line_indices = ([self.vocab.bos()] +
                         src_indices +
@@ -91,12 +91,12 @@ class RawPair2WordAlignDataset(FairseqDataset):
         assert trg_to + 1 == len(line_indices)
 
         return {
-                "tensor": torch.LongTensor(line_indices),
-                "token_group": token_group_id,
-                "src_words": src_words,
-                "trg_words": trg_words,
-                "offsets": (src_fr, src_to, trg_fr, trg_to),
-                }
+            "tensor": torch.LongTensor(line_indices),
+            "token_group": token_group_id,
+            "src_words": src_words,
+            "trg_words": trg_words,
+            "offsets": (src_fr, src_to, trg_fr, trg_to),
+        }
 
     def __len__(self):
         return len(self.src_lines)
@@ -122,17 +122,17 @@ class RawPair2WordAlignDataset(FairseqDataset):
         ntokens = sum(len(s) for s in tensor_samples)
 
         batch = {
-                'nsentences': len(samples),
-                'ntokens': ntokens,
-                'net_input': {
-                    'src_tokens': tokens,
-                    'src_lengths': lengths,
-                    },
-                'token_groups': token_groups,
-                "src_words": src_words,
-                "trg_words": trg_words,
-                "offsets": (src_fr, src_to, trg_fr, trg_to),
-                }
+            'nsentences': len(samples),
+            'ntokens': ntokens,
+            'net_input': {
+                'src_tokens': tokens,
+                'src_lengths': lengths,
+            },
+            'token_groups': token_groups,
+            "src_words": src_words,
+            "trg_words": trg_words,
+            "offsets": (src_fr, src_to, trg_fr, trg_to),
+        }
 
         return batch
 
@@ -141,23 +141,23 @@ def load_model(args):
     args.model_type = args.model_type.lower()
     config_class, model_class, tokenizer_class = MODEL_CLASSES[args.model_type]
     config = config_class.from_pretrained(
-            args.config_name if args.config_name else args.model_name_or_path,
-            cache_dir=args.cache_dir if args.cache_dir else None)
+        args.config_name if args.config_name else args.model_name_or_path,
+        cache_dir=args.cache_dir if args.cache_dir else None)
 
     config.output_hidden_states = True
     config.return_dict = False
 
     tokenizer = tokenizer_class.from_pretrained(
-            args.tokenizer_name if args.tokenizer_name
-            else args.model_name_or_path,
-            do_lower_case=args.do_lower_case,
-            cache_dir=args.cache_dir if args.cache_dir else None)
+        args.tokenizer_name if args.tokenizer_name
+        else args.model_name_or_path,
+        do_lower_case=args.do_lower_case,
+        cache_dir=args.cache_dir if args.cache_dir else None)
     state_dict = None
     model = model_class.from_pretrained(
-          args.model_name_or_path,
-          from_tf=bool(".ckpt" in args.model_name_or_path),
-          config=config,
-          state_dict=state_dict)
+        args.model_name_or_path,
+        from_tf=bool(".ckpt" in args.model_name_or_path),
+        config=config,
+        state_dict=state_dict)
     return config, tokenizer, model
 
 
@@ -221,8 +221,8 @@ def convert_batch_fairseq2hf(net_input):
     _, max_len = tokens.size()
     device = tokens.device
     attention_mask = (
-                torch.arange(max_len)[None, :].to(device) < lengths[:, None]
-            ).float()
+        torch.arange(max_len)[None, :].to(device) < lengths[:, None]
+    ).float()
     return tokens, attention_mask
 
 
@@ -231,7 +231,7 @@ def get_wa(args, model, sample):
     with torch.no_grad():
         tokens, attention_mask = convert_batch_fairseq2hf(sample['net_input'])
     last_layer_outputs, first_token_outputs, all_layer_outputs = model(
-            input_ids=tokens, attention_mask=attention_mask)
+        input_ids=tokens, attention_mask=attention_mask)
     wa_features = all_layer_outputs[args.wa_layer]
     rep = wa_features
 
@@ -266,10 +266,10 @@ def run(args):
         # gold_align = load_gold_alignments(args)
         dataset = get_dataset(args, vocab)
         dl = DataLoader(
-                dataset,
-                batch_size=64,
-                shuffle=False,
-                collate_fn=dataset.collater)
+            dataset,
+            batch_size=64,
+            shuffle=False,
+            collate_fn=dataset.collater)
 
         print("Language pair: %s" % lang_pair)
         all_results = {key: [] for key in ["p", "r", "f1", "aer"]}
@@ -300,28 +300,28 @@ if __name__ == "__main__":
     parser.add_argument("--sinkhorn_iter", type=int, default=2)
     parser.add_argument('--vocab_path',  type=str)
     parser.add_argument(
-            "--config_name", type=str,
-            help="Pretrained config name or path if not the same as model_name"
-        )
+        "--config_name", type=str,
+        help="Pretrained config name or path if not the same as model_name"
+    )
     parser.add_argument(
-            "--tokenizer_name", type=str,
-            help="Pretrained tokenizer name or path if not the same as "
-                 "model_name"
-        )
+        "--tokenizer_name", type=str,
+        help="Pretrained tokenizer name or path if not the same as "
+        "model_name"
+    )
     parser.add_argument(
-            "--cache_dir", type=str,
-            help="Where do you want to store the pre-trained models downloaded"
-                 " from s3",
-        )
+        "--cache_dir", type=str,
+        help="Where do you want to store the pre-trained models downloaded"
+        " from s3",
+    )
     parser.add_argument("--model_type", type=str, default="xlmr")
     parser.add_argument(
-            "--model_name_or_path", type=str, required=True,
-            help="Path to pre-trained model or shortcut name selected in the "
-            "list:"
-        )
+        "--model_name_or_path", type=str, required=True,
+        help="Path to pre-trained model or shortcut name selected in the "
+        "list:"
+    )
     parser.add_argument(
-            "--do_lower_case", action='store_true',
-            help="Set this flag if you are using an uncased model.")
+        "--do_lower_case", action='store_true',
+        help="Set this flag if you are using an uncased model.")
     args = parser.parse_args()
     args.device = torch.device("cuda")
     run(args)
