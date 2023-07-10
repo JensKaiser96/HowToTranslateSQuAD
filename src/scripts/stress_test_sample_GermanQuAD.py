@@ -1,25 +1,29 @@
 import random
-from src.tools.quad import QUAD
-from src.tools.logging import get_logger
+from src.qa.quad import QUAD
+from src.utils.logging import get_logger
 
 logger = get_logger(__file__, script=True)
 
 
 def create_NOT(_data: list):
     QUAD(_data=_data).save(
-            QUAD.StressTest.Base.NOT, version="GermanQuAD_test_NOT")
+            QUAD.StressTest.Base.NOT, version="GermanQuAD_test_NOT"
+        )
 
 
 def create_DIS(_data: list, size: int = 50):
     dis = QUAD(_data=_data)
     dis.data._data = sorted(dis.data, key=lambda p: len(p.context))[:size]
-    logger.info(f"The longest paragraph has length: {len(dis.data[0].context)}")
+    logger.info(
+            f"The longest paragraph has length: {len(dis.data[0].context)}"
+        )
     dis.save(QUAD.StressTest.Base.DIS, version="GermanQuAD_test_DIS")
 
 
 def create_ONE(_data: list):
     QUAD(_data=_data).save(
-            QUAD.StressTest.Base.ONE, version="GermanQuAD_test_ONE")
+            QUAD.StressTest.Base.ONE, version="GermanQuAD_test_ONE"
+        )
 
 
 def split(list_: list, n: int) -> tuple[list]:
@@ -32,7 +36,7 @@ def split(list_: list, n: int) -> tuple[list]:
 
 
 if __name__ == "__main__":
-    dataset = QUAD(QUAD.Datasets.GermanQuADTest)
+    dataset = QUAD(QUAD.Datasets.GermanQuad.TEST)
     data_NOT, data_DIS, data_ONE = split(dataset.data._data, 3)
     create_NOT(data_NOT)
     create_DIS(data_DIS)

@@ -1,7 +1,7 @@
 import tqdm
-from src.tools.logging import get_logger
-from src.tools.formatter import Formatter
-from src.tools.quad import QUAD
+from src.utils.logging import get_logger
+from src.utils.formatter import Formatter
+from src.qa.quad import QUAD
 logger = get_logger(__file__, script=True)
 
 """
@@ -23,11 +23,13 @@ def main():
             for qa in paragraph.qas:
                 f.print(f"\t- {qa.question}")
             user_input = input(
-                    "\n\nEnter unanswerable Question (leave blank to skip):\n")
+                    "\n\nEnter unanswerable Question (leave blank to skip):\n"
+                    )
             if not user_input:
                 continue
             not_annotated.add_unanswerable_question(context, user_input)
-            # Save every time, this will cause a lot of old files, but I can live with that
+            # Save every time, this will cause a lot of old files,
+            # but I can live with that
             not_annotated.save(QUAD.StressTest.NOT, version="NOT_annotated")
 
 

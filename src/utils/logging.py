@@ -1,7 +1,7 @@
 import logging
 from pathlib import Path
 
-from src.tools.io import str_to_safe_path
+from src.io.utils import str_to_safe_path
 
 _default_log_dir = "logs/"
 _default_log_name = "log.log"

@@ -1,10 +1,10 @@
 from collections import Counter
 
-from src.tools.quad import QUAD
+from src.qa.quad import QUAD
 
 
 def main():
-    squad_raw = QUAD(QUAD.Datasets.RAW_SQUAD1_TRAIN)
+    squad_raw = QUAD(QUAD.Datasets.Squad1.Translated.Raw)
     answer_counts = Counter()
     for article in squad_raw.data:
         for paragraph in article:

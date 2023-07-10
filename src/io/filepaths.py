@@ -1,41 +1,54 @@
 """
 Module containing all paths to important files
+should be a yaml, but eh, maybe one day
 """
 
 _DATASETS = "./data/datasets/"
 
-class Dataset:
+
+class Datasets:
     class GermanQuad:
-        _dir_path = _DATASETS + "GermanQuAD"
-        Test = _dir_path + "GermanQuAD_test.json"
-        Train = _dir_path + "GermanQuAD_train.json"
+        _dir_path = _DATASETS + "GermanQuAD/"
+        TEST = _dir_path + "GermanQuAD_test.json"
+        TRAIN = _dir_path + "GermanQuAD_train.json"
+
     class Squad1:
-        _dir_path
-    SQUAD1_TRAIN = _path_prefix + "/SQuAD/train-v1.1.json"
-    SQUAD2_TRAIN = _path_prefix + "./data/datasets/SQuAD/train-v2.0.json"
-    SQUAD1_DEV = _path_prefix + "./data/datasets/SQuAD/dev-v1.1.json"
-    SQUAD2_DEV = _path_prefix + "./data/datasets/SQuAD/dev-v2.0.json"
-    MLQA = _path_prefix + "./data/datasets/MLQA/test-context-de-question-de.json"
-    XQuAD = _path_prefix + "./data/datasets/XQuAD/xquad.de.json"
-    RAW_SQUAD1_TRAIN = _path_prefix + "./data/datasets/RAW_SQUAD/train-v1.0.json"
+        _dir_path = _DATASETS + "SQuAD/"
+        TRAIN = _dir_path + "train-v1.1.json"
+        DEV = _dir_path + "dev-v1.1.json"
+
+        class Translated:
+            class Raw:
+                _dir_path = _DATASETS + "RAW_SQUAD/"
+                TRAIN = "train-v1.0.json"
+
+    class Squad2:
+        _dir_path = _DATASETS + "SQuAD/"
+        TRAIN = _dir_path + "train-v2.0.json"
+        DEV = _dir_path + "dev-v2.0.json"
+
+    class Mlqa:
+        _dir_path = _DATASETS + "MLQA/"
+        TEST = _dir_path + "test-context-de-question-de"
+
+    class Xquad:
+        _dir_path = _DATASETS + "XQuAD/"
+        TEST = _dir_path + "xquad.de.json"
+
 
 class StressTest:
-    OOD = "./data/datasets/stress_test/OOD.json"
-    NOT = "./data/datasets/stress_test/NOT.json"
-    DIS = "./data/datasets/stress_test/DIS.json"
-    ONE = "./data/datasets/stress_test/ONE.json"
+    _dir_path = _DATASETS + "stress_test/"
+    OOD = _dir_path + "OOD.json"
+    NOT = _dir_path + "NOT.json"
+    DIS = _dir_path + "DIS.json"
+    ONE = _dir_path + "ONE.json"
 
     class Base:
-        NOT = "./data/datasets/stress_test/base/NOT.json"
-        DIS = "./data/datasets/stress_test/base/DIS.json"
-        ONE = "./data/datasets/stress_test/base/ONE.json"
+        _dir_path = _DATASETS + "stress_test/base"
+        NOT = _dir_path + "NOT.json"
+        DIS = _dir_path + "DIS.json"
+        ONE = _dir_path + "ONE.json"
 
-
-class StressTestPaths:
-    OOD = "./data/datasets/stress_test/OOD.json"
-    NOT = "./data/datasets/stress_test/NOT.json"
-    DIS = "./data/datasets/stress_test/DIS.json"
-    ONE = "./data/datasets/stress_test/ONE.json"
 
 class Alignment:
     config = ""

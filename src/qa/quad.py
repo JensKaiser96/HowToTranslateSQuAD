@@ -1,5 +1,6 @@
 import json
-from src.tools.io import to_json
+from src.io.filepaths import Datasets, StressTest
+from src.utils.io import to_json
 
 """
 quad structure:
@@ -143,27 +144,11 @@ class QUAD:
     """
     A Object view on the QuAD structure
     """
-    class Datasets:
-        GermanQuADTest = "./data/datasets/GermanQuAD/GermanQuAD_test.json"
-        GermanQuADTrain = "./data/datasets/GermanQuAD/GermanQuAD_train.json"
-        SQUAD1_TRAIN = "./data/datasets/SQuAD/train-v1.1.json"
-        SQUAD2_TRAIN = "./data/datasets/SQuAD/train-v2.0.json"
-        SQUAD1_DEV = "./data/datasets/SQuAD/dev-v1.1.json"
-        SQUAD2_DEV = "./data/datasets/SQuAD/dev-v2.0.json"
-        MLQA = "./data/datasets/MLQA/test-context-de-question-de.json"
-        XQuAD = "./data/datasets/XQuAD/xquad.de.json"
-        RAW_SQUAD1_TRAIN = "./data/datasets/RAW_SQUAD/train-v1.0.json"
 
-    class StressTest:
-        OOD = "./data/datasets/stress_test/OOD.json"
-        NOT = "./data/datasets/stress_test/NOT.json"
-        DIS = "./data/datasets/stress_test/DIS.json"
-        ONE = "./data/datasets/stress_test/ONE.json"
-
-        class Base:
-            NOT = "./data/datasets/stress_test/base/NOT.json"
-            DIS = "./data/datasets/stress_test/base/DIS.json"
-            ONE = "./data/datasets/stress_test/base/ONE.json"
+    # make dataset paths available trough this class without having to import
+    # them explicitly
+    Datasets = Datasets
+    StressTest = StressTest
 
     def __init__(self, path: str = "", _data: QuadData = None):
         if path:

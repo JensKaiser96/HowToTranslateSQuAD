@@ -1,12 +1,12 @@
-from src.tools.quad import QUAD
-from src.tools.logging import get_logger
+from src.qa.quad import QUAD
+from src.utils.logging import get_logger
 
 logger = get_logger(__file__, script=True)
 
 
 def main():
-    mlqa = QUAD(QUAD.Datasets.MLQA)
-    xquad = QUAD(QUAD.Datasets.XQuAD)
+    mlqa = QUAD(QUAD.Datasets.Mlqa.TEST)
+    xquad = QUAD(QUAD.Datasets.Xquad.TESTD)
     OOD = QUAD(_data=mlqa.data._data + xquad.data._data)
     OOD.save(QUAD.StressTest.OOD, version="OOD")
 
