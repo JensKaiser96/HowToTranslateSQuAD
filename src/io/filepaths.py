@@ -44,13 +44,14 @@ class StressTest:
     ONE = _dir_path + "ONE.json"
 
     class Base:
-        _dir_path = _DATASETS + "stress_test/base"
+        _dir_path = _DATASETS + "stress_test/base/"
         NOT = _dir_path + "NOT.json"
         DIS = _dir_path + "DIS.json"
         ONE = _dir_path + "ONE.json"
 
 
 class Alignment:
+    _dir_path = "/mount/arbeitsdaten31/studenten1/kaiserjs/models/"
     config = ""
     model = ""
     bpq = ""
