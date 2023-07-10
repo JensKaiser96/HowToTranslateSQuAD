@@ -10,7 +10,7 @@ def main():
     squad1_train = QUAD(QUAD.Datasets.SQUAD1_TRAIN)
     translator = Translator()
     for entry in tqdm.tqdm(squad1_train.data):
-        for paragraph in entry:
+        for paragraph in tqdm.tqdm(entry):
             paragraph.context = translator.en2de(paragraph.context)
             for qa in paragraph.qas:
                 qa.question = translator.en2de(qa.question)
