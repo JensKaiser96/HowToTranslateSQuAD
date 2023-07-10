@@ -51,8 +51,8 @@ class StressTest:
 
 
 class Alignment:
-    _dir_path = "/mount/arbeitsdaten31/studenten1/kaiserjs/models/"
-    config = ""
-    model = ""
-    bpq = ""
-    tokenizer = ""
+    _dir_path = "/mount/arbeitsdaten31/studenten1/kaiserjs/models/xlm-align-base/"
+    config = _dir_path + "config.json"
+    model_path = _dir_path
+    bpq = _dir_path + "sentencepiece.bpe.model"
+    vocab = _dir_path + "fairseq-dict.txt"
