@@ -1,5 +1,5 @@
 from src.qa.quad import QUAD
-from src.translate.fairseq import Translator
+from src.tar.translate import Translator
 from src.utils.logging import get_logger
 import tqdm
 
