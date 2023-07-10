@@ -170,6 +170,8 @@ class QUAD:
             self._data = self._load(path)
         if _data:
             self._data = {QuADKeys.data: _data}
+        if not path and not _data:
+            self._data = {QuADKeys.data: []}
 
     @property
     def data(self) -> QuadData:
@@ -187,6 +189,12 @@ class QUAD:
     def _load(path: str) -> dict:
         with open(path, mode="r", encoding="utf-8") as f_in:
             return json.load(f_in)
+
+    def add_unanswerable_question(self, context: str, question: str):
+        qa = QA({QuADKeys.question: question, QuADKeys.answers: []})
+        paragraph = Paragraph({QuADKeys.context: context,
+                               QuADKeys.qas: [qa._data]})
+        self.data._data.append({QuADKeys.paragraphs: [paragraph._data]})
 
     def save(self, path: str, version: str = ""):
         print(f"saving dataset '{version}' of size: '{len(self.data)}'"

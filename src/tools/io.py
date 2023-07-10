@@ -31,11 +31,10 @@ def _rename_old_file(path: str, verbose=False):
 def str_to_safe_path(filepath: str, suffix: str = "", verbose=False):
     fixed_path = _fix_relative_paths(filepath)
     path = Path(fixed_path)
-    if not path.suffix:
-        if not suffix:
-            print("No suffix in filepath or in the suffix argument provided.")
-        else:
-            path = path.with_suffix(suffix)  # add suffix
+    if suffix:  # set the suffix if explicitly given
+        path = path.with_suffix(suffix)
+    elif not path.suffix:  # warn if suffix is given neiter explicitly nor implicitly
+        print("No suffix in filepath or in the suffix argument provided.")
 
     path.parent.mkdir(exist_ok=True, parents=True)  # create parent dir
 

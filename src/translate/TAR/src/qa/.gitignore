@@ -1,0 +1,6 @@
+env/*
+tools/*
+corpora/*
+data/*
+runs/*
+cached*

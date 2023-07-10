@@ -1,0 +1,12 @@
+translate_retrive_squad.py -> SquadTranslator
+    ST.translate_align_content()
+        extracte_content_translations_alignment
+            translate -> (utils.translate)
+                is fine :) cause i dont use it
+            compute alignment -> (utils.compute_alignment)
+                alignment/compute_alignment.sh
+            combine translation and alignment 
+    ST.translate_retrive()
+       extract_answer_translated -> (utils.extract_answer_translated) 
+                get_left_right_close_index(...,...,left)
+       messsy clean_up of data (empty answers)
