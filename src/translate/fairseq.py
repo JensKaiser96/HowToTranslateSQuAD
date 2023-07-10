@@ -8,15 +8,15 @@ logger = get_logger(__name__)
 
 
 class Translator:
-    en2de_model_name = "transformer.wmt19.en-de"
-    de2en_model_name = "transformer.wmt19.de-en"
+    _en2de_model_name = "transformer.wmt19.en-de"
+    _de2en_model_name = "transformer.wmt19.de-en"
     _repo = "pytorch/fairseq"
     _tokenizer = "moses"
     _bpe = "fastbpe"  # "subword_nmt"
 
     def __init__(self):
-        self.en2de_model = None
-        self.de2en_model = None
+        self._en2de_model = None
+        self._de2en_model = None
 
         # disable info logging
         fairseq_loggers = (
@@ -41,11 +41,11 @@ class Translator:
         return model
 
     def en2de(self, text: str) -> str:
-        if not self.en2de_model:
-            self.en2de_model = self._load_model(self.en2de_model_name)
-        return self.en2de_model.translate(text)
+        if not self._en2de_model:
+            self._en2de_model = self._load_model(self._en2de_model_name)
+        return self._en2de_model.translate(text)
 
     def de2en(self, text: str) -> str:
-        if not self.de2en_model:
-            self.de2en_model = self._load_model(self.de2en_model_name)
-        return self.de2en_model.translate(text)
+        if not self._de2en_model:
+            self._de2en_model = self._load_model(self._de2en_model_name)
+        return self._de2en_model.translate(text)
