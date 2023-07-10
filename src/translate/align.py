@@ -1,3 +1,7 @@
+"""
+Code taken from:
+https://github.com/CZWin32768/XLM-Align/blob/main/word_aligner/xlmalign-ot-aligner.py
+"""
 import argparse
 import os
 
@@ -287,33 +291,31 @@ def run(args):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('--bpe_path', default="", type=str)
-    parser.add_argument("--test_set_dir", type=str, default="")
-    parser.add_argument("--lang_pairs", type=str, default="de-en")
+    parser.add_argument('--bpe_path', type=str)
+    parser.add_argument("--test_set_dir", type=str)
+    parser.add_argument("--lang_pair", type=str, default="de-en")
+    parser.add_argument("--source_lang", type=str, default="en")
+    parser.add_argument("--target_lang", type=str, default="de")
     parser.add_argument("--wa_layer", type=int, default=8)
     parser.add_argument("--sinkhorn_iter", type=int, default=2)
-    parser.add_argument('--vocab_path', default="", type=str)
+    parser.add_argument('--vocab_path',  type=str)
     parser.add_argument(
-            "--config_name", default="", type=str,
+            "--config_name", type=str,
             help="Pretrained config name or path if not the same as model_name"
         )
     parser.add_argument(
-            "--tokenizer_name",
-            default="",
-            type=str,
+            "--tokenizer_name", type=str,
             help="Pretrained tokenizer name or path if not the same as "
                  "model_name"
         )
     parser.add_argument(
-            "--cache_dir",
-            default="",
-            type=str,
+            "--cache_dir", type=str,
             help="Where do you want to store the pre-trained models downloaded"
                  " from s3",
         )
-    parser.add_argument("--model_type", default=None, type=str, required=True)
+    parser.add_argument("--model_type", type=str, default="xlmr")
     parser.add_argument(
-            "--model_name_or_path", default=None, type=str, required=True,
+            "--model_name_or_path", type=str, required=True,
             help="Path to pre-trained model or shortcut name selected in the "
             "list:"
         )
