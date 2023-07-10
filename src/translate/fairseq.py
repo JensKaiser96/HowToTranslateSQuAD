@@ -16,8 +16,11 @@ class Translator:
     def __init__(self):
         self.en2de_model = None
         self.de2en_model = None
-        fairseq_logger = logging.getLogger("fairseq.tasks.fairseq_task")
-        fairseq_logger.setLevel(logging.WARN)
+
+        # disable info logging
+        logging.getLogger("fairseq.tasks.fairseq_task").setLevel(logging.WARN)
+        logging.getLogger("fairseq.tasks.translation").setLevel(logging.WARN)
+        logging.getLogger("fairseq.mdoels.fairseq_model").setLevel(logging.WARN)
 
     def _load_model(self, model_name: str):
         logger.info(f"Loading translation model:'{model_name}' ...")
