@@ -33,7 +33,8 @@ def str_to_safe_path(filepath: str, suffix: str = "", verbose=False):
     path = Path(fixed_path)
     if suffix:  # set the suffix if explicitly given
         path = path.with_suffix(suffix)
-    elif not path.suffix:  # warn if suffix is given neiter explicitly nor implicitly
+    # warn if suffix is given neiter explicitly nor implicitly
+    elif not path.suffix:
         print("No suffix in filepath or in the suffix argument provided.")
 
     path.parent.mkdir(exist_ok=True, parents=True)  # create parent dir
