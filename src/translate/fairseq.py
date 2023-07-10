@@ -1,5 +1,6 @@
-import torch
 import logging
+import warnings
+import torch
 
 from src.tools.logging import get_logger
 
@@ -18,16 +19,23 @@ class Translator:
         self.de2en_model = None
 
         # disable info logging
-        logging.getLogger("fairseq.tasks.fairseq_task").setLevel(logging.WARN)
-        logging.getLogger("fairseq.tasks.translation").setLevel(logging.WARN)
-        logging.getLogger("fairseq.mdoels.fairseq_model").setLevel(logging.WARN)
+        fairseq_loggers = (
+            "fairseq.tasks.fairseq_task",
+            "fairseq.tasks.translation",
+            "fairseq.models.fairseq_model",
+            "fairseq.file_utils")
+        for fairseq_logger in fairseq_loggers:
+            logging.getLogger(fairseq_logger).setLevel(logging.WARN)
 
     def _load_model(self, model_name: str):
         logger.info(f"Loading translation model:'{model_name}' ...")
-        model = torch.hub.load(
-                self._repo, model_name,
-                checkpoint_file='model1.pt:model2.pt:model3.pt:model4.pt',
-                tokenizer=self._tokenizer, bpe=self._bpe)
+        # TODO: properly fix model loading instead of muting warnings!!!
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore")
+            model = torch.hub.load(
+                    self._repo, model_name,
+                    checkpoint_file='model1.pt:model2.pt:model3.pt:model4.pt',
+                    tokenizer=self._tokenizer, bpe=self._bpe)
         model.eval()  # disable dropout
         model.cuda()  # move model to GPU
         return model
