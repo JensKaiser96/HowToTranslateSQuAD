@@ -1,3 +1,4 @@
+data/models/
 # ignore old files of NOT which have been overwritten
 data/datasets/stress_test/NOT_*
 # logs
