@@ -27,11 +27,11 @@ class Aligner:
     def __call__(self, sentence1: str, sentence2: str
                  ) -> list[tuple[int, int]]:
         # tokenize sentences
-        encodings = self.tokenizer(sentence1, sentence2, return_tensors="pt")
-        span1, span2 = self.extract_spans(encodings, sentence1, sentence2)
+        encoding = self.tokenizer(sentence1, sentence2, return_tensors="pt")
+        span1, span2 = self.extract_spans(encoding)
 
         with torch.no_grad():
-            _, _, outputs = self.model(**encodings)
+            _, _, outputs = self.model(**encoding)
         best_alignment_output = outputs[8]  # layer 8 has the best alignment
         # I don't get why this is done, but its in the reference code
         sinkhorn_input = torch.bmm(
