@@ -18,7 +18,7 @@ class Span:
 
     @property
     def is_empty(self) -> bool:
-        return self.start <= self.end
+        return self.start >= self.end
 
 
 def _extract_wa_from_pi_xi(pi, xi):
@@ -53,10 +53,10 @@ def sinkhorn(sim: torch.Tensor, source: Span, target: Span, num_iter=2
              ) -> list[tuple[int, int]]:
     # check for valid spans
     if source.is_empty:
-        logger.warn(f"source span is empty: {source.start=}, {source.end}")
+        logger.warn(f"source span is empty: {source.start=}, {source.end=}")
         return []
     if target.is_empty:
-        logger.warn(f"target span is empty: {target.start=}, {target.end}")
+        logger.warn(f"target span is empty: {target.start=}, {target.end=}")
         return []
 
     sim_wo_offset = sim[source.start: source.end, target.start: target.end]
