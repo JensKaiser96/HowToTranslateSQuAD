@@ -1,328 +1,83 @@
-"""
-Code taken from:
-https://github.com/CZWin32768/XLM-Align/blob/main/word_aligner/xlmalign-ot-aligner.py
-"""
-import argparse
-import os
-
-import sentencepiece as spm
 import torch
-
-from fairseq import utils
-from fairseq.data import FairseqDataset, data_utils
-from fairseq.data.dictionary import Dictionary
-from torch.utils.data.dataloader import DataLoader
+from transformers.tokenization_utils_base import BatchEncoding
 from transformers import XLMRobertaConfig, XLMRobertaModel, XLMRobertaTokenizer
 
 from src.io.filepaths import Alignment
+from src.tar.utils import Span, sinkhorn
+from src.utils.logging import get_logger
+
+logger = get_logger(__name__)
 
 
-MODEL_CLASSES = {
-    "xlmr": (XLMRobertaConfig, XLMRobertaModel, XLMRobertaTokenizer),
-}
+class Aligner:
+    def __init__(self):
+        # load and set model config
+        model_config = XLMRobertaConfig.from_pretrained(Alignment.config)
+        model_config.output_hidden_states = True
+        model_config.return_dict = False
 
+        # load alignment model
+        self.model = XLMRobertaModel.from_pretrained(
+                Alignment.model_path, config=model_config)
 
-def move_to_device(sample, device):
+        # load tokenizer
+        self.tokenizer = XLMRobertaTokenizer.from_pretrained(Alignment.bpq)
 
-    def _move_to_device(tensor):
-        return tensor.to(device=device)
+    # TODO: make it work with batches
+    def __call__(self, sentence1: str, sentence2: str
+                 ) -> list[tuple[int, int]]:
+        # tokenize sentences
+        encodings = self.tokenizer(sentence1, sentence2, return_tensors="pt")
+        span1, span2 = self.extract_spans(encodings, sentence1, sentence2)
 
-    return utils.apply_to_sample(_move_to_device, sample)
+        with torch.no_grad():
+            _, _, outputs = self.model(**encodings)
+        best_alignment_output = outputs[8]  # layer 8 has the best alignment
+        # I don't get why this is done, but its in the reference code
+        sinkhorn_input = torch.bmm(
+                best_alignment_output,
+                best_alignment_output.transpose(1, 2))
+        # The sinkhorn algorithm returns the alignment pairs
+        return sinkhorn(None, sinkhorn_input, span1, span2)
 
+    def extract_spans(self, encoding: BatchEncoding) -> tuple[Span, Span]:
+        """
+        extracts spans from an encoding of two sentences, the span start index
+        is inclusive and the span end is exclusive, e.g.:
+            Span(2,5) includes the elements 2, 3, and 4 (not 5)
+        It is expected that the encoding has the following format in its
+        input_ids tensor:
+            [[BOS, <sentence1>, EOL, EOL, <sentence2>, EOL]]
+        """
+        BOS = self.tokenizer.bos_token_id
+        EOL = self.tokenizer.eol_token_id
 
-class RawPair2WordAlignDataset(FairseqDataset):
+        ids = list(encoding.input_ids.flatten())
 
-    def __init__(self, src_lines, trg_lines, bpe_path, vocab):
-        assert len(src_lines) == len(trg_lines)
-        self.src_lines = src_lines
-        self.trg_lines = trg_lines
-        self.bpe_path = bpe_path
-        self.spp = spm.SentencePieceProcessor(model_file=self.bpe_path)
-        self.vocab = vocab
-        self.bos_idx = self.vocab.bos()
-        self.eos_idx = self.vocab.eos()
-        self.bos_word = self.vocab[self.bos_idx]
-        self.eos_word = self.vocab[self.eos_idx]
+        # check if sequence is as expected
+        if not ids[0] == BOS:
+            raise ValueError(
+                f"Expected sequence to start with [BOS] token (id:{BOS}), "
+                f"but sequence starts with id:{ids[0]}.")
+        if not ids[-1] == EOL:
+            raise ValueError(
+                f"Expected sequence to end with [EOL] token (id:{EOL}), "
+                f"but sequence ends with id:{ids[0]}.")
+        if not list(ids).count(EOL) == 3:
+            raise ValueError(
+                f"Expected sequence to have exactly three occurences of the "
+                f"[EOL] token (id:{EOL}), but counted {list(ids).count(EOL)} "
+                f"instead.")
 
-    @property
-    def sizes(self):
-        # WALKAROUND
-        return [1] * len(self)
+        first_EOL = ids.index(EOL)
 
-    def size(self, index):
-        # WALKAROUND
-        return 1
+        if not ids[first_EOL + 1] == EOL:
+            raise ValueError(
+                f"Expected sequence to have the second [EOL] directly follow "
+                f" the first [EOL] (id:{EOL}), but the token after the first "
+                f"[EOL] has id: {ids[first_EOL + 1]} instead.")
 
-    def word2indices(self, word):
-        assert isinstance(word, str)
-        pieces = self.spp.encode(word, out_type=str, enable_sampling=False)
-        indices = [self.vocab.index(piece) for piece in pieces]
-        return indices
+        source_span = Span(1, first_EOL)
+        target_span = Span(first_EOL + 2, -1)
 
-    def get_indices_and_gid(self, line, offset=0):
-        line_indices = []
-        token_group_id = []
-        words = line.split()
-        for gid, word in enumerate(words):
-            for subword_idx in self.word2indices(word):
-                line_indices.append(subword_idx)
-                token_group_id.append(gid + offset)
-        return line_indices, token_group_id, words
-
-    def __getitem__(self, index):
-        src_line = self.src_lines[index]
-        src_indices, src_gid, src_words = self.get_indices_and_gid(
-            src_line, offset=0)
-
-        trg_line = self.trg_lines[index]
-        trg_indices, trg_gid, trg_words = self.get_indices_and_gid(
-            trg_line, offset=0)
-
-        line_indices = ([self.vocab.bos()] +
-                        src_indices +
-                        [self.vocab.eos()] +
-                        trg_indices +
-                        [self.vocab.eos()])
-        token_group_id = [-1] + src_gid + [-1] + trg_gid + [-1]
-        assert len(line_indices) == len(token_group_id)
-
-        src_fr = 1
-        src_to = src_fr + len(src_indices)
-        trg_fr = src_to + 1
-        trg_to = trg_fr + len(trg_indices)
-        assert trg_to + 1 == len(line_indices)
-
-        return {
-            "tensor": torch.LongTensor(line_indices),
-            "token_group": token_group_id,
-            "src_words": src_words,
-            "trg_words": trg_words,
-            "offsets": (src_fr, src_to, trg_fr, trg_to),
-        }
-
-    def __len__(self):
-        return len(self.src_lines)
-
-    def collater(self, samples):
-        if not samples:
-            return {}
-        src_fr = [s["offsets"][0] for s in samples]
-        src_to = [s["offsets"][1] for s in samples]
-        trg_fr = [s["offsets"][2] for s in samples]
-        trg_to = [s["offsets"][3] for s in samples]
-
-        tensor_samples = [s["tensor"] for s in samples]
-        token_groups = [s["token_group"] for s in samples]
-        src_words = [s["src_words"] for s in samples]
-        trg_words = [s["trg_words"] for s in samples]
-
-        pad_idx = self.vocab.pad()
-        eos_idx = self.vocab.eos()
-
-        tokens = data_utils.collate_tokens(tensor_samples, pad_idx, eos_idx)
-        lengths = torch.LongTensor([s.numel() for s in tensor_samples])
-        ntokens = sum(len(s) for s in tensor_samples)
-
-        batch = {
-            'nsentences': len(samples),
-            'ntokens': ntokens,
-            'net_input': {
-                'src_tokens': tokens,
-                'src_lengths': lengths,
-            },
-            'token_groups': token_groups,
-            "src_words": src_words,
-            "trg_words": trg_words,
-            "offsets": (src_fr, src_to, trg_fr, trg_to),
-        }
-
-        return batch
-
-
-def load_model(args):
-    args.model_type = args.model_type.lower()
-    config_class, model_class, tokenizer_class = MODEL_CLASSES[args.model_type]
-    config = config_class.from_pretrained(
-        args.config_name if args.config_name else args.model_name_or_path,
-        cache_dir=args.cache_dir if args.cache_dir else None)
-
-    config.output_hidden_states = True
-    config.return_dict = False
-
-    tokenizer = tokenizer_class.from_pretrained(
-        args.tokenizer_name if args.tokenizer_name
-        else args.model_name_or_path,
-        do_lower_case=args.do_lower_case,
-        cache_dir=args.cache_dir if args.cache_dir else None)
-    state_dict = None
-    model = model_class.from_pretrained(
-        args.model_name_or_path,
-        from_tf=bool(".ckpt" in args.model_name_or_path),
-        config=config,
-        state_dict=state_dict)
-    return config, tokenizer, model
-
-
-def get_dataset(args, vocab):
-    with open(args.src_fn) as fp:
-        src_lines = [line for line in fp]
-    with open(args.trg_fn) as fp:
-        trg_lines = [line for line in fp]
-    return RawPair2WordAlignDataset(src_lines, trg_lines, args.bpe_path, vocab)
-
-
-def extract_wa_from_pi_xi(pi, xi):
-    m, n = pi.size()
-    forward = torch.eye(n)[pi.argmax(dim=1)]
-    backward = torch.eye(m)[xi.argmax(dim=0)]
-    inter = forward * backward.transpose(0, 1)
-    ret = []
-    for i in range(m):
-        for j in range(n):
-            if inter[i, j].item() > 0:
-                ret.append((i, j))
-    return ret
-
-
-def _sinkhorn_iter(S, num_iter=2):
-    if num_iter <= 0:
-        return S, S
-    assert S.dim() == 2
-    S[S <= 0].fill_(1e-6)
-    pi = S
-    xi = pi
-    for i in range(num_iter):
-        pi_sum_over_i = pi.sum(dim=0, keepdim=True)
-        xi = pi / pi_sum_over_i
-        xi_sum_over_j = xi.sum(dim=1, keepdim=True)
-        pi = xi / xi_sum_over_j
-    return pi, xi
-
-
-def sinkhorn(sample, batch_sim, src_fr, src_to, trg_fr, trg_to, num_iter=2):
-    pred_wa = []
-    for i, sim in enumerate(batch_sim):
-        sim_wo_offset = sim[src_fr[i]: src_to[i], trg_fr[i]: trg_to[i]]
-        if src_to[i] - src_fr[i] <= 0 or trg_to[i] - trg_fr[i] <= 0:
-            print("[W] src or trg len=0")
-            pred_wa.append([])
-            continue
-        pi, xi = _sinkhorn_iter(sim_wo_offset, num_iter)
-        pred_wa_i_wo_offset = extract_wa_from_pi_xi(pi, xi)
-        pred_wa_i = []
-        for src_idx, trg_idx in pred_wa_i_wo_offset:
-            pred_wa_i.append((src_idx + src_fr[i], trg_idx + trg_fr[i]))
-        pred_wa.append(pred_wa_i)
-
-    return pred_wa
-
-
-def convert_batch_fairseq2hf(net_input):
-    tokens = net_input["src_tokens"]
-    lengths = net_input["src_lengths"]
-    _, max_len = tokens.size()
-    device = tokens.device
-    attention_mask = (
-        torch.arange(max_len)[None, :].to(device) < lengths[:, None]
-    ).float()
-    return tokens, attention_mask
-
-
-def get_wa(args, model, sample):
-    model.eval()
-    with torch.no_grad():
-        tokens, attention_mask = convert_batch_fairseq2hf(sample['net_input'])
-    last_layer_outputs, first_token_outputs, all_layer_outputs = model(
-        input_ids=tokens, attention_mask=attention_mask)
-    wa_features = all_layer_outputs[args.wa_layer]
-    rep = wa_features
-
-    src_fr, src_to, trg_fr, trg_to = sample["offsets"]
-    batch_sim = torch.bmm(rep, rep.transpose(1, 2))
-    wa = sinkhorn(sample, batch_sim, src_fr, src_to, trg_fr, trg_to,
-                  num_iter=args.sinkhorn_iter)
-    ret_wa = []
-    for i, wa_i in enumerate(wa):
-        gid = sample["token_groups"][i]
-        ret_wa_i = set()
-        for a in wa_i:
-            ret_wa_i.add((gid[a[0]] + 1, gid[a[1]] + 1))
-        ret_wa.append(ret_wa_i)
-    return ret_wa
-
-
-def run(args):
-    args.tokens_per_sample = 512
-    vocab = Dictionary.load(args.vocab_path)
-
-    config, tokenizer, model = load_model(args)
-    if args.device == torch.device("cuda"):
-        model.cuda()
-
-    for lang_pair in args.lang_pairs.split(","):
-        src_lang, trg_lang = lang_pair.split("-")
-        test_set_dir = os.path.join(args.test_set_dir, lang_pair)
-        args.src_fn = os.path.join(test_set_dir, "test.%s" % src_lang)
-        args.trg_fn = os.path.join(test_set_dir, "test.%s" % trg_lang)
-        args.gold_align = os.path.join(test_set_dir, "alignv2.txt")
-        # gold_align = load_gold_alignments(args)
-        dataset = get_dataset(args, vocab)
-        dl = DataLoader(
-            dataset,
-            batch_size=64,
-            shuffle=False,
-            collate_fn=dataset.collater)
-
-        print("Language pair: %s" % lang_pair)
-        all_results = {key: [] for key in ["p", "r", "f1", "aer"]}
-        for wa_layer in range(13):
-            args.wa_layer = wa_layer
-            result_wa = []
-            for sample in dl:
-                sample = move_to_device(sample, args.device)
-                batch_wa = get_wa(args, model, sample)
-                result_wa.extend(batch_wa)
-            # p, r, f1, aer = eval_results(gold_align, result_wa)
-            # all_results["p"].append(p)
-            # all_results["r"].append(r)
-            # all_results["f1"].append(f1)
-            # all_results["aer"].append(aer)
-        for key, value in all_results.items():
-            print("%s: %s" % (key, ", ".join(["%.2f" % i for i in value])))
-
-
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--bpe_path', type=str, default=Alignment.bpq)
-    parser.add_argument("--lang_pair", type=str, default="de-en")
-    # parser.add_argument("--source_lang", type=str, default="en")
-    # parser.add_argument("--target_lang", type=str, default="de")
-    parser.add_argument("--wa_layer", type=int, default=8)
-    parser.add_argument("--sinkhorn_iter", type=int, default=2)
-    parser.add_argument('--vocab_path',  type=str, default=Alignment.vocab)
-    parser.add_argument(
-        "--config_name", type=str, default=Alignment.config,
-        help="Pretrained config name or path if not the same as model_name"
-    )
-    parser.add_argument(
-        "--tokenizer_name", type=str,
-        help="Pretrained tokenizer name or path if not the same as "
-        "model_name"
-    )
-    parser.add_argument(
-        "--cache_dir", type=str,
-        help="Where do you want to store the pre-trained models downloaded"
-        " from s3",
-    )
-    parser.add_argument("--model_type", type=str, default="xlmr")
-    parser.add_argument(
-        "--model_name_or_path", type=str, required=True,
-        help="Path to pre-trained model or shortcut name selected in the "
-        "list:"
-    )
-    parser.add_argument(
-        "--do_lower_case", action='store_true',
-        help="Set this flag if you are using an uncased model.")
-    args = parser.parse_args()
-    args.device = torch.device("cuda")
-    run(args)
+        return source_span, target_span
