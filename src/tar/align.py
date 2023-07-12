@@ -38,7 +38,14 @@ class Aligner:
                 best_alignment_output,
                 best_alignment_output.transpose(1, 2))[0]
         # The sinkhorn algorithm returns the alignment pairs
-        return sinkhorn(sinkhorn_input, span1, span2)
+        sinkhorn_output = sinkhorn(sinkhorn_input, span1, span2)
+
+        # the output is based on the encoding representation, i.e. first the
+        # [BOS] token then, sentence2, [EOS], [EOS], sentence2, [EOS]
+        # but we want the mapping between sentence1 and sentence2 when they
+        # both start at index 0, so the span.start is substracted
+        return [(source - span1.start, target - span2.start)
+                for source, target in sinkhorn_output]
 
     def extract_spans(self, encoding: BatchEncoding) -> tuple[Span, Span]:
         """
