@@ -36,7 +36,7 @@ class Aligner:
         # I don't get why this is done, but its in the reference code
         sinkhorn_input = torch.bmm(
                 best_alignment_output,
-                best_alignment_output.transpose(1, 2))
+                best_alignment_output.transpose(1, 2))[0]
         # The sinkhorn algorithm returns the alignment pairs
         return sinkhorn(sinkhorn_input, span1, span2)
 
