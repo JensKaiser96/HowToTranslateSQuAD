@@ -37,7 +37,9 @@ def _extract_wa_from_pi_xi(pi, xi):
 def _sinkhorn_iter(S, num_iter=2) -> tuple[int, int]:
     if num_iter <= 0:
         return S, S
-    assert S.dim() == 2
+    if not S.dim() == 2:
+        raise ValueError(
+            f"Expected S.dim() to be 2, but was '{S.dim()}' instead")
     S[S <= 0].fill_(1e-6)
     pi = S
     xi = pi
