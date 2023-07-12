@@ -38,7 +38,7 @@ class Aligner:
                 best_alignment_output,
                 best_alignment_output.transpose(1, 2))
         # The sinkhorn algorithm returns the alignment pairs
-        return sinkhorn(None, sinkhorn_input, span1, span2)
+        return sinkhorn(sinkhorn_input, span1, span2)
 
     def extract_spans(self, encoding: BatchEncoding) -> tuple[Span, Span]:
         """
