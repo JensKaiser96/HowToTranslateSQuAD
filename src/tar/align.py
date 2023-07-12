@@ -47,10 +47,10 @@ class Aligner:
             Span(2,5) includes the elements 2, 3, and 4 (not 5)
         It is expected that the encoding has the following format in its
         input_ids tensor:
-            [[BOS, <sentence1>, EOL, EOL, <sentence2>, EOL]]
+            [[BOS, <sentence1>, EOS, EOS, <sentence2>, EOS]]
         """
         BOS = self.tokenizer.bos_token_id
-        EOL = self.tokenizer.eol_token_id
+        EOS = self.tokenizer.eos_token_id
 
         ids = list(encoding.input_ids.flatten())
 
@@ -59,25 +59,25 @@ class Aligner:
             raise ValueError(
                 f"Expected sequence to start with [BOS] token (id:{BOS}), "
                 f"but sequence starts with id:{ids[0]}.")
-        if not ids[-1] == EOL:
+        if not ids[-1] == EOS:
             raise ValueError(
-                f"Expected sequence to end with [EOL] token (id:{EOL}), "
+                f"Expected sequence to end with [EOS] token (id:{EOS}), "
                 f"but sequence ends with id:{ids[0]}.")
-        if not list(ids).count(EOL) == 3:
+        if not list(ids).count(EOS) == 3:
             raise ValueError(
                 f"Expected sequence to have exactly three occurences of the "
-                f"[EOL] token (id:{EOL}), but counted {list(ids).count(EOL)} "
+                f"[EOS] token (id:{EOS}), but counted {list(ids).count(EOS)} "
                 f"instead.")
 
-        first_EOL = ids.index(EOL)
+        first_EOS = ids.index(EOS)
 
-        if not ids[first_EOL + 1] == EOL:
+        if not ids[first_EOS + 1] == EOS:
             raise ValueError(
-                f"Expected sequence to have the second [EOL] directly follow "
-                f" the first [EOL] (id:{EOL}), but the token after the first "
-                f"[EOL] has id: {ids[first_EOL + 1]} instead.")
+                f"Expected sequence to have the second [EOS] directly follow "
+                f" the first [EOS] (id:{EOS}), but the token after the first "
+                f"[EOS] has id: {ids[first_EOS + 1]} instead.")
 
-        source_span = Span(1, first_EOL)
-        target_span = Span(first_EOL + 2, -1)
+        source_span = Span(1, first_EOS)
+        target_span = Span(first_EOS + 2, -1)
 
         return source_span, target_span
