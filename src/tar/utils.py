@@ -39,7 +39,7 @@ def _sinkhorn_iter(S, num_iter=2) -> tuple[int, int]:
         return S, S
     if not S.dim() == 2:
         raise ValueError(
-            f"Expected S.dim() to be 2, but was '{S.dim()}' instead")
+            f"Expected S.dim() to be 2, but was '{S.dim()}' instead \n{S=}")
     S[S <= 0].fill_(1e-6)
     pi = S
     xi = pi
@@ -60,7 +60,6 @@ def sinkhorn(sim: torch.Tensor, source: Span, target: Span, num_iter=2
     if target.is_empty:
         logger.warn(f"target span is empty: {target.start=}, {target.end=}")
         return []
-
     sim_wo_offset = sim[source.start: source.end, target.start: target.end]
     pi, xi = _sinkhorn_iter(sim_wo_offset, num_iter)
     pred_wa_wo_offset = _extract_wa_from_pi_xi(pi, xi)
