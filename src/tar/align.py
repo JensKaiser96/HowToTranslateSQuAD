@@ -78,6 +78,6 @@ class Aligner:
                 f"[EOS] has id: {ids[first_EOS + 1]} instead.")
 
         source_span = Span(1, first_EOS)
-        target_span = Span(first_EOS + 2, -1)
+        target_span = Span(first_EOS + 2, len(ids))
 
         return source_span, target_span
