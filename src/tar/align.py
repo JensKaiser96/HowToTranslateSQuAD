@@ -59,6 +59,7 @@ class Aligner:
     def decode(self, sequence: Sequence[Union[int, torch.Tensor]]) -> list[str]:
         return [self.tokenizer.decode(token_id) for token_id in sequence]
 
+    @staticmethod
     def extrapolate_alignment(alignments):
         alignments = alignments.copy()
 
