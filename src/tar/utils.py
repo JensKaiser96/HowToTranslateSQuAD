@@ -4,6 +4,7 @@ https://github.com/CZWin32768/XLM-Align/blob/main/word_aligner/xlmalign-ot-align
 with some modifications for readability
 """
 import torch
+from typing import Sequence
 
 from src.utils.logging import get_logger
 
@@ -15,6 +16,9 @@ class Span:
     def __init__(self, start: int, end: int):
         self.start = start
         self.end = end
+
+    def __call__(self, sequence: Sequence) -> Sequence:
+        return sequence[self.start: self.end]
 
     @property
     def is_empty(self) -> bool:
