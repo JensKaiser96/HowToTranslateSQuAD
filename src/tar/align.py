@@ -95,7 +95,7 @@ class Aligner:
                 f"[EOS] has id: {ids[first_EOS + 1]} instead.")
 
         source_span = Span(1, first_EOS)
-        target_span = Span(first_EOS + 2, len(ids))
+        target_span = Span(first_EOS + 2, len(ids)-1)
 
         logger.debug(f"First span is:\n{source_span(ids)}"
                      f"Secod span is:\n{target_span(ids)}")
