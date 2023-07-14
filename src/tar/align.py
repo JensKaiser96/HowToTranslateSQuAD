@@ -1,6 +1,7 @@
 import torch
 from transformers.tokenization_utils_base import BatchEncoding
 from transformers import XLMRobertaConfig, XLMRobertaModel, XLMRobertaTokenizer
+from typing import Sequence
 
 from src.io.filepaths import Alignment
 from src.tar.utils import Span, sinkhorn
@@ -24,8 +25,12 @@ class Aligner:
         self.tokenizer = XLMRobertaTokenizer.from_pretrained(Alignment.bpq)
 
     # TODO: make it work with batches
-    def __call__(self, sentence1: str, sentence2: str
+    def __call__(self, sentence1: str, sentence2: str, return_tokens=False,
                  ) -> list[tuple[int, int]]:
+        """
+        returns the alignment between the tokens in sentence1 and sentence2
+        as well as the tokens in sentence1 and sentence2 (without BOS and EOS)
+        """
         # tokenize sentences
         encoding = self.tokenizer(sentence1, sentence2, return_tensors="pt")
         span1, span2 = self.extract_spans(encoding)
@@ -44,8 +49,12 @@ class Aligner:
         # [BOS] token then, sentence2, [EOS], [EOS], sentence2, [EOS]
         # but we want the mapping between sentence1 and sentence2 when they
         # both start at index 0, so the span.start is substracted
-        return [(source - span1.start, target - span2.start)
-                for source, target in sinkhorn_output]
+        alignments = [(source - span1.start, target - span2.start)
+                      for source, target in sinkhorn_output]
+        return alignments, span1(encoding), span2(encoding)
+
+    def decode(self, sequence: Sequence[int | torch.Tensor]) -> list[str]:
+        return [self.tokenizer.decode(token_id) for token_id in sequence]
 
     def extract_spans(self, encoding: BatchEncoding) -> tuple[Span, Span]:
         """
