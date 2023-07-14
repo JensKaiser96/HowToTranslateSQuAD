@@ -69,6 +69,7 @@ class Aligner:
         EOS = self.tokenizer.eos_token_id
 
         ids = list(encoding.input_ids.flatten())
+        logger.debug(f"Extracting spans from {ids}.")
 
         # check if sequence is as expected
         if not ids[0] == BOS:
@@ -95,5 +96,8 @@ class Aligner:
 
         source_span = Span(1, first_EOS)
         target_span = Span(first_EOS + 2, len(ids))
+
+        logger.debug(f"First span is:\n{source_span(ids)}"
+                     f"Secod span is:\n{target_span(ids)}")
 
         return source_span, target_span
