@@ -51,7 +51,9 @@ class Aligner:
         # both start at index 0, so the span.start is substracted
         alignments = [(source - span1.start, target - span2.start)
                       for source, target in sinkhorn_output]
-        return alignments, span1(encoding), span2(encoding)
+        return (alignments,
+                self.decode(span1(encoding)),
+                self.decode(span2(encoding)))
 
     def decode(self, sequence: Sequence[Union[int, torch.Tensor]]) -> list[str]:
         return [self.tokenizer.decode(token_id) for token_id in sequence]
@@ -69,7 +71,7 @@ class Aligner:
         EOS = self.tokenizer.eos_token_id
 
         ids = list(encoding.input_ids.flatten())
-        logger.debug(f"Extracting spans from {ids}.")
+        logger.debug(f"Extracting spans from:\n {ids}.")
 
         # check if sequence is as expected
         if not ids[0] == BOS:
@@ -97,7 +99,7 @@ class Aligner:
         source_span = Span(1, first_EOS)
         target_span = Span(first_EOS + 2, len(ids)-1)
 
-        logger.debug(f"First span is:\n{source_span(ids)}"
+        logger.debug(f"First span is:\n{source_span(ids)}\n"
                      f"Secod span is:\n{target_span(ids)}")
 
         return source_span, target_span
