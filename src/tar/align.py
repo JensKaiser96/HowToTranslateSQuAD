@@ -51,7 +51,7 @@ class Aligner:
         # both start at index 0, so the span.start is substracted
         alignments = [(source - span1.start, target - span2.start)
                       for source, target in sinkhorn_output]
-        return alignments, span1(encoding.input_ids), span2(encoding.input_ids)
+        return alignments, span1(encoding), span2(encoding)
 
     def decode(self, sequence: Sequence[Union[int, torch.Tensor]]) -> list[str]:
         return [self.tokenizer.decode(token_id) for token_id in sequence]

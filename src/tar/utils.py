@@ -4,7 +4,8 @@ https://github.com/CZWin32768/XLM-Align/blob/main/word_aligner/xlmalign-ot-align
 with some modifications for readability
 """
 import torch
-from typing import Sequence
+from typing import Sequence, Union
+from transformers.tokenization_utils_base import BatchEncoding
 
 from src.utils.logging import get_logger
 
@@ -17,7 +18,13 @@ class Span:
         self.start = start
         self.end = end
 
-    def __call__(self, sequence: Sequence) -> Sequence:
+    def __call__(self, sequence: Union[Sequence, BatchEncoding]) -> Sequence:
+        # special case if the given sequence is a BatchEncoding, plus if the
+        # input_ids are Tensors
+        if isinstance(sequence, BatchEncoding):
+            sequence = sequence.input_ids
+            if isinstance(sequence, torch.Tensor) and sequence.dim() > 1:
+                sequence = sequence.flatten()
         return sequence[self.start: self.end]
 
     @property
