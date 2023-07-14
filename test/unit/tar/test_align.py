@@ -11,4 +11,4 @@ def test_alinger():
     mapping, tokens_en, tokens_de = aliner(sentence_en, sentence_de)
 
     for src, trg in mapping:
-        logger.info(f"{sentence_en[src]}\t->\t{sentence_de[trg]}")
+        logger.info(f"({src}){tokens_en[src]}\t->\t({trg}){tokens_de[trg]}")
