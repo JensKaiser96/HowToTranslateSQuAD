@@ -61,19 +61,18 @@ class Aligner:
 
     @staticmethod
     def extrapolate_alignment(alignments):
-        alignments = alignments.copy()
-
         expected_source_index = 0
         last_target_index = 0
+        extrapolated_alignment = []
 
         for source_id, target_id in alignments:
             if source_id == expected_source_index:
                 last_target_index = target_id
-                continue
             extrapolated_match = (expected_source_index, last_target_index)
-            alignments.insert(expected_source_index, extrapolated_match)
+            extrapolated_alignment.insert(expected_source_index, extrapolated_match)
+            expected_source_index += 1
 
-        return alignments
+        return extrapolated_alignment
 
     def extract_spans(self, encoding: BatchEncoding) -> tuple[Span, Span]:
         """
