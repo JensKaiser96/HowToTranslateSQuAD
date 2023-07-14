@@ -1,4 +1,7 @@
 from src.tar.align import Aligner
+from src.utils.logging import get_logger
+
+logger = get_logger(__name__)
 
 
 def test_alinger():
@@ -8,4 +11,4 @@ def test_alinger():
     mapping, tokens_en, tokens_de = aliner(sentence_en, sentence_de)
 
     for src, trg in mapping:
-        print(f"{sentence_en[src]}\t->\t{sentence_de[trg]}")
+        logger.info(f"{sentence_en[src]}\t->\t{sentence_de[trg]}")
