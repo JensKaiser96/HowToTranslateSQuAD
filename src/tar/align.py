@@ -1,7 +1,7 @@
 import torch
 from transformers.tokenization_utils_base import BatchEncoding
 from transformers import XLMRobertaConfig, XLMRobertaModel, XLMRobertaTokenizer
-from typing import Sequence
+from typing import Sequence, Union
 
 from src.io.filepaths import Alignment
 from src.tar.utils import Span, sinkhorn
@@ -53,7 +53,7 @@ class Aligner:
                       for source, target in sinkhorn_output]
         return alignments, span1(encoding), span2(encoding)
 
-    def decode(self, sequence: Sequence[int | torch.Tensor]) -> list[str]:
+    def decode(self, sequence: Sequence[Union[int, torch.Tensor]]) -> list[str]:
         return [self.tokenizer.decode(token_id) for token_id in sequence]
 
     def extract_spans(self, encoding: BatchEncoding) -> tuple[Span, Span]:
