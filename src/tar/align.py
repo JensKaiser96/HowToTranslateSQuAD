@@ -80,7 +80,7 @@ class Aligner:
             if token != span(text):
                 raise ValueError(
                         f"Expected token '{token}' to be at {span.start}: "
-                        f"{span.end} in '{text}', was {span(text)}")
+                        f"{span.end} in \n'{text}'\n, was: \n'{span(text)}'")
             curser_pos += span.end
             if text[curser_pos] == " ":
                 curser_pos += 1
