@@ -25,7 +25,7 @@ def test_surface_token_mapping():
         (8, "confi"): Span(33, 38),
         (9, "ne"): Span(38, 40),
         (10, "my"): Span(41, 43),
-        (11, "re"): Span(7, 9),
+        (11, "re"): Span(44, 46),
         (12, "marks"): Span(46, 51),
         (13, "to"): Span(30, 32),
         (14, "Alzheimer"): Span(55, 64),
