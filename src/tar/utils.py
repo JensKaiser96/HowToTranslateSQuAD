@@ -43,6 +43,9 @@ class Span:
                              f"'Span'")
         return self.start == other.start and self.end == other.end
 
+    def __str__(self) -> str:
+        return f"Span('start'={self.start}, 'end'={self.end})"
+
     @property
     def is_empty(self) -> bool:
         return self.start >= self.end
