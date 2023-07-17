@@ -81,7 +81,7 @@ class Aligner:
                 raise ValueError(
                         f"Expected token '{token}' to be at {span.start}: "
                         f"{span.end} in \n'{text}'\n, was: \n'{span(text)}'")
-            curser_pos += span.end
+            curser_pos = span.end
             if text[curser_pos] == " ":
                 curser_pos += 1
             mapping[(index, token)] = span
