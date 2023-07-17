@@ -30,7 +30,7 @@ def test_surface_token_mapping():
         (13, "to"): Span(30, 32),
         (14, "Alzheimer"): Span(55, 64),
         (15, "'"): Span(64, 65),
-        (16, "s"): Span(9, 10),
+        (16, "s"): Span(65, 66),
         (17, "disease"): Span(67, 74),
         (18, "."): Span(74, 75)
     }
