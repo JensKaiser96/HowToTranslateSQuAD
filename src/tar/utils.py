@@ -7,6 +7,7 @@ import torch
 from typing import Sequence, Union
 from transformers.tokenization_utils_base import BatchEncoding
 
+from src.qa.quad import Answer
 from src.utils.logging import get_logger
 
 
@@ -17,6 +18,12 @@ class Span:
     def __init__(self, start: int, end: int):
         self.start = start
         self.end = end
+
+    @staticmethod
+    def from_answer(answer: Answer):
+        start = answer.answer_start
+        end = start + len(answer.text)
+        return Span(start, end)
 
     def __call__(self, sequence: Union[Sequence, BatchEncoding]) -> Sequence:
         # special case if the given sequence is a BatchEncoding, plus if the
