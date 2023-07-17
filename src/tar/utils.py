@@ -64,7 +64,7 @@ def sinkhorn(sim: torch.Tensor, source: Span, target: Span, num_iter=2
         return []
     sim_wo_offset = sim[source.start: source.end, target.start: target.end]
     sim = _sinkhorn_iter(sim_wo_offset, num_iter)
-    pred_wa_wo_offset = _extract_wa_from_pi_xi(sim)
+    pred_wa_wo_offset = _extract_wa_from_sim(sim)
     return [(source_offset + source.start, target_offset + target.start) for
             source_offset, target_offset in pred_wa_wo_offset]
 
