@@ -82,7 +82,7 @@ class Aligner:
                         f"Expected token '{token}' to be at {span.start}: "
                         f"{span.end} in \n'{text}'\n, was: \n'{span(text)}'")
             curser_pos = span.end
-            if text[curser_pos] == " ":
+            if text[curser_pos: curser_pos + 1] == " ":
                 curser_pos += 1
             mapping[(index, token)] = span
         return mapping
