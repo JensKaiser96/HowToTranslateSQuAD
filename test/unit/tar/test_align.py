@@ -8,10 +8,10 @@ logger = get_logger(__name__)
 def test_surface_token_mapping():
     text = (
         "Madam President, I would like to confine my remarks to Alzheimer's "
-        "disease.")
+        "disease .")
     tokens = [
         'Mada', 'm', 'President', ',', 'I', 'would', 'like', 'to', 'confi',
-        'ne', 'my', 're', 'marks', 'to', 'Alzheimer', "'", 's', 'disease', '.']
+        'ne', 'my', 're', 'marks', 'to', 'Alzheimer', "'", 's', 'disease', '', '.']
 
     gold_mapping = {
         (0, "Mada"): Span(0, 4),
@@ -32,7 +32,8 @@ def test_surface_token_mapping():
         (15, "'"): Span(64, 65),
         (16, "s"): Span(65, 66),
         (17, "disease"): Span(67, 74),
-        (18, "."): Span(74, 75)
+        (18, ""): Span(75, 75),
+        (19, "."): Span(75, 76)
     }
 
     mapping = Aligner.surface_token_mapping(text, tokens)
