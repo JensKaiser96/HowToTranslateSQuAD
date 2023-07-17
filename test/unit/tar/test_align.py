@@ -4,8 +4,8 @@ from src.tar.utils import Span
 
 def test_surface_token_mapping():
     text = (
-        "Madam President , I would like to confine my remarks to Alzheimer 's "
-        "disease .")
+        "Madam President, I would like to confine my remarks to Alzheimer's "
+        "disease.")
     tokens = [
         'Mada', 'm', 'President', ',', 'I', 'would', 'like', 'to', 'confi',
         'ne', 'my', 're', 'marks', 'to', 'Alzheimer', "'", 's', 'disease', '.']
