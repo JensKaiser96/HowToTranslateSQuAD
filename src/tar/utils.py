@@ -27,6 +27,9 @@ class Span:
                 sequence = sequence.flatten()
         return sequence[self.start: self.end]
 
+    def __len__(self) -> int:
+        return self.end - self.end
+
     @property
     def is_empty(self) -> bool:
         return self.start >= self.end
