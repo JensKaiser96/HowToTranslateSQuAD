@@ -25,15 +25,16 @@ class Aligner:
         self.tokenizer = XLMRobertaTokenizer.from_pretrained(Alignment.bpq)
 
     # TODO: make it work with batches
-    def __call__(self, sentence1: str, sentence2: str, return_tokens=False,
+    def __call__(self, source_text: str, target_text: str
                  ) -> list[tuple[int, int]]:
         """
-        returns the alignment between the tokens in sentence1 and sentence2
+        returns the alignment between the tokens in text_1 and sentence2
         as well as the tokens in sentence1 and sentence2 (without BOS and EOS)
         """
         # tokenize sentences
-        encoding = self.tokenizer(sentence1, sentence2, return_tensors="pt")
-        span1, span2 = self.extract_spans(encoding)
+        encoding = self.tokenizer(source_text, target_text,
+                                  return_tensors="pt")
+        source_span, target_span = self.extract_spans(encoding)
 
         with torch.no_grad():
             _, _, outputs = self.model(**encoding)
@@ -43,46 +44,61 @@ class Aligner:
                 best_alignment_output,
                 best_alignment_output.transpose(1, 2))[0]
         # The sinkhorn algorithm returns the alignment pairs
-        sinkhorn_output = sinkhorn(sinkhorn_input, span1, span2)
+        sinkhorn_output = sinkhorn(sinkhorn_input, source_span, target_span)
 
         # the output is based on the encoding representation, i.e. first the
         # [BOS] token then, sentence2, [EOS], [EOS], sentence2, [EOS]
         # but we want the mapping between sentence1 and sentence2 when they
         # both start at index 0, so the span.start is substracted
-        alignments = [(source - span1.start, target - span2.start)
+        alignments = [(source - source_span.start, target - target_span.start)
                       for source, target in sinkhorn_output]
-        # alignments = self.extrapolate_alignment(alignments)
         return (alignments,
-                self.decode(span1(encoding)),
-                self.decode(span2(encoding)))
+                self.decode(source_span(encoding)),
+                self.decode(target_span(encoding)))
+
+    def retrive(self, source_text: str, source_span: Span,
+                target_text: str) -> Span:
+        """
+        Given a source text, its answer span and the translation of the
+        source text (target_text), this method returns the answer span
+        of the target_text
+        """
+        # get mapping between source_text and target_text
+        mapping, source_tokens, target_tokens = self()
+
+        # find tokens corresponding to the span.
+        source_span_tokens = []
+
+        # mapping [(0, 0), (1, 2), ...]
+
+    @staticmethod
+    def surface_token_mapping(text: str, tokens: list):
+        mapping = {}
+        curser_pos = 0
+        for index, token in enumerate(tokens):
+            span = Span(curser_pos, curser_pos + len(token))
+            if token != span(text):
+                raise ValueError(
+                        f"Expected token '{token}' to be at {span.start}: "
+                        f"{span.end} in '{text}', was {span(text)}")
+            curser_pos += span.end
+            if text[curser_pos] == " ":
+                curser_pos += 1
+            mapping[(index, token)] = span
+        return mapping
+
 
     def decode(self, sequence: Sequence[Union[int, torch.Tensor]]) -> list[str]:
         return [self.tokenizer.decode(token_id) for token_id in sequence]
 
-    @staticmethod
-    def extrapolate_alignment(alignments):
-        # broken: maps everything to first element ...
-        expected_source_index = 0
-        last_target_index = 0
-        extrapolated_alignment = []
-
-        for source_id, target_id in alignments:
-            if source_id == expected_source_index:
-                last_target_index = target_id
-            extrapolated_match = (expected_source_index, last_target_index)
-            extrapolated_alignment.insert(expected_source_index, extrapolated_match)
-            expected_source_index += 1
-
-        return extrapolated_alignment
-
     def extract_spans(self, encoding: BatchEncoding) -> tuple[Span, Span]:
         """
-        extracts spans from an encoding of two sentences, the span start index
+        extracts spans from an encoding of two texts, the span start index
         is inclusive and the span end is exclusive, e.g.:
             Span(2,5) includes the elements 2, 3, and 4 (not 5)
         It is expected that the encoding has the following format in its
         input_ids tensor:
-            [[BOS, <sentence1>, EOS, EOS, <sentence2>, EOS]]
+            [[BOS, <source_text>, EOS, EOS, <target_text>, EOS]]
         """
         BOS = self.tokenizer.bos_token_id
         EOS = self.tokenizer.eos_token_id
@@ -97,7 +113,7 @@ class Aligner:
         if not ids[-1] == EOS:
             raise ValueError(
                 f"Expected sequence to end with [EOS] token (id:{EOS}), "
-                f"but sequence ends with id:{ids[0]}.")
+                f"but sequence ends with id:{ids[-1]}.")
         if not list(ids).count(EOS) == 3:
             raise ValueError(
                 f"Expected sequence to have exactly three occurences of the "
