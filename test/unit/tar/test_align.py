@@ -1,5 +1,8 @@
 from src.tar.align import Aligner
 from src.tar.utils import Span
+from src.utils.logging import get_logger
+
+logger = get_logger(__name__)
 
 
 def test_surface_token_mapping():
@@ -33,5 +36,6 @@ def test_surface_token_mapping():
     }
 
     mapping = Aligner.surface_token_mapping(text, tokens)
+    logger.debug(mapping)
 
     assert gold_mapping == mapping
