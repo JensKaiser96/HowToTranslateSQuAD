@@ -37,6 +37,12 @@ class Span:
     def __len__(self) -> int:
         return self.end - self.end
 
+    def __eq__(self, other: "Span"):
+        if not isinstance(other, Span):
+            raise ValueError(f"Unable to compare '{other.__class__}' with "
+                             f"'Span'")
+        return self.start == other.start and self.end == other.end
+
     @property
     def is_empty(self) -> bool:
         return self.start >= self.end
