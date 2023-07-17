@@ -36,8 +36,8 @@ def test_surface_token_mapping():
     }
 
     mapping = Aligner.surface_token_mapping(text, tokens)
-    logger.debug(mapping)
 
     for key, value in mapping.items():
+        logger.info(f"{key=}, Span={value}")
         assert gold_mapping[key] == value
     assert gold_mapping == mapping
