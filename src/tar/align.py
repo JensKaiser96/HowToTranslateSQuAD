@@ -51,7 +51,7 @@ class Aligner:
         # both start at index 0, so the span.start is substracted
         alignments = [(source - span1.start, target - span2.start)
                       for source, target in sinkhorn_output]
-        alignments = self.extrapolate_alignment(alignments)
+        # alignments = self.extrapolate_alignment(alignments)
         return (alignments,
                 self.decode(span1(encoding)),
                 self.decode(span2(encoding)))
@@ -61,6 +61,7 @@ class Aligner:
 
     @staticmethod
     def extrapolate_alignment(alignments):
+        # broken: maps everything to first element ...
         expected_source_index = 0
         last_target_index = 0
         extrapolated_alignment = []
