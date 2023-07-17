@@ -1,6 +1,6 @@
 import json
 from src.io.filepaths import Datasets, StressTest
-from src.utils.io import to_json
+from src.io.utils import to_json
 
 """
 quad structure:
