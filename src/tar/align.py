@@ -29,7 +29,9 @@ class Aligner:
                  ) -> list[tuple[int, int]]:
         """
         returns the alignment between the tokens in text_1 and sentence2
-        as well as the tokens in sentence1 and sentence2 (without BOS and EOS)
+        as well as the tokens in source_text and target_text (without [BOS] and
+        [EOS]), combinded with their index in the text to distiglish between
+        tokens with the same string representation
         """
         # tokenize sentences
         encoding = self.tokenizer(source_text, target_text,
@@ -52,9 +54,13 @@ class Aligner:
         # both start at index 0, so the span.start is substracted
         alignments = [(source - source_span.start, target - target_span.start)
                       for source, target in sinkhorn_output]
-        return (alignments,
-                self.decode(source_span(encoding)),
-                self.decode(target_span(encoding)))
+
+        # add position (idx) to each token before returning the token list
+        source_tokens = [(idx, token) for idx, token in enumerate(
+                        self.decode(source_span(encoding)))]
+        target_tokens = [(idx, token) for idx, token in enumerate(
+                        self.decode(target_span(encoding)))]
+        return alignments, source_tokens, target_tokens
 
     def retrive(self, source_text: str, source_span: Span,
                 target_text: str) -> Span:
@@ -73,9 +79,13 @@ class Aligner:
 
     @staticmethod
     def surface_token_mapping(text: str, tokens: list):
+        """
+        creates a bi-directional mapping between the surface level spans of
+        words in ´text´ and (idx, token)
+        """
         mapping = {}
         curser_pos = 0
-        for index, token in enumerate(tokens):
+        for index, token in tokens:
             span = Span(curser_pos, curser_pos + len(token))
             if token != span(text):
                 raise ValueError(
