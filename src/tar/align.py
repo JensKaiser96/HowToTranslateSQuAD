@@ -1,4 +1,5 @@
 import torch
+import string
 from transformers.tokenization_utils_base import BatchEncoding
 from transformers import XLMRobertaConfig, XLMRobertaModel, XLMRobertaTokenizer
 from typing import Sequence, Union
@@ -72,6 +73,10 @@ class Aligner:
         """
         # get mapping between source_text and target_text
         mapping, source_tokens, target_tokens = self()
+        source_surface_token_mapping = self.surface_token_mapping(
+                source_text, source_tokens)
+        target_surface_token_mapping = self.surface_token_mapping(
+                target_text, target_tokens)
 
         # find tokens corresponding to the span.
         source_span_tokens = []
@@ -84,18 +89,24 @@ class Aligner:
         creates a bi-directional mapping between the surface level spans of
         words in ´text´ and (idx, token)
         """
-        mapping = {}
+        mapping = {}  # dict storing the mapping between token and surface
         curser_pos = 0
         for index, token in tokens:
+            # create span over current token
             span = Span(curser_pos, curser_pos + len(token))
-            if token != span(text):
+            # check if content of the span matches with the token
+            if token == span(text):
+                mapping[(index, token)] = span
+                mapping[span] = (index, token)
+            else:
                 raise ValueError(
                         f"Expected token '{token}' to be at {span.start}: "
                         f"{span.end} in \n'{text}'\n, was: \n'{span(text)}'")
+            # move curser to the end of the span
             curser_pos = span.end
-            if text[curser_pos: curser_pos + 1] == " ":
+            # advance curser if the next char is a whitespace.
+            if text[curser_pos: curser_pos + 1] in string.whitespace:
                 curser_pos += 1
-            mapping[(index, token)] = span
         return mapping
 
 
