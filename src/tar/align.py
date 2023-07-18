@@ -22,7 +22,8 @@ class Aligner:
                 Alignment.model_path, config=model_config)
 
         # load tokenizer
-        self.tokenizer = XLMRobertaTokenizer.from_pretrained(Alignment.bpq)
+        self.tokenizer = XLMRobertaTokenizer.from_pretrained(
+                Alignment.model_path)
 
     # TODO: make it work with batches
     def __call__(self, source_text: str, target_text: str
