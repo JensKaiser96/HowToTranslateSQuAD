@@ -3,6 +3,7 @@ Code is taken from:
 https://github.com/CZWin32768/XLM-Align/blob/main/word_aligner/xlmalign-ot-aligner.py
 with some modifications for readability
 """
+from dataclasses import dataclass
 import torch
 from typing import Sequence, Union
 from transformers.tokenization_utils_base import BatchEncoding
@@ -14,10 +15,10 @@ from src.utils.logging import get_logger
 logger = get_logger(__name__)
 
 
+@dataclass(frozen=True)
 class Span:
-    def __init__(self, start: int, end: int):
-        self.start = start
-        self.end = end
+    start: int
+    end: int
 
     @staticmethod
     def from_answer(answer: Answer):
@@ -36,15 +37,6 @@ class Span:
 
     def __len__(self) -> int:
         return self.end - self.end
-
-    def __eq__(self, other: "Span"):
-        if not isinstance(other, Span):
-            raise ValueError(f"Unable to compare '{other.__class__}' with "
-                             f"'Span'")
-        return self.start == other.start and self.end == other.end
-
-    def __str__(self) -> str:
-        return f"Span('start'={self.start}, 'end'={self.end})"
 
     @property
     def is_empty(self) -> bool:
