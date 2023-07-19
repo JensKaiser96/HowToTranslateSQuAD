@@ -11,7 +11,7 @@ def save_plt(plt, path: str):
     if "/plots" not in path:
         path = plotpath + path
     path = str_to_safe_path(path, suffix)
-    plt.savefig(path)
+    plt.savefig(path, transparent=True)
 
 
 def to_json(data: dict, path: str):
