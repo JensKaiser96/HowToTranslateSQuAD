@@ -1,6 +1,9 @@
 from collections import Counter
 
 from src.qa.quad import QUAD
+from src.utils.logging import get_logger
+
+logger = get_logger(__file__, script=True)
 
 
 def main():
@@ -13,7 +16,7 @@ def main():
                 for answer in qa.answers:
                     count = context.count(answer.text)
                     answer_counts[count] += 1
-    print(answer_counts)
+    logger.info(answer_counts)
 
 
 if __name__ == '__main__':
