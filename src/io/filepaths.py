@@ -3,6 +3,8 @@ Module containing all paths to important files
 should be a yaml, but eh, maybe one day
 """
 
+plotpath = "./data/plots/"
+
 _DATASETS = "./data/datasets/"
 
 
