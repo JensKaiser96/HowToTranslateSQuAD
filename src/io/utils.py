@@ -3,6 +3,16 @@ import os
 import json
 from pathlib import Path
 
+from src.io.filepaths import plotpath
+
+
+def save_plt(plt, path: str):
+    suffix = ".png"
+    if "/plots" not in path:
+        path = plotpath + path
+    path = str_to_safe_path(path, suffix)
+    plt.savefig(path)
+
 
 def to_json(data: dict, path: str):
     suffix = ".json"
