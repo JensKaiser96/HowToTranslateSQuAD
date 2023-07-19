@@ -233,6 +233,45 @@
                     ]
                 }
             ]
+        },
+        {
+            "paragraphs": [
+                {
+                    "context": "John_von_Neumann\n\n=== Manhattan-Projekt und Regierungsberater ===\nVon Neumann arbeitete ab 1943 am Manhattan-Projekt in Los Alamos. Er war schon in den Jahren zuvor bei der Army und Navy ein gefragter Berater, etwa für Ballistikfragen, Hohlladungen, operations research, Bekämpfung deutscher Magnetminen oder Optimierung der Wirkung von Bomben mit „schrägen Stoßwellen“. Eines seiner Hauptarbeitsgebiete war die Theorie der Stoßwellen, die in den 50er Jahren für den Überschallflug aktuell wurde und die er unter anderem für die Entwicklung von Sprengstofflinsen für den Implosionsmechanismus der Plutoniumbombe nutzte. In diesen Zusammenhang gehört auch seine Entwicklung des ersten numerischen Verfahrens zur Lösung von hyperbolischen partiellen Differentialgleichungen, des Monte-Carlo-Verfahrens mit Stanislaw Ulam, die Von-Neumann-Stabilitätsanalyse sowie seine Pionierleistungen in der Rechnerarchitektur. Übrigens optimierte er mit seiner Expertise in der Theorie der Stoßwellen während des Zweiten Weltkriegs auch britische Luftminen über Deutschland. Auch an der Weiterentwicklung des amerikanischen Nuklearbomben-Programms bis hin zur Wasserstoffbombe war von Neumann beteiligt.\nVon Neumann war einerseits geschätzt, weil er seine Ideen freigiebig weitergab und Kollegen weiterhalf (bei Besuchen in Los Alamos war er oft von einer Traube von Wissenschaftlern umgeben, die schnellen Rat wollten), andererseits gefürchtet, da er Ideen schnell aufgriff und mit atemberaubender Geschwindigkeit eigene Theorien daraus entwickelte.\nNeben seinen mathematischen Leistungen war von Neumann als Regierungsberater auch politisch einflussreich. Vor dem Abwurf der Atombomben auf Japan war er ein Mitglied des Target Committee, das die genauen Ziele der Bomben mitbestimmte. Er berechnete dabei auch die optimale Detonationshöhe der Atombomben, um einen möglichst großen Schaden durch die Explosion am Boden zu erzielen. Mit dem Namen John von Neumann ist angeblich auch die Idee verbunden, die Ost-West-Konfrontation durch die Explosion einer Wasserstoffbombe über unbewohntem sowjetischem Gebiet zu beenden, die Sowjetunion von der Entwicklung einer eigenen Bombe abzuhalten und dauerhaft einzuschüchtern. Ob US-Präsident Eisenhower allerdings tatsächlich durch von Neumann zu einem solchen Schritt gedrängt wurde, ist umstritten. Er war aber wesentlich daran beteiligt, das militärische Raketenprogramm der USA auf den Weg zu bringen.",
+                    "qas": [
+                        {
+                            "question": "Aus welchen zwei Bereichen besteht das US Militär?",
+                            "answers": []
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "paragraphs": [
+                {
+                    "context": "Dwight_D._Eisenhower\n\n=== Spätere Jahre ===\nFeierlichkeiten zu Eisenhowers Begräbnis im März 1969\nNach dem Ende seiner Präsidentschaft im Januar 1961 zog sich Eisenhower mit seiner Frau Mamie ins Privatleben nach Pennsylvania zurück. Politisch trat er nicht mehr in Erscheinung. Im Sommer 1964 hielt er im Zuge des Präsidentschaftswahlkampfes auf dem Republikanischen Parteitag eine Rede, war jedoch von dem erzkonservativen Kandidaten Barry Goldwater wenig überzeugt. In den 1960er-Jahren beriet er die Präsidenten John F. Kennedy und Lyndon B. Johnson in militärischen Fragen im Kontext des Vietnamkrieges. Eisenhower stand jedoch dem Kampfeinsatz amerikanischer Soldaten in Südostasien eher skeptisch gegenüber, obwohl er seinerzeit als Präsident erste Militärberater nach Südvietnam entsandt hatte. Während seines Ruhestandes verfasste er außerdem seine zweibändigen Memoiren.\n1965 erlitt Eisenhower einen weiteren Herzinfarkt, ab 1968 verschlechterte sich sein Gesundheitszustand zusehends. 1968 wurde er in ein Washingtoner Krankenhaus eingeliefert, wo er am 28. März 1969 im Alter von 78 Jahren an Herzversagen starb. Die amerikanische Öffentlichkeit reagierte mit großer Anteilnahme auf sein Ableben. Am 31. März 1969 fand in der Washington National Cathedral eine Trauerfeier mit prominenten Staatsgästen statt. Neben dem amtierenden US-Präsidenten Richard Nixon und seiner Frau waren der französische Staatspräsident Charles de Gaulle, Bundeskanzler Kurt Georg Kiesinger, der Präsident von Tunesien Habib Bourguiba, König Baudouin von Belgien und der iranische Schah Mohammad Reza Pahlavi Trauergäste. Am 2. April wurde Eisenhower in Abilene (Kansas) beigesetzt, wo auch seine 1979 verstorbene Frau Mamie ihre letzte Ruhe fand.",
+                    "qas": [
+                        {
+                            "question": "Welcher Staat liegt südlich von New York?",
+                            "answers": []
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "paragraphs": [
+                {
+                    "context": "Northwestern_University\nDie Northwestern University (NU oder einfach Northwestern) ist eine Privatuniversität im Staat Illinois in den USA mit einem Doppelcampus in Evanston und Chicago. Der Hauptcampus in Evanston misst 970.000 m² und befindet sich am Ufer des Lake Michigan. Der Campus in Chicago misst 101.000 m² und befindet sich in der Nähe der Magnificent Mile. Die Chicago El, die städtische U-Bahn, verbindet den Campus in Evanston mit Chicago. Die Northwestern ist weltweit vor allem für ihre 1908 gegründete Kellogg School of Management (kurz: Kellogg) berühmt.\nDie Hochschule ist Mitglied der Association of American Universities, einem seit 1900 bestehenden Verbund nordamerikanischer Forschungsuniversitäten.\nAn der Northwestern University sind etwa 15.000 Studenten eingeschrieben und sie beschäftigt fast 7.100 Angestellte. Die Stiftung der Northwestern verfügte 2008 über Geldmittel von etwa 7,2 Mrd. US-Dollar. Das akademische Schuljahr ist in vier Quartale unterteilt, wobei im ''Summer Quarter'' nur ein reduzierter Betrieb stattfindet.\nDie Studenten führen eine eigene Zeitung, ''The Daily Northwestern'', einen Nachrichtensender, ''Northwestern News Network'', und einen Radiosender, ''WNUR''.",
+                    "qas": [
+                        {
+                            "question": "Wai",
+                            "answers": []
+                        }
+                    ]
+                }
+            ]
         }
     ],
     "version": "NOT_annotated"
