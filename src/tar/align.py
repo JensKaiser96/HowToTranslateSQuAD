@@ -31,8 +31,8 @@ class Aligner:
                  ) -> list[tuple[int, int]]:
         """
         returns the alignment between the tokens in text_1 and sentence2
-        as well as the tokens in source_text and target_text (without [BOS] and
-        [EOS]), combinded with their index in the text to distiglish between
+        as well as the tokens in source_text and target_text, without [BOS] and
+        [EOS], combinded with their index in the text to distiglish between
         tokens with the same string representation
         """
         # tokenize sentences
@@ -59,9 +59,9 @@ class Aligner:
 
         # add position (idx) to each token before returning the token list
         source_tokens = [(idx, token) for idx, token in enumerate(
-                        self.decode(source_span(encoding)))]
+            self.decode(source_span(encoding)))]
         target_tokens = [(idx, token) for idx, token in enumerate(
-                        self.decode(target_span(encoding)))]
+            self.decode(target_span(encoding)))]
         return alignments, source_tokens, target_tokens
 
     def retrive(self, source_text: str, source_span: Span,
@@ -72,18 +72,27 @@ class Aligner:
         of the target_text
         """
         # get mapping between source_text and target_text
-        mapping, source_tokens, target_tokens = self()
+        mapping, source_tokens_ids, target_tokens_ids = self()
+
+        mapping_dict = {entry[0]: entry[1] for entry in mapping}
+
+        # get surface token mapping for both source and target
         source_surface_token_mapping = self.surface_token_mapping(
-                source_text, source_tokens)
+                source_text, source_tokens_ids)
         target_surface_token_mapping = self.surface_token_mapping(
-                target_text, target_tokens)
-        source_tokens = [
-                source_surface_token_mapping.get_index(start=source_span.start)]
-        
+                target_text, target_tokens_ids)
 
-        # find tokens corresponding to the span.
-        source_span_tokens = []
+        source_span_token_ids = source_surface_token_mapping.get_indices(
+            start=source_span.start)
 
+        # get the tokens in the target span
+        target_span_tokens = [
+                mapping_dict[token_id] for token_id in source_span_token_ids
+                if token_id in mapping_dict]
+
+        target_surface_spans = target_surface_token_mapping.get_spans(
+                target_span_tokens)
+        return Span.combine(target_surface_spans)
         # mapping [(0, 0), (1, 2), ...]
 
     class Mapping:
@@ -113,6 +122,9 @@ class Aligner:
             span_index = self._indices.index(index)
             return Span(start=self._span_starts[span_index],
                         end=self._span_ends[span_index])
+
+        def get_spans(self, indices: list[int]):
+            return [self.get_span(index) for index in indices]
 
         def append(self, index: int, span: Span):
             self._indices.append(index)
@@ -144,8 +156,8 @@ class Aligner:
             curser_pos = span.end
         return mapping
 
-
-    def decode(self, sequence: Sequence[Union[int, torch.Tensor]]) -> list[str]:
+    def decode(self, sequence: Sequence[Union[int, torch.Tensor]]
+               ) -> list[str]:
         return [self.tokenizer.decode(token_id) for token_id in sequence]
 
     def extract_spans(self, encoding: BatchEncoding) -> tuple[Span, Span]:
