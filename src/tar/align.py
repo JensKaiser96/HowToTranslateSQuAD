@@ -77,36 +77,71 @@ class Aligner:
                 source_text, source_tokens)
         target_surface_token_mapping = self.surface_token_mapping(
                 target_text, target_tokens)
+        source_tokens = [
+                source_surface_token_mapping.get_index(start=source_span.start)]
+        
 
         # find tokens corresponding to the span.
         source_span_tokens = []
 
         # mapping [(0, 0), (1, 2), ...]
 
-    @staticmethod
-    def surface_token_mapping(text: str, tokens: list):
+    class Mapping:
+        def __init__(self):
+            self._indices = []  # maybe this is not necessary
+            self._span_starts = []
+            self._span_ends = []
+
+        def get_indices(self, span: Span):
+            return [index for index in self._indices
+                    if self._span_starts[index] >= span.start
+                    and self._span_ends <= span.end]
+
+        def get_index(self, span: Span = None, start=None, end=None):
+            if span or (start and end):
+                raise NotImplementedError(
+                        "Use 'start' or 'end' argument, for finding the"
+                        "corresponding index. Span/start and end are not yet"
+                        "implemented")
+            if start:
+                return self._indices(self._span_starts.index(start))
+
+            if end:
+                return self._indices(self._span_ends.index(start))
+
+        def get_span(self, index: str):
+            span_index = self._indices.index(index)
+            return Span(start=self._span_starts[span_index],
+                        end=self._span_ends[span_index])
+
+        def append(self, index: int, span: Span):
+            self._indices.append(index)
+            self._span_starts(span.start)
+            self._span_ends(span.end)
+
+    @classmethod
+    def surface_token_mapping(cls, text: str, tokens: list) -> Mapping:
         """
         creates a bi-directional mapping between the surface level spans of
         words in ´text´ and (idx, token)
         """
-        mapping = {}  # dict storing the mapping between token and surface
+        mapping = cls.Mapping()
         curser_pos = 0
         for index, token in tokens:
+            # advance curser if the next char is a whitespace.
+            while text[curser_pos: curser_pos + 1] in string.whitespace:
+                curser_pos += 1
             # create span over current token
             span = Span(curser_pos, curser_pos + len(token))
             # check if content of the span matches with the token
             if token == span(text):
-                mapping[(index, token)] = span
-                mapping[span] = (index, token)
+                mapping.append(index, span)
             else:
                 raise ValueError(
                         f"Expected token '{token}' to be at {span.start}: "
                         f"{span.end} in \n'{text}'\n, was: \n'{span(text)}'")
             # move curser to the end of the span
             curser_pos = span.end
-            # advance curser if the next char is a whitespace.
-            if text[curser_pos: curser_pos + 1] in string.whitespace:
-                curser_pos += 1
         return mapping
 
 
