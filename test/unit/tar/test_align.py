@@ -51,7 +51,7 @@ def test_answer_extraction():
         for source_article, target_article in zip(
                 source_dataset.data, target_dataset.data):
             for source_paragraph, target_paragraph in zip(
-                    source_article.paragraph, target_article.paragraph):
+                    source_article, target_article):
                 # extract context
                 source_text = source_paragraph.context
                 target_text = target_paragraph.context
