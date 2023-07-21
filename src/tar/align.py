@@ -1,4 +1,5 @@
 import torch
+import string
 from transformers.tokenization_utils_base import BatchEncoding
 from transformers import XLMRobertaConfig, XLMRobertaModel, XLMRobertaTokenizer
 from typing import Sequence, Union
@@ -22,14 +23,17 @@ class Aligner:
                 Alignment.model_path, config=model_config)
 
         # load tokenizer
-        self.tokenizer = XLMRobertaTokenizer.from_pretrained(Alignment.bpq)
+        self.tokenizer = XLMRobertaTokenizer.from_pretrained(
+                Alignment.model_path)
 
     # TODO: make it work with batches
     def __call__(self, source_text: str, target_text: str
                  ) -> list[tuple[int, int]]:
         """
         returns the alignment between the tokens in text_1 and sentence2
-        as well as the tokens in sentence1 and sentence2 (without BOS and EOS)
+        as well as the tokens in source_text and target_text, without [BOS] and
+        [EOS], combinded with their index in the text to distiglish between
+        tokens with the same string representation
         """
         # tokenize sentences
         encoding = self.tokenizer(source_text, target_text,
@@ -52,9 +56,13 @@ class Aligner:
         # both start at index 0, so the span.start is substracted
         alignments = [(source - source_span.start, target - target_span.start)
                       for source, target in sinkhorn_output]
-        return (alignments,
-                self.decode(source_span(encoding)),
-                self.decode(target_span(encoding)))
+
+        # add position (idx) to each token before returning the token list
+        source_tokens = [(idx, token) for idx, token in enumerate(
+            self.decode(source_span(encoding)))]
+        target_tokens = [(idx, token) for idx, token in enumerate(
+            self.decode(target_span(encoding)))]
+        return alignments, source_tokens, target_tokens
 
     def retrive(self, source_text: str, source_span: Span,
                 target_text: str) -> Span:
@@ -64,31 +72,92 @@ class Aligner:
         of the target_text
         """
         # get mapping between source_text and target_text
-        mapping, source_tokens, target_tokens = self()
+        mapping, source_tokens_ids, target_tokens_ids = self()
 
-        # find tokens corresponding to the span.
-        source_span_tokens = []
+        mapping_dict = {entry[0]: entry[1] for entry in mapping}
 
+        # get surface token mapping for both source and target
+        source_surface_token_mapping = self.surface_token_mapping(
+                source_text, source_tokens_ids)
+        target_surface_token_mapping = self.surface_token_mapping(
+                target_text, target_tokens_ids)
+
+        source_span_token_ids = source_surface_token_mapping.get_indices(
+            start=source_span.start)
+
+        # get the tokens in the target span
+        target_span_tokens = [
+                mapping_dict[token_id] for token_id in source_span_token_ids
+                if token_id in mapping_dict]
+
+        target_surface_spans = target_surface_token_mapping.get_spans(
+                target_span_tokens)
+        return Span.combine(target_surface_spans)
         # mapping [(0, 0), (1, 2), ...]
 
-    @staticmethod
-    def surface_token_mapping(text: str, tokens: list):
-        mapping = {}
+    class Mapping:
+        def __init__(self):
+            self._indices = []  # maybe this is not necessary
+            self._span_starts = []
+            self._span_ends = []
+
+        def get_indices(self, span: Span):
+            return [index for index in self._indices
+                    if self._span_starts[index] >= span.start
+                    and self._span_ends <= span.end]
+
+        def get_index(self, span: Span = None, start=None, end=None):
+            if span or (start and end):
+                raise NotImplementedError(
+                        "Use 'start' or 'end' argument, for finding the"
+                        "corresponding index. Span/start and end are not yet"
+                        "implemented")
+            if start:
+                return self._indices(self._span_starts.index(start))
+
+            if end:
+                return self._indices(self._span_ends.index(start))
+
+        def get_span(self, index: str):
+            span_index = self._indices.index(index)
+            return Span(start=self._span_starts[span_index],
+                        end=self._span_ends[span_index])
+
+        def get_spans(self, indices: list[int]):
+            return [self.get_span(index) for index in indices]
+
+        def append(self, index: int, span: Span):
+            self._indices.append(index)
+            self._span_starts(span.start)
+            self._span_ends(span.end)
+
+    @classmethod
+    def surface_token_mapping(cls, text: str, tokens: list) -> Mapping:
+        """
+        creates a bi-directional mapping between the surface level spans of
+        words in ´text´ and (idx, token)
+        """
+        mapping = cls.Mapping()
         curser_pos = 0
-        for index, token in enumerate(tokens):
+        for index, token in tokens:
+            # advance curser if the next char is a whitespace.
+            while text[curser_pos: curser_pos + 1] in string.whitespace:
+                curser_pos += 1
+            # create span over current token
             span = Span(curser_pos, curser_pos + len(token))
-            if token != span(text):
+            # check if content of the span matches with the token
+            if token == span(text):
+                mapping.append(index, span)
+            else:
                 raise ValueError(
                         f"Expected token '{token}' to be at {span.start}: "
                         f"{span.end} in \n'{text}'\n, was: \n'{span(text)}'")
+            # move curser to the end of the span
             curser_pos = span.end
-            if text[curser_pos: curser_pos + 1] == " ":
-                curser_pos += 1
-            mapping[(index, token)] = span
         return mapping
 
-
-    def decode(self, sequence: Sequence[Union[int, torch.Tensor]]) -> list[str]:
+    def decode(self, sequence: Sequence[Union[int, torch.Tensor]]
+               ) -> list[str]:
         return [self.tokenizer.decode(token_id) for token_id in sequence]
 
     def extract_spans(self, encoding: BatchEncoding) -> tuple[Span, Span]:
