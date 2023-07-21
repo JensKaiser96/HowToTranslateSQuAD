@@ -84,7 +84,7 @@ class Aligner:
                 target_text, target_tokens_ids)
 
         source_span_token_ids = source_surface_token_mapping.get_indices(
-            start=source_span.start)
+            source_span)
 
         # get the tokens in the target span
         target_span_tokens = [
