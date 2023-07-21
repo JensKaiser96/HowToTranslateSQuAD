@@ -16,7 +16,7 @@ squad1_iterator = iter(squad1._data["data"])
 t = Translator()
 
 for paragraph in squad1_iterator:
-    translated_title = t.en2de(squad1_iterator["title"])
+    translated_title = t.en2de(paragraph["title"])
     translated_paragraph = next(raw_iterator)
     raw_fixed.data._data.append({"title": translated_title,
                                 "paragraph": translated_paragraph})
