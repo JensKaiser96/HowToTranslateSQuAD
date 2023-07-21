@@ -1,3 +1,4 @@
+from src.qa.quad import QUAD
 from src.tar.align import Aligner
 from src.tar.utils import Span
 from src.utils.logging import get_logger
@@ -11,7 +12,8 @@ def test_surface_token_mapping():
         "disease .")
     tokens = [
         'Mada', 'm', 'President', ',', 'I', 'would', 'like', 'to', 'confi',
-        'ne', 'my', 're', 'marks', 'to', 'Alzheimer', "'", 's', 'disease', '', '.']
+        'ne', 'my', 're', 'marks', 'to', 'Alzheimer', "'", 's', 'disease', '',
+        '.']
 
     gold_mapping = {
         (0, "Mada"): Span(0, 4),
@@ -42,3 +44,43 @@ def test_surface_token_mapping():
         logger.info(f"{key=}, Span={value}")
         assert gold_mapping[key] == value
     assert gold_mapping == mapping
+
+
+def test_answer_extraction():
+    def extract_suitable_test_pairs(source_dataset, target_dataset):
+        for source_article, target_article in zip(
+                source_dataset.data, target_dataset.data):
+            for source_paragraph, target_paragraph in zip(
+                    source_article.paragraph, target_article.paragraph):
+                # extract context
+                source_text = source_paragraph.context
+                target_text = target_paragraph.context
+                # estract answers
+                for source_qa, target_qa in zip(
+                        source_paragraph.qas, target_paragraph.qas):
+                    for source_answer, target_answer in zip(
+                            source_qa.answers, target_qa.answers):
+                        # only take ansers where the answer text appears once
+                        if target_text.count(target_answer.text) == 1:
+                            yield (source_text, source_answer,
+                                   target_text, target_answer)
+
+    squad = QUAD(QUAD.Datasets.Squad1.TRAIN)
+    raw_squad = QUAD(QUAD.Datasets.Squad1.Translated.Raw.TRAIN)
+
+    aligner = Aligner()
+
+    for test_pairs in extract_suitable_test_pairs(squad, raw_squad):
+        source_text, source_answer, target_text, target_answer = test_pairs
+        logger.info(f"test case:\n{source_text=}\n{source_answer=}\n"
+                    f"{target_text}\n{target_answer}")
+        retrived_span = aligner.retrive(
+                source_text, Span(source_answer), target_text)
+
+        # fix target_span, at this time (2023-07-21) the answer.answer_start
+        # values are not correctly set
+        target_span = Span(
+                start=target_text.find(target_answer),
+                end=target_text.find(target_answer) + len(target_answer))
+
+        assert retrived_span == target_span
