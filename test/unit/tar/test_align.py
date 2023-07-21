@@ -14,6 +14,7 @@ def test_surface_token_mapping():
         'Mada', 'm', 'President', ',', 'I', 'would', 'like', 'to', 'confi',
         'ne', 'my', 're', 'marks', 'to', 'Alzheimer', "'", 's', 'disease', '',
         '.']
+    indexed_tokens = [(i, token) for i, token in tokens]
 
     gold_mapping = {
         (0, "Mada"): Span(0, 4),
@@ -38,7 +39,7 @@ def test_surface_token_mapping():
         (19, "."): Span(75, 76)
     }
 
-    mapping = Aligner.surface_token_mapping(text, tokens)
+    mapping = Aligner.surface_token_mapping(text, indexed_tokens)
 
     for key, value in mapping.items():
         logger.info(f"{key=}, Span={value}")
@@ -75,7 +76,7 @@ def test_answer_extraction():
         logger.info(f"test case:\n{source_text=}\n{source_answer=}\n"
                     f"{target_text}\n{target_answer}")
         retrived_span = aligner.retrive(
-                source_text, Span(source_answer), target_text)
+                source_text, Span.from_answer(source_answer), target_text)
 
         # fix target_span, at this time (2023-07-21) the answer.answer_start
         # values are not correctly set
