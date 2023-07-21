@@ -102,6 +102,14 @@ class Aligner:
             self._span_starts = []
             self._span_ends = []
 
+        def __len__(self):
+            return len(self._indices)
+
+        def __getitem__(self, index):
+            return (self._indices[index],
+                    self._span_starts[index],
+                    self._span_ends[index])
+
         def get_indices(self, span: Span):
             return [index for index in self._indices
                     if self._span_starts[index] >= span.start
