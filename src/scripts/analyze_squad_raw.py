@@ -39,21 +39,22 @@ def plot_counts(answer_counts):
 
 
 def main():
-    answer_counts = {
-            0: 936,
-            1: 29753,
-            2: 2581,
-            3: 822,
-            4: 301,
-            5: 143,
-            6: 67,
-            7: 59,
-            8: 28,
-            9: 15,
-            10: 11,
-            12: 8,
-            13: 1,
-            17: 1}
+    answer_counts = {}
+    #answer_counts = {
+    #        0: 936,
+    #        1: 29753,
+    #        2: 2581,
+    #        3: 822,
+    #        4: 301,
+    #        5: 143,
+    #        6: 67,
+    #        7: 59,
+    #        8: 28,
+    #        9: 15,
+    #        10: 11,
+    #        12: 8,
+    #        13: 1,
+    #        17: 1}
     if not answer_counts:
         answer_counts = get_answer_counts()
     plot_counts(answer_counts)
