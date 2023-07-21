@@ -105,7 +105,7 @@ class Aligner:
         def get_indices(self, span: Span):
             return [index for index in self._indices
                     if self._span_starts[index] >= span.start
-                    and self._span_ends <= span.end]
+                    and self._span_ends[index] <= span.end]
 
         def get_index(self, span: Span = None, start=None, end=None):
             if span or (start and end):
