@@ -14,7 +14,7 @@ def test_surface_token_mapping():
         'Mada', 'm', 'President', ',', 'I', 'would', 'like', 'to', 'confi',
         'ne', 'my', 're', 'marks', 'to', 'Alzheimer', "'", 's', 'disease', '',
         '.']
-    indexed_tokens = [(i, token) for i, token in tokens]
+    indexed_tokens = [(i, token) for i, token in enumerate(tokens)]
 
     gold_mapping = {
         (0, "Mada"): Span(0, 4),

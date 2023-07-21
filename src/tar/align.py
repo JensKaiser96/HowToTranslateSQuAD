@@ -72,7 +72,8 @@ class Aligner:
         of the target_text
         """
         # get mapping between source_text and target_text
-        mapping, source_tokens_ids, target_tokens_ids = self()
+        mapping, source_tokens_ids, target_tokens_ids = self(
+                source_text, target_text)
 
         mapping_dict = {entry[0]: entry[1] for entry in mapping}
 
