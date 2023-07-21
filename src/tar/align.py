@@ -129,8 +129,8 @@ class Aligner:
 
         def append(self, index: int, span: Span):
             self._indices.append(index)
-            self._span_starts(span.start)
-            self._span_ends(span.end)
+            self._span_starts.append(span.start)
+            self._span_ends.append(span.end)
 
     @classmethod
     def surface_token_mapping(cls, text: str, tokens: list) -> Mapping:
