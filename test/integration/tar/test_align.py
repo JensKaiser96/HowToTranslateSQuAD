@@ -8,7 +8,7 @@ def test_alinger():
     aliner = Aligner()
     sentence_en = "Madam President, I would like to confine my remarks to Alzheimer's disease."
     sentence_de = "Frau Präsidentin, ich möchte meine Bemerkungen auf die Alzheimer-Krankheit beschränken."
-    mapping, tokens_en, tokens_de = aliner(sentence_en, sentence_de)
+    mapping, tokens_en, tokens_de = aliner.alignment(sentence_en, sentence_de)
 
     for src, trg in mapping:
         logger.info(f"({src}){tokens_en[src]}\t->\t({trg}){tokens_de[trg]}")
