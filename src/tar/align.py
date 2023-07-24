@@ -26,7 +26,28 @@ class Aligner:
         self.tokenizer = XLMRobertaTokenizer.from_pretrained(
             Alignment.model_path)
 
+    def __call__(self, source_text: str = "",  target_text: str = "",
+                 encoding: dict = None):
+        # tokenize sentences
+        if source_text and target_text:
+            if encoding:
+                logger.warn(
+                    "Called Aligner with too many args. Both texts and "
+                    "encoding were provided, either one is sufficent. Will"
+                    " use provided encoding and ignore texts")
+            else:
+                encoding = self.get_encoding(source_text, target_text)
+
+        with torch.no_grad():
+            _, _, outputs = self.model(**encoding)
+        best_alignment_output = outputs[8]  # layer 8 has the best alignment
+        return best_alignment_output
+
+    def get_encoding(self, source_text, target_text) -> dict:
+        return self.tokenizer(source_text, target_text, return_tensors="pt")
+
     # TODO: make it work with batches
+
     def bidirectional_alignment(self, source_text: str, target_text: str
                                 ) -> list[tuple[int, int]]:
         """
@@ -35,18 +56,11 @@ class Aligner:
         [EOS], combinded with their index in the text to distiglish between
         tokens with the same string representation
         """
-        # tokenize sentences
-        encoding = self.tokenizer(source_text, target_text,
-                                  return_tensors="pt")
+        encoding = self.get_encoding(source_text, target_text)
+        outputs = self(encoding=encoding)
         source_span, target_span = self.extract_spans(encoding)
-
-        with torch.no_grad():
-            _, _, outputs = self.model(**encoding)
-        best_alignment_output = outputs[8]  # layer 8 has the best alignment
         # I don't get why this is done, but its in the reference code
-        sinkhorn_input = torch.bmm(
-            best_alignment_output,
-            best_alignment_output.transpose(1, 2))[0]
+        sinkhorn_input = torch.bmm(outputs, outputs.transpose(1, 2))[0]
         # The sinkhorn algorithm returns the alignment pairs
         sinkhorn_output = sinkhorn(sinkhorn_input, source_span, target_span)
 
