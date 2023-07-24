@@ -55,7 +55,7 @@ class Span:
 
 
 def _extract_wa_from_sim(sim: torch.Tensor):
-    logger.debug/(f"sim:\n{sim}")
+    logger.debug(f"sim:\n{sim}")
     m, n = sim.size()
     forward = torch.eye(n)[sim.argmax(dim=1)]
     backward = torch.eye(m)[sim.argmax(dim=0)]
