@@ -86,6 +86,7 @@ def test_answer_extraction():
                     f"{target_answer.text}\n")
         retrived_span = aligner.retrive(
             source_text, Span.from_answer(source_answer), target_text)
+        logger.info(f"{retrived_span=}")
         logger.info(f"\n====== Extracted answer ======\n"
                     f"{retrived_span(target_text)}")
 
