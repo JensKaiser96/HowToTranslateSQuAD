@@ -20,15 +20,15 @@ class Aligner:
 
         # load alignment model
         self.model = XLMRobertaModel.from_pretrained(
-                Alignment.model_path, config=model_config)
+            Alignment.model_path, config=model_config)
 
         # load tokenizer
         self.tokenizer = XLMRobertaTokenizer.from_pretrained(
-                Alignment.model_path)
+            Alignment.model_path)
 
     # TODO: make it work with batches
-    def __call__(self, source_text: str, target_text: str
-                 ) -> list[tuple[int, int]]:
+    def bidirectional_alignment(self, source_text: str, target_text: str
+                                ) -> list[tuple[int, int]]:
         """
         returns the alignment between the tokens in text_1 and sentence2
         as well as the tokens in source_text and target_text, without [BOS] and
@@ -45,8 +45,8 @@ class Aligner:
         best_alignment_output = outputs[8]  # layer 8 has the best alignment
         # I don't get why this is done, but its in the reference code
         sinkhorn_input = torch.bmm(
-                best_alignment_output,
-                best_alignment_output.transpose(1, 2))[0]
+            best_alignment_output,
+            best_alignment_output.transpose(1, 2))[0]
         # The sinkhorn algorithm returns the alignment pairs
         sinkhorn_output = sinkhorn(sinkhorn_input, source_span, target_span)
 
@@ -72,16 +72,16 @@ class Aligner:
         of the target_text
         """
         # get mapping between source_text and target_text
-        mapping, source_tokens_ids, target_tokens_ids = self(
-                source_text, target_text)
+        mapping, source_tokens_ids, target_tokens_ids = self.bidirectional_alignment(
+            source_text, target_text)
         logger.debug(f"{mapping=}\n{source_tokens_ids=}\n{target_tokens_ids=}")
 
         # get surface token mapping for both source and target
         source_surface_token_mapping = self.surface_token_mapping(
-                source_text, source_tokens_ids)
+            source_text, source_tokens_ids)
         logger.debug(f"{source_surface_token_mapping=}")
         target_surface_token_mapping = self.surface_token_mapping(
-                target_text, target_tokens_ids)
+            target_text, target_tokens_ids)
         logger.debug(f"{target_surface_token_mapping=}")
 
         source_span_token_ids = source_surface_token_mapping.get_indices(
@@ -92,12 +92,12 @@ class Aligner:
         mapping_dict = {entry[0]: entry[1] for entry in mapping}
         logger.debug(f"{mapping_dict=}")
         target_span_tokens = [
-                mapping_dict[token_id] for token_id in source_span_token_ids
-                if token_id in mapping_dict]
-        logger.debug(f"{target_span_tokens}")
+            mapping_dict[token_id] for token_id in source_span_token_ids
+            if token_id in mapping_dict]
+        logger.debug(f"{target_span_tokens=}")
 
         target_surface_spans = target_surface_token_mapping.get_spans(
-                target_span_tokens)
+            target_span_tokens)
         logger.debug(f"{target_surface_spans=}")
         return Span.combine(target_surface_spans)
 
@@ -119,23 +119,6 @@ class Aligner:
             return [index for index in self._indices
                     if self._span_starts[index] >= span.start
                     and self._span_ends[index] <= span.end]
-
-        def get_index(self, span: Span = None, start=None, end=None):
-            if span or (start and end):
-                raise NotImplementedError(
-                        "Use 'start' or 'end' argument, for finding the"
-                        "corresponding index. Span/start and end are not yet"
-                        "implemented")
-            if start:
-                return self._indices(self._span_starts.index(start))
-
-            if end:
-                return self._indices(self._span_ends.index(start))
-
-        def get_span(self, index: str):
-            span_index = self._indices.index(index)
-            return Span(start=self._span_starts[span_index],
-                        end=self._span_ends[span_index])
 
         def get_spans(self, indices: list[int]):
             return [self.get_span(index) for index in indices]
@@ -164,14 +147,14 @@ class Aligner:
                 mapping.append(index, span)
             else:
                 raise ValueError(
-                        f"Expected token '{token}' to be at {span.start}: "
-                        f"{span.end} in \n'{text}'\n, was: \n'{span(text)}'")
+                    f"Expected token '{token}' to be at {span.start}: "
+                    f"{span.end} in \n'{text}'\n, was: \n'{span(text)}'")
             # move curser to the end of the span
             curser_pos = span.end
         return mapping
 
-    def decode(self, sequence: Sequence[Union[int, torch.Tensor]]
-               ) -> list[str]:
+    def decode(self,
+               sequence: Sequence[Union[int, torch.Tensor]]) -> list[str]:
         return [self.tokenizer.decode(token_id) for token_id in sequence]
 
     def extract_spans(self, encoding: BatchEncoding) -> tuple[Span, Span]:
