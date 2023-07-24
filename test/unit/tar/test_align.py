@@ -83,7 +83,7 @@ def test_answer_extraction():
         # fix target_span, at this time (2023-07-21) the answer.answer_start
         # values are not correctly set
         target_span = Span(
-                start=target_text.find(target_answer),
-                end=target_text.find(target_answer) + len(target_answer))
+                start=target_text.find(target_answer.text),
+                end=target_text.find(target_answer.text) + len(target_answer))
 
         assert retrived_span == target_span
