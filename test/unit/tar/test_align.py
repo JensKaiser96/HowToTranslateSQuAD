@@ -75,10 +75,19 @@ def test_answer_extraction():
 
     for test_pairs in extract_suitable_test_pairs(squad, raw_squad):
         source_text, source_answer, target_text, target_answer = test_pairs
-        logger.info(f"test case:\n{source_text=}\n{source_answer=}\n"
-                    f"{target_text}\n{target_answer}")
+        logger.info(f"\n ====== Test Case: ====== \n"
+                    f"\n ====== Source text: ====== \n"
+                    f"{source_text}\n"
+                    f"\n ====== Source answer: ====== \n"
+                    f"{source_answer.text}\n"
+                    f"\n ====== Target text: ====== \n"
+                    f"{target_text}\n"
+                    f"\n ====== Target answer: ====== \n"
+                    f"{target_answer.text}\n")
         retrived_span = aligner.retrive(
             source_text, Span.from_answer(source_answer), target_text)
+        logger.info(f"\n====== Extracted answer ======\n"
+                    f"{retrived_span(target_text)}")
 
         # fix target_span, at this time (2023-07-21) the answer.answer_start
         # values are not correctly set

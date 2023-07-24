@@ -124,31 +124,31 @@ class Aligner:
         # get mapping between source_text and target_text
         mapping, source_tokens_ids, target_tokens_ids = self.alignment(
             source_text, target_text)
-        logger.debug(f"{mapping=}\n{source_tokens_ids=}\n{target_tokens_ids=}")
+        # logger.debug(f"{mapping=}\n{source_tokens_ids=}\n{target_tokens_ids=}")
 
         # get surface token mapping for both source and target
         source_surface_token_mapping = self.surface_token_mapping(
             source_text, source_tokens_ids)
-        logger.debug(f"{source_surface_token_mapping=}")
+        # logger.debug(f"{source_surface_token_mapping=}")
         target_surface_token_mapping = self.surface_token_mapping(
             target_text, target_tokens_ids)
-        logger.debug(f"{target_surface_token_mapping=}")
+        # logger.debug(f"{target_surface_token_mapping=}")
 
         source_span_token_ids = source_surface_token_mapping.get_indices(
             source_span)
-        logger.debug(f"{source_span_token_ids}")
+        # logger.debug(f"{source_span_token_ids}")
 
         # get the tokens in the target span
         mapping_dict = {entry[0]: entry[1] for entry in mapping}
-        logger.debug(f"{mapping_dict=}")
+        # logger.debug(f"{mapping_dict=}")
         target_span_tokens = [
             mapping_dict[token_id] for token_id in source_span_token_ids
             if token_id in mapping_dict]
-        logger.debug(f"{target_span_tokens=}")
+        # logger.debug(f"{target_span_tokens=}")
 
         target_surface_spans = target_surface_token_mapping.get_spans(
             target_span_tokens)
-        logger.debug(f"{target_surface_spans=}")
+        # logger.debug(f"{target_surface_spans=}")
         return Span.combine(target_surface_spans)
 
     class Mapping:
