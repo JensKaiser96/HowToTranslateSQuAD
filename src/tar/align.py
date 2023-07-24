@@ -75,6 +75,10 @@ class Aligner:
             self.decode(source_span(encoding)))]
         target_tokens = [(idx, token) for idx, token in enumerate(
             self.decode(target_span(encoding)))]
+
+        for source, target in alignments:
+            logger.debug(f"{source_tokens[source][1]}\t\t->\t\t{target_tokens[target][1]}")
+
         return alignments, source_tokens, target_tokens
 
     def get_alignments_from_model_output(
