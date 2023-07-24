@@ -170,6 +170,10 @@ class Aligner:
                     if self._span_starts[index] >= span.start
                     and self._span_ends[index] <= span.end]
 
+        def get_span(self, index) -> Span:
+            return Span(start=self._span_starts[index],
+                        end=self._span_ends[index])
+
         def get_spans(self, indices: list[int]):
             return [self.get_span(index) for index in indices]
 
