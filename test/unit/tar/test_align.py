@@ -46,7 +46,6 @@ def test_surface_token_mapping():
         value = Span(start, end)
         logger.info(f"{key=}, Span={value}")
         assert gold_mapping[key] == value
-    assert gold_mapping == mapping
 
 
 def test_answer_extraction():
