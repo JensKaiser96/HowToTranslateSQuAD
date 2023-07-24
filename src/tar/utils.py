@@ -30,7 +30,7 @@ class Span:
     def combine(cls, spans: list["Span"]):
         min_start = min(spans, key=lambda span: span.start)
         max_end = max(spans, key=lambda span: span.end)
-        return cls(min_start, max_end)
+        return cls(min_start.start, max_end.end)
 
     def __call__(self, sequence: Union[Sequence, BatchEncoding]) -> Sequence:
         # special case if the given sequence is a BatchEncoding, plus if the
