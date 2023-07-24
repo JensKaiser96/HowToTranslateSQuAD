@@ -46,56 +46,9 @@ class Span:
 
     def __add__(self, other: "Span") -> "Span":
         return Span(
-                start=min(self.start, other.start),
-                end=max(self.end, other.end))
+            start=min(self.start, other.start),
+            end=max(self.end, other.end))
 
     @property
     def is_empty(self) -> bool:
         return self.start >= self.end
-
-
-def _extract_wa_from_sim(sim: torch.Tensor):
-    logger.debug(f"sim:\n{sim}")
-    m, n = sim.size()
-    forward = torch.eye(n)[sim.argmax(dim=1)]
-    backward = torch.eye(m)[sim.argmax(dim=0)]
-    inter = forward * backward.transpose(0, 1)
-    logger.debug(f"inter:\n{inter}")
-    return [(i, j) for i, j in (inter > 0).nonzero()]
-
-
-def _sinkhorn_iter(S: torch.Tensor, num_iter=2) -> torch.Tensor:
-    if num_iter <= 0:
-        return S, S
-    if not S.dim() == 2:
-        raise ValueError(
-            f"Expected S.dim() to be 2, but was '{S.dim()}' instead \n{S=}")
-    S[S <= 0].fill_(1e-6)
-    for _ in range(num_iter):
-        S = S / S.sum(dim=0, keepdim=True)
-        S = S / S.sum(dim=1, keepdim=True)
-    return S
-
-
-def sinkhorn(sim: torch.Tensor, source: Span, target: Span, num_iter=2
-             ) -> list[tuple[int, int]]:
-    # check for valid spans
-    if source.is_empty:
-        logger.warn(f"source span is empty: {source.start=}, {source.end=}")
-        return []
-    if target.is_empty:
-        logger.warn(f"target span is empty: {target.start=}, {target.end=}")
-        return []
-    sim_wo_offset = sim[source.start: source.end, target.start: target.end]
-    sim = _sinkhorn_iter(sim_wo_offset, num_iter)
-    pred_wa_wo_offset = _extract_wa_from_sim(sim)
-    return [(source_offset + source.start, target_offset + target.start) for
-            source_offset, target_offset in pred_wa_wo_offset]
-
-
-def batch_sinkhorn(batch_sim: torch.Tensor, sources: list[Span],
-                   targets: list[Span], num_iter=2):
-    predicted_word_alignments = []
-    for sim, source, target in zip(batch_sim, sources, targets):
-        predicted_word_alignments.append(sinkhorn(sim, source, target))
-    return predicted_word_alignments

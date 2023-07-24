@@ -3,15 +3,21 @@ import string
 from transformers.tokenization_utils_base import BatchEncoding
 from transformers import XLMRobertaConfig, XLMRobertaModel, XLMRobertaTokenizer
 from typing import Sequence, Union
+from enum import Enum, auto
 
 from src.io.filepaths import Alignment
-from src.tar.utils import Span, sinkhorn
+from src.tar.utils import Span
 from src.utils.logging import get_logger
 
 logger = get_logger(__name__)
 
 
 class Aligner:
+    class Direction(Enum):
+        forwards = auto()
+        backwards = auto()
+        bidirectional = auto()
+
     def __init__(self):
         # load and set model config
         model_config = XLMRobertaConfig.from_pretrained(Alignment.config)
@@ -26,8 +32,8 @@ class Aligner:
         self.tokenizer = XLMRobertaTokenizer.from_pretrained(
             Alignment.model_path)
 
-    def __call__(self, source_text: str = "",  target_text: str = "",
-                 encoding: dict = None):
+    def get_model_output(self, source_text: str = "",  target_text: str = "",
+                         encoding: dict = None) -> torch.Tensor:
         # tokenize sentences
         if source_text and target_text:
             if encoding:
@@ -40,36 +46,29 @@ class Aligner:
 
         with torch.no_grad():
             _, _, outputs = self.model(**encoding)
-        best_alignment_output = outputs[8]  # layer 8 has the best alignment
-        return best_alignment_output
+        output = outputs[8]  # layer 8 has the best alignment
+        # I don't get why this is done, but its in the reference code
+        return torch.bmm(output, output.transpose(1, 2))[0]
 
     def get_encoding(self, source_text, target_text) -> dict:
         return self.tokenizer(source_text, target_text, return_tensors="pt")
 
-    # TODO: make it work with batches
-
-    def bidirectional_alignment(self, source_text: str, target_text: str
-                                ) -> list[tuple[int, int]]:
+    def alignment(self, source_text: str,
+                  target_text: str,
+                  direction: Direction = Direction.forwards,
+                  ) -> list[tuple[int, int]]:
         """
         returns the alignment between the tokens in text_1 and sentence2
         as well as the tokens in source_text and target_text, without [BOS] and
         [EOS], combinded with their index in the text to distiglish between
         tokens with the same string representation
         """
+        # get encodings, aligner output and spans
         encoding = self.get_encoding(source_text, target_text)
-        outputs = self(encoding=encoding)
+        output = self.get_model_output(encoding=encoding)
         source_span, target_span = self.extract_spans(encoding)
-        # I don't get why this is done, but its in the reference code
-        sinkhorn_input = torch.bmm(outputs, outputs.transpose(1, 2))[0]
-        # The sinkhorn algorithm returns the alignment pairs
-        sinkhorn_output = sinkhorn(sinkhorn_input, source_span, target_span)
-
-        # the output is based on the encoding representation, i.e. first the
-        # [BOS] token then, sentence2, [EOS], [EOS], sentence2, [EOS]
-        # but we want the mapping between sentence1 and sentence2 when they
-        # both start at index 0, so the span.start is substracted
-        alignments = [(source - source_span.start, target - target_span.start)
-                      for source, target in sinkhorn_output]
+        alignments = self.get_alignments_from_model_output(
+            output, source_span, target_span, direction)
 
         # add position (idx) to each token before returning the token list
         source_tokens = [(idx, token) for idx, token in enumerate(
@@ -77,6 +76,43 @@ class Aligner:
         target_tokens = [(idx, token) for idx, token in enumerate(
             self.decode(target_span(encoding)))]
         return alignments, source_tokens, target_tokens
+
+    def get_alignments_from_model_output(
+            self,
+            output: torch.Tensor,
+            source_span: Span,
+            target_span: Span,
+            direction: Direction):
+        # crop array to exclude tokens outside the spans
+        relevant_output = output[source_span.start: source_span.end,
+                                 target_span.start: target_span.end]
+        normalized_output = self.dimensionalwise_normalize(relevant_output)
+
+        if direction == Aligner.Direction.forwards:
+            best_match = normalized_output.argmax(axis=1)
+            return [[i, t] for i, t in enumerate(best_match)]
+        elif direction == Aligner.Direction.backwards:
+            best_match = normalized_output.argmax(axis=0)
+            return [[i, t] for i, t in enumerate(best_match)]
+        elif direction == Aligner.Direction.bidirectional:
+            # sinkhorn algorithm
+            m, n = normalized_output.size()
+            forward = torch.eye(n)[normalized_output.argmax(dim=1)]
+            backward = torch.eye(m)[normalized_output.argmax(dim=0)]
+            inter = forward * backward.T
+            return inter.nonzero()
+        else:
+            raise ValueError(
+                f"Direction argument must be a Direction, one of: "
+                f"{Aligner.Direction._member_names_}")
+
+    def dimensionalwise_normalize(
+            matrix: torch.Tensor, num_iter=2) -> torch.Tensor:
+        matrix = matrix.copy()
+        for _ in range(num_iter):
+            for dim in range(matrix.dim()):
+                torch.nn.functional.normalize(matrix, dim=dim, eps=1e-6)
+        return matrix
 
     def retrive(self, source_text: str, source_span: Span,
                 target_text: str) -> Span:
@@ -86,7 +122,7 @@ class Aligner:
         of the target_text
         """
         # get mapping between source_text and target_text
-        mapping, source_tokens_ids, target_tokens_ids = self.bidirectional_alignment(
+        mapping, source_tokens_ids, target_tokens_ids = self.alignment(
             source_text, target_text)
         logger.debug(f"{mapping=}\n{source_tokens_ids=}\n{target_tokens_ids=}")
 
@@ -208,7 +244,15 @@ class Aligner:
                 f" the first [EOS] (id:{EOS}), but the token after the first "
                 f"[EOS] has id: {ids[first_EOS + 1]} instead.")
 
-        source_span = Span(1, first_EOS)
-        target_span = Span(first_EOS + 2, len(ids)-1)
+        source = Span(1, first_EOS)
+        target = Span(first_EOS + 2, len(ids)-1)
 
-        return source_span, target_span
+        # Verify spans are not empty
+        if source.is_empty:
+            raise ValueError(
+                f"Source span is not allowed to be empty. {source}")
+        if target.is_empty:
+            raise ValueError(
+                f"Target span is not allowed to be empty. {target}")
+
+        return source, target
