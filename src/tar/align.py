@@ -107,7 +107,7 @@ class Aligner:
                 f"{Aligner.Direction._member_names_}")
 
     def dimensionalwise_normalize(
-            matrix: torch.Tensor, num_iter=2) -> torch.Tensor:
+            self, matrix: torch.Tensor, num_iter=2) -> torch.Tensor:
         matrix = matrix.copy()
         for _ in range(num_iter):
             for dim in range(matrix.dim()):
