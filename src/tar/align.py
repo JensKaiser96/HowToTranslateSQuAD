@@ -108,7 +108,7 @@ class Aligner:
 
     def dimensionalwise_normalize(
             self, matrix: torch.Tensor, num_iter=2) -> torch.Tensor:
-        matrix = matrix.copy()
+        matrix = matrix.detach().clone()
         for _ in range(num_iter):
             for dim in range(matrix.dim()):
                 torch.nn.functional.normalize(matrix, dim=dim, eps=1e-6)
