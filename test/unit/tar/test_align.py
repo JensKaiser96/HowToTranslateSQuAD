@@ -78,12 +78,12 @@ def test_answer_extraction():
         logger.info(f"test case:\n{source_text=}\n{source_answer=}\n"
                     f"{target_text}\n{target_answer}")
         retrived_span = aligner.retrive(
-                source_text, Span.from_answer(source_answer), target_text)
+            source_text, Span.from_answer(source_answer), target_text)
 
         # fix target_span, at this time (2023-07-21) the answer.answer_start
         # values are not correctly set
         target_span = Span(
-                start=target_text.find(target_answer.text),
-                end=target_text.find(target_answer.text) + len(target_answer))
+            start=target_text.find(target_answer.text),
+            end=target_text.find(target_answer.text) + len(target_answer.text))
 
         assert retrived_span == target_span
