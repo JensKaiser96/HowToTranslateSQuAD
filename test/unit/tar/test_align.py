@@ -1,5 +1,5 @@
 from src.qa.quad import QUAD
-from src.tar.retrive import Retriver
+from src.tar.retrive import retrive
 from src.tar.tokenize import Tokenizer
 from src.tar.utils import Span
 from src.utils.logging import get_logger
@@ -42,11 +42,10 @@ def test_surface_token_mapping():
 
     mapping = Tokenizer.surface_token_mapping(text, indexed_tokens)
 
-    for index, start, end in mapping:
-        key = indexed_tokens[index]
-        value = Span(start, end)
-        logger.info(f"{key=}, Span={value}")
-        assert gold_mapping[key] == value
+    for (index, token), gold_span in gold_mapping:
+        predicted_span = mapping[index]
+        logger.info(f"({index}){token}, Span={predicted_span}")
+        assert gold_span == predicted_span
 
 
 def test_answer_extraction():
@@ -82,7 +81,7 @@ def test_answer_extraction():
                     f"{target_text}\n"
                     f"\n ====== Target answer: ====== \n"
                     f"{target_answer.text}\n")
-        retrived_span = Retriver(
+        retrived_span = retrive(
             source_text, Span.from_answer(source_answer), target_text)
         logger.info(f"{retrived_span=}")
         logger.info(f"\n====== Extracted answer ======\n"
