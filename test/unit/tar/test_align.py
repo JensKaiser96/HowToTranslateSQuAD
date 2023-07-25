@@ -15,7 +15,6 @@ def test_surface_token_mapping():
         'Mada', 'm', 'President', ',', 'I', 'would', 'like', 'to', 'confi',
         'ne', 'my', 're', 'marks', 'to', 'Alzheimer', "'", 's', 'disease', '',
         '.']
-    indexed_tokens = [(i, token) for i, token in enumerate(tokens)]
 
     gold_mapping = {
         (0, "Mada"): Span(0, 4),
@@ -40,7 +39,7 @@ def test_surface_token_mapping():
         (19, "."): Span(75, 76)
     }
 
-    mapping = Tokenizer.surface_token_mapping(text, indexed_tokens)
+    mapping = Tokenizer.surface_token_mapping(text, tokens)
 
     for (index, token), gold_span in gold_mapping.items():
         predicted_span = mapping[index]
