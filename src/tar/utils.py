@@ -7,6 +7,7 @@ from dataclasses import dataclass
 import torch
 from typing import Sequence, Union
 from transformers.tokenization_utils_base import BatchEncoding
+from enum import Enum, auto
 
 from src.qa.quad import Answer
 from src.utils.logging import get_logger
@@ -52,3 +53,12 @@ class Span:
     @property
     def is_empty(self) -> bool:
         return self.start >= self.end
+
+    def is_subspan(self, other: "Span") -> bool:
+        return self.start >= other.start and self.end <= other.end
+
+
+class Direction(Enum):
+    forwards = auto()
+    backwards = auto()
+    bidirectional = auto()
