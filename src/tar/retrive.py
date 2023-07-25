@@ -6,7 +6,7 @@ from src.tar.tokenize import Tokenizer
 logger = get_logger(__name__)
 
 
-def retrive(cls, source_text: str, source_span: Span,
+def retrive(source_text: str, source_span: Span,
             target_text: str) -> Span:
     """
     Given a source text, its answer span and the translation of the

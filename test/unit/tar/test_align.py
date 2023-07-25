@@ -42,7 +42,7 @@ def test_surface_token_mapping():
 
     mapping = Tokenizer.surface_token_mapping(text, indexed_tokens)
 
-    for (index, token), gold_span in gold_mapping:
+    for (index, token), gold_span in gold_mapping.items():
         predicted_span = mapping[index]
         logger.info(f"({index}){token}, Span={predicted_span}")
         assert gold_span == predicted_span
