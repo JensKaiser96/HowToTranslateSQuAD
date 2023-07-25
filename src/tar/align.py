@@ -36,14 +36,11 @@ def align(source_text: str, target_text: str,
         output, source_span, target_span, direction)
 
     # add position (idx) to each token before returning the token list
-    source_tokens = [(idx, token) for idx, token in enumerate(
-        Tokenizer.decode(source_span(encoding)))]
-    target_tokens = [(idx, token) for idx, token in enumerate(
-        Tokenizer.decode(target_span(encoding)))]
+    source_tokens = Tokenizer.decode(source_span(encoding))
+    target_tokens = Tokenizer.decode(target_span(encoding))
 
     for source, target in alignments:
-        logger.debug(
-            f"{source_tokens[source][1]}\t->\t{target_tokens[target][1]}")
+        logger.debug(f"{source_tokens[source]}\t->\t{target_tokens[target]}")
 
     return alignments, source_tokens, target_tokens
 

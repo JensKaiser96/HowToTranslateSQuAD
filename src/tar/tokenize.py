@@ -85,7 +85,7 @@ class Tokenizer:
         """
         mapping = []
         curser_pos = 0
-        for _, token in tokens:
+        for token in tokens:
             # advance curser if the next char is a whitespace.
             while text[curser_pos: curser_pos + 1] in string.whitespace:
                 curser_pos += 1
