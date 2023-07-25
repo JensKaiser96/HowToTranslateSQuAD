@@ -1,5 +1,6 @@
 from src.qa.quad import QUAD
-from src.tar.align import Aligner
+from src.tar.retrive import Retriver
+from src.tar.tokenize import Tokenizer
 from src.tar.utils import Span
 from src.utils.logging import get_logger
 
@@ -39,7 +40,7 @@ def test_surface_token_mapping():
         (19, "."): Span(75, 76)
     }
 
-    mapping = Aligner.surface_token_mapping(text, indexed_tokens)
+    mapping = Tokenizer.surface_token_mapping(text, indexed_tokens)
 
     for index, start, end in mapping:
         key = indexed_tokens[index]
@@ -70,8 +71,6 @@ def test_answer_extraction():
     squad = QUAD(QUAD.Datasets.Squad1.TRAIN)
     raw_squad = QUAD(QUAD.Datasets.Squad1.Translated.Raw.TRAIN)
 
-    aligner = Aligner()
-
     for test_pairs in extract_suitable_test_pairs(squad, raw_squad):
         source_text, source_answer, target_text, target_answer = test_pairs
         logger.info(f"\n ====== Test Case: ====== \n"
@@ -83,7 +82,7 @@ def test_answer_extraction():
                     f"{target_text}\n"
                     f"\n ====== Target answer: ====== \n"
                     f"{target_answer.text}\n")
-        retrived_span = aligner.retrive(
+        retrived_span = Retriver(
             source_text, Span.from_answer(source_answer), target_text)
         logger.info(f"{retrived_span=}")
         logger.info(f"\n====== Extracted answer ======\n"
