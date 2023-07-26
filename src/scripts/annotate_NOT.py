@@ -1,6 +1,6 @@
 import tqdm
 from src.utils.logging import get_logger
-from src.utils.formatter import Formatter
+from src.scripts.formatter import Formatter
 from src.qa.quad import QUAD
 logger = get_logger(__file__, script=True)
 
