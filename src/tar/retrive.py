@@ -1,4 +1,4 @@
-from src.tar.utils import Span
+from src.nlp_tools.span import Span
 from src.utils.logging import get_logger
 from src.tar.align import align
 from src.tar.tokenize import Tokenizer

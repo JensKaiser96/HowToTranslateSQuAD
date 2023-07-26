@@ -5,7 +5,7 @@ import string
 
 
 from src.io.filepaths import Alignment
-from src.tar.utils import Span
+from src.nlp_tools.span import Span
 
 
 class Tokenizer:

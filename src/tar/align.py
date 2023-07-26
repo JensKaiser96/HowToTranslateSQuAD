@@ -2,7 +2,8 @@ import torch
 from transformers import XLMRobertaConfig, XLMRobertaModel
 
 from src.io.filepaths import Alignment
-from src.tar.utils import Span, Direction
+from src.tar.utils import Direction
+from src.nlp_tools.span import Span
 from src.tar.tokenize import Tokenizer
 from src.math.matrix import dimensionalwise_normalize
 from src.utils.logging import get_logger
