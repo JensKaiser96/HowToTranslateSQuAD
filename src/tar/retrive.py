@@ -1,7 +1,7 @@
 from src.nlp_tools.span import Span
 from src.utils.logging import get_logger
 from src.tar.align import align
-from src.tar.tokenize import Tokenizer
+from src.nlp_tools.token import surface_token_mapping
 
 logger = get_logger(__name__)
 
@@ -19,9 +19,9 @@ def retrive(source_text: str, source_span: Span,
     logger.debug(f"{alignment=}\n{source_tokens=}\n{target_tokens=}")
 
     # get surface token mapping for both source and target
-    source_surface_token_mapping = Tokenizer.surface_token_mapping(
+    source_surface_token_mapping = surface_token_mapping(
         source_text, source_tokens)
-    target_surface_token_mapping = Tokenizer.surface_token_mapping(
+    target_surface_token_mapping = surface_token_mapping(
         target_text, target_tokens)
 
     source_span_token_ids = [index for index, span

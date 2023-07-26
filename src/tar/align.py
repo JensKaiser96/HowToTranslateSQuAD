@@ -1,10 +1,11 @@
 import torch
-from transformers import XLMRobertaConfig, XLMRobertaModel
+from transformers import XLMRobertaConfig, XLMRobertaModel, XLMRobertaTokenizer
+from transformers.tokenization_utils_base import BatchEncoding
 
+from src.nlp_tools.token import Tokenizer
 from src.io.filepaths import Alignment
 from src.tar.utils import Direction
 from src.nlp_tools.span import Span
-from src.tar.tokenize import Tokenizer
 from src.math.matrix import dimensionalwise_normalize
 from src.utils.logging import get_logger
 
@@ -19,6 +20,9 @@ _model_config.return_dict = False
 model = XLMRobertaModel.from_pretrained(
     Alignment.model_path, config=_model_config)
 
+tokenizer = Tokenizer(
+    XLMRobertaTokenizer.from_pretrained(Alignment.model_path))
+
 
 def align(source_text: str, target_text: str,
           direction: Direction = Direction.forwards,
@@ -30,15 +34,15 @@ def align(source_text: str, target_text: str,
     tokens with the same string representation
     """
     # get encodings, aligner output and spans
-    encoding = Tokenizer.encode(source_text, target_text)
+    encoding = tokenizer.encode(source_text, target_text)
     output = _get_model_output(encoding)
-    source_span, target_span = Tokenizer.split_encoding(encoding)
+    source_span, target_span = split_encoding(encoding)
     alignments = _get_alignments_from_model_output(
         output, source_span, target_span, direction)
 
     # add position (idx) to each token before returning the token list
-    source_tokens = Tokenizer.decode(source_span(encoding))
-    target_tokens = Tokenizer.decode(target_span(encoding))
+    source_tokens = tokenizer.decode(source_span(encoding))
+    target_tokens = tokenizer.decode(target_span(encoding))
 
     for source, target in alignments:
         logger.debug(f"{source_tokens[source]}\t->\t{target_tokens[target]}")
@@ -85,3 +89,54 @@ def _get_alignments_from_model_output(
         raise ValueError(
             f"Direction argument must be a Direction, one of: "
             f"{Direction._member_names_}")
+
+
+def split_encoding(cls, encoding: BatchEncoding) -> tuple[Span, Span]:
+    """
+    extracts spans from an encoding of two texts, the span start index
+    is inclusive and the span end is exclusive, e.g.:
+        Span(2,5) includes the elements 2, 3, and 4 (not 5)
+    It is expected that the encoding has the following format in its
+    input_ids tensor:
+        [[BOS, <source_text>, EOS, EOS, <target_text>, EOS]]
+    """
+    BOS = cls.tokenizer.bos_token_id
+    EOS = cls.tokenizer.eos_token_id
+
+    ids = list(encoding.input_ids.flatten())
+
+    # check if sequence is as expected
+    if not ids[0] == BOS:
+        raise ValueError(
+            f"Expected sequence to start with [BOS] token (id:{BOS}), "
+            f"but sequence starts with id:{ids[0]}.")
+    if not ids[-1] == EOS:
+        raise ValueError(
+            f"Expected sequence to end with [EOS] token (id:{EOS}), "
+            f"but sequence ends with id:{ids[-1]}.")
+    if not list(ids).count(EOS) == 3:
+        raise ValueError(
+            f"Expected sequence to have exactly three occurences of the "
+            f"[EOS] token (id:{EOS}), but counted {list(ids).count(EOS)} "
+            f"instead.")
+
+    first_EOS = ids.index(EOS)
+
+    if not ids[first_EOS + 1] == EOS:
+        raise ValueError(
+            f"Expected sequence to have the second [EOS] directly follow "
+            f" the first [EOS] (id:{EOS}), but the token after the first "
+            f"[EOS] has id: {ids[first_EOS + 1]} instead.")
+
+    source = Span(1, first_EOS)
+    target = Span(first_EOS + 2, len(ids)-1)
+
+    # Verify spans are not empty
+    if source.is_empty:
+        raise ValueError(
+            f"Source span is not allowed to be empty. {source}")
+    if target.is_empty:
+        raise ValueError(
+            f"Target span is not allowed to be empty. {target}")
+
+    return source, target
