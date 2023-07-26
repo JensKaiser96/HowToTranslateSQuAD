@@ -9,8 +9,8 @@ class Tokenizer:
     def __init__(self, tokenizer):
         self.tokenizer = tokenizer
 
-    def encode(self, source: str, target: str) -> BatchEncoding:
-        return self.tokenizer(source, target, return_tensors="pt")
+    def encode(self, *text: str) -> BatchEncoding:
+        return self.tokenizer(*text, return_tensors="pt")
 
     def decode(self, tokens_ids: Sequence) -> list[str]:
         return [self.tokenizer.decode(token_id) for token_id in tokens_ids]
