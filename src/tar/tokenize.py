@@ -1,8 +1,7 @@
 from transformers import XLMRobertaTokenizer
 from transformers.tokenization_utils_base import BatchEncoding
-from typing import Sequence, Union
+from typing import Sequence
 import string
-import torch
 
 
 from src.io.filepaths import Alignment
@@ -23,8 +22,7 @@ class Tokenizer:
         return cls.tokenizer(source, target, return_tensors="pt")
 
     @classmethod
-    def decode(cls,
-               tokens_ids: Sequence[Union[int, torch.Tensor]]) -> list[str]:
+    def decode(cls, tokens_ids: Sequence) -> list[str]:
         return [cls.tokenizer.decode(token_id) for token_id in tokens_ids]
 
     @classmethod
@@ -79,7 +77,7 @@ class Tokenizer:
         return source, target
 
     @classmethod
-    def surface_token_mapping(cls, text: str, tokens: list) -> list[Span]:
+    def surface_token_mapping(cls, text: str, tokens: list[str]) -> list[Span]:
         """
         returns a list of spans corresponding to the tokens in tokens.
         """
