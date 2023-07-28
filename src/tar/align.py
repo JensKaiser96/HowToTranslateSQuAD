@@ -91,7 +91,7 @@ def _get_alignments_from_model_output(
             f"{Direction._member_names_}")
 
 
-def split_encoding(cls, encoding: BatchEncoding) -> tuple[Span, Span]:
+def split_encoding(encoding: BatchEncoding) -> tuple[Span, Span]:
     """
     extracts spans from an encoding of two texts, the span start index
     is inclusive and the span end is exclusive, e.g.:
@@ -100,8 +100,8 @@ def split_encoding(cls, encoding: BatchEncoding) -> tuple[Span, Span]:
     input_ids tensor:
         [[BOS, <source_text>, EOS, EOS, <target_text>, EOS]]
     """
-    BOS = cls.tokenizer.bos_token_id
-    EOS = cls.tokenizer.eos_token_id
+    BOS = tokenizer.bos_token_id
+    EOS = tokenizer.eos_token_id
 
     ids = list(encoding.input_ids.flatten())
 
