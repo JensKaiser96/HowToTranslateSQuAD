@@ -8,6 +8,7 @@ from src.nlp_tools.span import Span
 class Tokenizer:
     def __init__(self, tokenizer):
         self.tokenizer = tokenizer
+        self.t = tokenizer
 
     def encode(self, *text: str) -> BatchEncoding:
         return self.tokenizer(*text, return_tensors="pt")
