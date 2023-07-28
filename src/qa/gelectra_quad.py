@@ -36,10 +36,10 @@ class Gelectra:
         """
         splits the combined encoding of the ElectraTokenizer of a context
         question pair into its two spans
-            [[CLS, <context>, PAD, <question>, PAD]]
+            [[CLS, <context>, SEP, <question>, SEP]]
         """
         CLS = cls.tokenizer.t.cls_token_id
-        PAD = cls.tokenizer.t.pad_token_id
+        SEP = cls.tokenizer.t.sep_token_id
 
         ids = list(encoding.input_ids.flatten())
 
@@ -48,17 +48,17 @@ class Gelectra:
             raise ValueError(
                 f"Expected sequence to start with [CLS] token (id:{CLS}), "
                 f"but sequence starts with id:{ids[0]}.")
-        if not ids[-1] == PAD:
+        if not ids[-1] == SEP:
             raise ValueError(
-                f"Expected sequence to end with [PAD] token (id:{PAD}), "
+                f"Expected sequence to end with [SEP] token (id:{SEP}), "
                 f"but sequence ends with id:{ids[-1]}.")
-        if not list(ids).count(PAD) == 2:
+        if not list(ids).count(SEP) == 2:
             raise ValueError(
                 f"Expected sequence to have exactly three occurences of the "
-                f"[PAD] token (id:{PAD}), but counted {list(ids).count(PAD)} "
+                f"[SEP] token (id:{SEP}), but counted {list(ids).count(SEP)} "
                 f"instead.")
 
-        first_PAD = ids.index(PAD)
+        first_PAD = ids.index(SEP)
 
         context = Span(1, first_PAD)
         question = Span(first_PAD + 1, len(ids)-1)
