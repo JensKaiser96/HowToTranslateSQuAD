@@ -28,7 +28,7 @@ class Gelectra:
         # convert token to surface level
         context_token_ids, _ = cls.split_encoding(input)
         context_tokens = cls.tokenizer.decode(context_token_ids(input))
-        mapping = surface_token_mapping(context, context_tokens)
+        mapping = surface_token_mapping(context, context_tokens, "#")
         return Span.combine(mapping[answer_start_index: answer_end_index + 1])
 
     @classmethod
