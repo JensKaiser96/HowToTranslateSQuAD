@@ -17,13 +17,16 @@ class Tokenizer:
         return [self.tokenizer.decode(token_id) for token_id in tokens_ids]
 
 
-def surface_token_mapping(text: str, tokens: list[str]) -> list[Span]:
+def surface_token_mapping(text: str, tokens: list[str], padding_char: str = ""
+                          ) -> list[Span]:
     """
     returns a list of spans corresponding to the tokens in tokens.
     """
     mapping = []
     curser_pos = 0
     for token in tokens:
+        if padding_char:
+            token = token.strip(padding_char)
         # advance curser if the next char is a whitespace.
         while text[curser_pos: curser_pos + 1] in string.whitespace:
             curser_pos += 1
