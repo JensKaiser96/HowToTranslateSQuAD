@@ -1,7 +1,7 @@
 from src.qa.quad import QUAD
 from src.tar.retrive import retrive
-from src.tar.tokenize import Tokenizer
-from src.tar.utils import Span
+from src.nlp_tools.token import Tokenizer
+from src.nlp_tools.span import Span
 from src.utils.logging import get_logger
 
 logger = get_logger(__name__)
@@ -47,24 +47,26 @@ def test_surface_token_mapping():
         assert gold_span == predicted_span
 
 
+def extract_suitable_test_pairs(source_dataset, target_dataset):
+    for source_article, target_article in zip(
+            source_dataset.data, target_dataset.data):
+        for source_paragraph, target_paragraph in zip(
+                source_article, target_article):
+            # extract context
+            source_text = source_paragraph.context
+            target_text = target_paragraph.context
+            # estract answers
+            for source_qa, target_qa in zip(
+                    source_paragraph.qas, target_paragraph.qas):
+                for source_answer, target_answer in zip(
+                        source_qa.answers, target_qa.answers):
+                    # only take ansers where the answer text appears once
+                    if target_text.count(target_answer.text) == 1:
+                        yield (source_text, source_answer,
+                               target_text, target_answer)
+
+
 def test_answer_extraction():
-    def extract_suitable_test_pairs(source_dataset, target_dataset):
-        for source_article, target_article in zip(
-                source_dataset.data, target_dataset.data):
-            for source_paragraph, target_paragraph in zip(
-                    source_article, target_article):
-                # extract context
-                source_text = source_paragraph.context
-                target_text = target_paragraph.context
-                # estract answers
-                for source_qa, target_qa in zip(
-                        source_paragraph.qas, target_paragraph.qas):
-                    for source_answer, target_answer in zip(
-                            source_qa.answers, target_qa.answers):
-                        # only take ansers where the answer text appears once
-                        if target_text.count(target_answer.text) == 1:
-                            yield (source_text, source_answer,
-                                   target_text, target_answer)
 
     squad = QUAD(QUAD.Datasets.Squad1.TRAIN)
     raw_squad = QUAD(QUAD.Datasets.Squad1.Translated.Raw.TRAIN)

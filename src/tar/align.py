@@ -106,30 +106,30 @@ def split_encoding(encoding: BatchEncoding) -> tuple[Span, Span]:
     ids = list(encoding.input_ids.flatten())
 
     # check if sequence is as expected
-    if not ids[0] == BOS:
+    if ids[0] != BOS:
         raise ValueError(
             f"Expected sequence to start with [BOS] token (id:{BOS}), "
             f"but sequence starts with id:{ids[0]}.")
-    if not ids[-1] == EOS:
+    if ids[-1] != EOS:
         raise ValueError(
             f"Expected sequence to end with [EOS] token (id:{EOS}), "
             f"but sequence ends with id:{ids[-1]}.")
-    if not list(ids).count(EOS) == 3:
+    if list(ids).count(EOS) != 3:
         raise ValueError(
             f"Expected sequence to have exactly three occurences of the "
             f"[EOS] token (id:{EOS}), but counted {list(ids).count(EOS)} "
             f"instead.")
 
-    first_EOS = ids.index(EOS)
+    first_eos = ids.index(EOS)
 
-    if not ids[first_EOS + 1] == EOS:
+    if ids[first_eos + 1] != EOS:
         raise ValueError(
             f"Expected sequence to have the second [EOS] directly follow "
             f" the first [EOS] (id:{EOS}), but the token after the first "
-            f"[EOS] has id: {ids[first_EOS + 1]} instead.")
+            f"[EOS] has id: {ids[first_eos + 1]} instead.")
 
-    source = Span(1, first_EOS)
-    target = Span(first_EOS + 2, len(ids)-1)
+    source = Span(1, first_eos)
+    target = Span(first_eos + 2, len(ids)-1)
 
     # Verify spans are not empty
     if source.is_empty:

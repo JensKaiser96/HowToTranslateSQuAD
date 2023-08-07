@@ -33,7 +33,7 @@ class Span:
         return sequence[self.start: self.end]
 
     def __len__(self) -> int:
-        return self.end - self.end
+        return self.end - self.start
 
     def __add__(self, other: "Span") -> "Span":
         return Span(
