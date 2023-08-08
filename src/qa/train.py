@@ -6,7 +6,7 @@ from src.io.filepaths import Datasets
 from src.qa.gelectra_quad import Gelectra
 
 
-train_dataset = datasets.load_dataset("json", data_files=Datasets.Squad1.Translated.Raw.TRAIN, field="data")
+train_dataset = datasets.load_dataset("json", data_files=Datasets.Squad1.Translated.Raw.TRAIN, field="data", split="train")
 validation_dataset = datasets.load_dataset("json", data_files=Datasets.GermanQuad.TEST, field="data")
 train_dataset.set_format("torch")
 validation_dataset.set_format("torch")
