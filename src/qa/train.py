@@ -27,7 +27,7 @@ def flatten_quad(batch):
 
 train_dataset = datasets.load_dataset( "json", data_files=Datasets.Squad1.Translated.Raw.TRAIN, field="data", split="train")
 train_dataset = train_dataset.map(flatten_quad, batched=True, remove_columns=train_dataset.column_names)
-validation_dataset = datasets.load_dataset("json", data_files=Datasets.GermanQuad.TEST, field="data")
+validation_dataset = datasets.load_dataset("json", data_files=Datasets.GermanQuad.TEST, field="data", split="train")
 validation_dataset = validation_dataset.map(flatten_quad, batched=True, remove_columns=validation_dataset.column_names)
 train_dataset.set_format("torch")
 validation_dataset.set_format("torch")
