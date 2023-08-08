@@ -16,13 +16,14 @@ def flatten_quad(batch):
         "answers": [],
     }
     for title, entry in zip(batch["title"], batch["paragraphs"]):
-        for qa in entry["qas"]:
-            result["id"].append(qa["id"])
-            result["title"].append(title)
-            result["context"].append(qa["context"])
-            result["question"].append(qa["question"])
-            result["answers"].append(qa["answers"])
-    return result
+        for sub_entry, in entry:
+            for qa in sub_entry["qas"]:
+                result["id"].append(qa["id"])
+                result["title"].append(title)
+                result["context"].append(qa["context"])
+                result["question"].append(qa["question"])
+                result["answers"].append(qa["answers"])
+        return result
 
 
 train_dataset = datasets.load_dataset( "json", data_files=Datasets.Squad1.Translated.Raw.TRAIN, field="data", split="train")
