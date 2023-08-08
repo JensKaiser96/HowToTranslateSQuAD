@@ -13,7 +13,6 @@ logger = get_logger(__name__)
 def flatten_quad(batch):
     result = {
         "id": [],
-        "title": [],
         "context": [],
         "question": [],
         "answers": [],
@@ -25,7 +24,7 @@ def flatten_quad(batch):
                 result["context"].append(sub_entry["context"])
                 result["question"].append(qa["question"])
                 result["answers"].append(qa["answers"])
-        return result
+    return result
 
 train_dataset = datasets.load_dataset( "json", data_files=Datasets.Squad1.Translated.Raw.TRAIN, field="data", split="train")
 train_dataset = train_dataset.map(flatten_quad, batched=True, remove_columns=train_dataset.column_names)
