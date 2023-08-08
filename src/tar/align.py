@@ -100,8 +100,8 @@ def split_encoding(encoding: BatchEncoding) -> tuple[Span, Span]:
     input_ids tensor:
         [[BOS, <source_text>, EOS, EOS, <target_text>, EOS]]
     """
-    BOS = tokenizer.tokenizer.bos_token_id
-    EOS = tokenizer.tokenizer.eos_token_id
+    BOS = tokenizer.model.bos_token_id
+    EOS = tokenizer.model.eos_token_id
 
     ids = list(encoding.input_ids.flatten())
 

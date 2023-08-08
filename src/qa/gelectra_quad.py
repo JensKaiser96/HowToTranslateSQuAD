@@ -38,8 +38,8 @@ class Gelectra:
         question pair into its two spans
             [[CLS, <context>, SEP, <question>, SEP]]
         """
-        CLS = cls.tokenizer.t.cls_token_id
-        SEP = cls.tokenizer.t.sep_token_id
+        CLS = cls.tokenizer.model.cls_token_id
+        SEP = cls.tokenizer.model.sep_token_id
 
         ids = list(encoding.input_ids.flatten())
 

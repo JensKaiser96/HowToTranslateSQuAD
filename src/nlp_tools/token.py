@@ -7,14 +7,13 @@ from src.nlp_tools.span import Span
 
 class Tokenizer:
     def __init__(self, tokenizer):
-        self.tokenizer = tokenizer
-        self.t = tokenizer
+        self.model = tokenizer
 
     def encode(self, *text: str) -> BatchEncoding:
-        return self.tokenizer(*text, return_tensors="pt")
+        return self.model(*text, return_tensors="pt")
 
     def decode(self, tokens_ids: Sequence) -> list[str]:
-        return [self.tokenizer.decode(token_id) for token_id in tokens_ids]
+        return [self.model.decode(token_id) for token_id in tokens_ids]
 
 
 def surface_token_mapping(text: str, tokens: list[str], padding_char: str = ""
