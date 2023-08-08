@@ -140,6 +140,7 @@ class QuadData:
         return len(self._data)
 
 
+# TODO make all datasets accessable via static class
 class QUAD:
     """
     A Object view on the QuAD structure
