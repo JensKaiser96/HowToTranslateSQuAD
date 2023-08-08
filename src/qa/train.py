@@ -15,11 +15,10 @@ def flatten_quad(batch):
         "question": [],
         "answers": [],
     }
-    for title, entry in zip(batch["title"], batch["paragraphs"]):
+    for entry in batch["paragraphs"]:
         for sub_entry in entry:
             for qa in sub_entry["qas"]:
                 result["id"].append(qa["id"])
-                result["title"].append(title)
                 result["context"].append(sub_entry["context"])
                 result["question"].append(qa["question"])
                 result["answers"].append(qa["answers"])
