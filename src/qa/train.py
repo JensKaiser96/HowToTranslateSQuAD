@@ -4,9 +4,8 @@ from transformers import default_data_collator
 import datasets
 from src.io.filepaths import Datasets
 
-train_dataset = datasets.load_dataset(Datasets.Squad1.Translated.Raw._dir_path, field="data")
-datasets.load_dataset("json", data_files=Datasets.Squad1.Translated.Raw.TRAIN, field="data")
-validation_dataset = datasets.load_dataset(Datasets.GermanQuad.TEST)
+train_dataset = datasets.load_dataset("json", data_files=Datasets.Squad1.Translated.Raw.TRAIN, field="data")
+validation_dataset = datasets.load_dataset("json", data_files=Datasets.GermanQuad.TEST, field="data")
 
 from src.qa.gelectra_quad import Gelectra
 
