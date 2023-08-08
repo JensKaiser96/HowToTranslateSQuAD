@@ -20,11 +20,10 @@ def flatten_quad(batch):
             for qa in sub_entry["qas"]:
                 result["id"].append(qa["id"])
                 result["title"].append(title)
-                result["context"].append(qa["context"])
+                result["context"].append(sub_entry["context"])
                 result["question"].append(qa["question"])
                 result["answers"].append(qa["answers"])
         return result
-
 
 train_dataset = datasets.load_dataset( "json", data_files=Datasets.Squad1.Translated.Raw.TRAIN, field="data", split="train")
 train_dataset = train_dataset.map(flatten_quad, batched=True, remove_columns=train_dataset.column_names)
