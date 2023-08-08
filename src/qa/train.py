@@ -5,6 +5,9 @@ from transformers import default_data_collator
 
 from src.io.filepaths import Datasets
 from src.qa.gelectra_quad import Gelectra
+from src.utils.logging import get_logger
+
+logger = get_logger(__name__)
 
 
 def flatten_quad(batch):
