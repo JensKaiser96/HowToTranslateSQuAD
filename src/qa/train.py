@@ -13,6 +13,7 @@ logger = get_logger(__name__)
 def flatten_quad(batch):
     result = {
         "id": [],
+        "title": [],
         "context": [],
         "question": [],
         "answers": [],
@@ -21,6 +22,7 @@ def flatten_quad(batch):
         for sub_entry in entry:
             for qa in sub_entry["qas"]:
                 result["id"].append(qa["id"])
+                result["title"].append("")
                 result["context"].append(sub_entry["context"])
                 result["question"].append(qa["question"])
                 result["answers"].append(qa["answers"])
