@@ -6,6 +6,7 @@ should be a yaml, but eh, maybe one day
 plotpath = "./data/plots/"
 
 _DATASETS = "./data/datasets/"
+_DATASETS = "./../../data/datasets/"
 
 
 class Datasets:
@@ -23,6 +24,7 @@ class Datasets:
             class Raw:
                 _dir_path = _DATASETS + "RAW_SQUAD/"
                 TRAIN = _dir_path + "train-v1.0.json"
+                TRAIN_CLEAN = _dir_path + "train_clean-v1.0.json"
 
     class Squad2:
         _dir_path = _DATASETS + "SQuAD/"
