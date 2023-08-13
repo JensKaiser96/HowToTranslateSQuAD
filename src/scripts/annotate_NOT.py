@@ -1,7 +1,9 @@
 import tqdm
-from src.utils.logging import get_logger
-from src.scripts.formatter import Formatter
+
 from src.qa.quad import QUAD
+from src.scripts.utils.formatter import Formatter
+from src.utils.logging import get_logger
+
 logger = get_logger(__file__, script=True)
 
 """
