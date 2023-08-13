@@ -1,4 +1,5 @@
 import json
+
 from src.io.filepaths import Datasets, StressTest
 from src.io.utils import to_json
 
@@ -146,7 +147,7 @@ class QUAD:
     A Object view on the QuAD structure
     """
 
-    # make dataset paths available trough this class without having to import
+    # make dataset paths available through this class without having to import
     # them explicitly
     Datasets = Datasets
     StressTest = StressTest
