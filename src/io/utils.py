@@ -1,6 +1,6 @@
 import datetime
-import os
 import json
+import os
 from pathlib import Path
 
 from src.io.filepaths import plotpath
@@ -44,7 +44,7 @@ def str_to_safe_path(filepath: str, suffix: str = "", verbose=False):
     if suffix:  # set the suffix if explicitly given
         path = path.with_suffix(suffix)
     # warn if suffix is given neiter explicitly nor implicitly
-    elif not path.suffix:
+    elif not path.suffix and not path.is_dir():
         print("No suffix in filepath or in the suffix argument provided.")
 
     path.parent.mkdir(exist_ok=True, parents=True)  # create parent dir
