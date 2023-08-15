@@ -153,6 +153,7 @@ class QUAD:
     StressTest = StressTest
 
     def __init__(self, path: str = "", _data: QuadData = None):
+        self.path = path
         if path:
             self._data = self._load(path)
         if _data:
@@ -189,3 +190,25 @@ class QUAD:
         if version:
             self.version = version
         to_json(self._data, path)
+
+    def as_hf_dataset(self, tokenizer, split: str = "train"):
+        """
+        returns the dataset defined at the path as a HuggingFace Dataset. Note this completely ignores the content of
+        the QUAD Object, only the data saved to the path is loaded.
+        """
+        if not self.path:
+            raise AttributeError("No path to load from specified. The HuggingFace dataset is loaded directly from the "
+                                 "file, and not the actual QUAD Object")
+        raw_dataset = datasets.load_dataset("json", data_files=self.path, field="data", split=split)
+        flatt_dataset = raw_dataset.map(
+            flatten_quad,
+            batched=True,
+            remove_columns=raw_dataset.column_names
+        )
+        tokenized_dataset = flatt_dataset.map(
+            prepare_train_features,
+            batched=True,
+            remove_columns=flatt_dataset.column_names,
+            fn_kwargs={"tokenizer": tokenizer})
+        tokenized_dataset.set_format("torch")
+        return tokenized_dataset
