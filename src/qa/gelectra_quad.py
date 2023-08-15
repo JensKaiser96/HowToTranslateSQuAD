@@ -11,35 +11,55 @@ from src.nlp_tools.token import Tokenizer, surface_token_mapping
 
 
 class Gelectra:
-    _name = "deepset/gelectra-large-germanquad"
-    tokenizer = Tokenizer(ElectraTokenizerFast.from_pretrained(_name))
-    model = ElectraForQuestionAnswering.from_pretrained(_name)
+    def __init__(self, name):
+        self.tokenizer = Tokenizer(ElectraTokenizerFast.from_pretrained(name))
+        self.model = ElectraForQuestionAnswering.from_pretrained(name)
 
     @classmethod
-    def prompt(cls, context: str, question: str):
-        model_input = cls.tokenizer.encode(context, question)
+    @property
+    def Base(cls):
+        return Gelectra("deepset/gelectra-large")
+
+    @classmethod
+    @property
+    def GermanQuad(cls):
+        return Gelectra("deepset/gelectra-large-germanquad")
+
+    @classmethod
+    @property
+    def RawClean(cls):
+        return Gelectra(Models.QA)
+
+    def prompt(self, context: str, question: str):
+        model_input = self.tokenizer.encode(context, question)
         with torch.no_grad():
-            output = cls.model(**model_input)
+            output = self.model(**model_input)
 
         # get answer on token level
         answer_start_index = output.start_logits.argmax()
         answer_end_index = output.end_logits.argmax()
  
         # convert token to surface level
-        context_token_ids, _ = cls.split_encoding(model_input)
-        context_tokens = cls.tokenizer.decode(context_token_ids(model_input))
+        context_token_ids, _ = self.split_encoding(model_input)
+        context_tokens = self.tokenizer.decode(context_token_ids(model_input))
         mapping = surface_token_mapping(context, context_tokens, "#")
-        return Span.combine(mapping[answer_start_index: answer_end_index + 1])
+        span = Span.combine(mapping[answer_start_index: answer_end_index + 1])
 
-    @classmethod
-    def split_encoding(cls, encoding: BatchEncoding) -> tuple[Span, Span]:
+        return  {
+            "start_index": answer_start_index,
+            "end_index": answer_end_index,
+            "surface_span": span,
+            "text": span(context)
+        }
+
+    def split_encoding(self, encoding: BatchEncoding) -> tuple[Span, Span]:
         """
         splits the combined encoding of the ElectraTokenizer of a context
         question pair into its two spans
             [[CLS, <context>, SEP, <question>, SEP]]
         """
-        CLS = cls.tokenizer.model.cls_token_id
-        SEP = cls.tokenizer.model.sep_token_id
+        CLS = self.tokenizer.model.cls_token_id
+        SEP = self.tokenizer.model.sep_token_id
 
         ids = list(encoding.input_ids.flatten())
 
