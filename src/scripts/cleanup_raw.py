@@ -1,3 +1,4 @@
+from src.io.filepaths import Datasets
 from src.qa.quad import QUAD
 from src.utils.logging import get_logger
 
@@ -5,7 +6,7 @@ logger = get_logger(__file__)
 
 
 def main():
-    raw = QUAD(QUAD.Datasets.Squad1.Translated.Raw.TRAIN)
+    raw = QUAD.Raw.TRAIN
     raw_clean = QUAD()
     for article in raw.data._data:
         clean_article = article.copy()
@@ -26,7 +27,7 @@ def main():
             if clean_paragraph["qas"]:
                 clean_article["paragraphs"].append(clean_paragraph)
         raw_clean.data._data.append(clean_article)
-    raw_clean.save(QUAD.Datasets.Squad1.Translated.Raw.TRAIN_CLEAN, version="raw_clean")
+    raw_clean.save(Datasets.Squad1.Translated.Raw.TRAIN_CLEAN, version="raw_clean")
 
 
 if __name__ == "__main__":

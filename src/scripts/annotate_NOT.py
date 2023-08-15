@@ -1,5 +1,6 @@
 import tqdm
 
+from src.io.filepaths import StressTest
 from src.qa.quad import QUAD
 from src.scripts.utils.formatter import Formatter
 from src.utils.logging import get_logger
@@ -16,8 +17,8 @@ unanswerable question. All new questions are saved to the annotated dataset.
 
 def main():
     f = Formatter()
-    not_base = QUAD(QUAD.StressTest.Base.NOT)
-    not_annotated = QUAD(QUAD.StressTest.NOT)
+    not_base = QUAD.StressTest.Base.NOT
+    not_annotated = QUAD.StressTest.NOT
     for entry in tqdm.tqdm(not_base.data):
         for paragraph in entry:
             context = paragraph.context
@@ -32,7 +33,7 @@ def main():
             not_annotated.add_unanswerable_question(context, user_input)
             # Save every time, this will cause a lot of old files,
             # but I can live with that
-            not_annotated.save(QUAD.StressTest.NOT, version="NOT_annotated")
+            not_annotated.save(StressTest.NOT, version="NOT_annotated")
 
 
 if __name__ == "__main__":

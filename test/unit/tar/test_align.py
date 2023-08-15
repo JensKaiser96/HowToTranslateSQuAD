@@ -67,8 +67,8 @@ def extract_suitable_test_pairs(source_dataset, target_dataset):
 
 def test_answer_extraction():
 
-    squad = QUAD(QUAD.Datasets.Squad1.TRAIN)
-    raw_squad = QUAD(QUAD.Datasets.Squad1.Translated.Raw.TRAIN)
+    squad = QUAD.Squad1.TRAIN
+    raw_squad = QUAD.Raw.TRAIN
 
     for test_pairs in extract_suitable_test_pairs(squad, raw_squad):
         source_text, source_answer, target_text, target_answer = test_pairs

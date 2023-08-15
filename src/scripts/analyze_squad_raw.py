@@ -10,7 +10,7 @@ logger = get_logger(__file__, script=True)
 
 
 def get_answer_counts():
-    squad_raw = QUAD(QUAD.Datasets.Squad1.Translated.Raw.TRAIN)
+    squad_raw = QUAD.Raw.TRAIN
     answer_counts = Counter()
     for article in squad_raw.data:
         for paragraph in article:

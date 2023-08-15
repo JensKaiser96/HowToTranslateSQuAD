@@ -31,7 +31,7 @@ def split(list_: list, n: int) -> tuple[list]:
 
 
 if __name__ == "__main__":
-    dataset = QUAD(QUAD.Datasets.GermanQuad.TEST)
+    dataset = QUAD.GermanQUAD.TEST
     data_NOT, data_DIS, data_ONE = split(dataset.data._data, 3)
     create_not(data_NOT)
     create_dis(data_DIS)

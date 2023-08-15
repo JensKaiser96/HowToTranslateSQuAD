@@ -153,10 +153,87 @@ class QUAD:
     A Object view on the QuAD structure
     """
 
-    # make dataset paths available through this class without having to import
-    # them explicitly
-    Datasets = Datasets
-    StressTest = StressTest
+    class Squad1:
+        @classmethod
+        @property
+        def TRAIN(cls):
+            return QUAD(Datasets.Squad1.TRAIN)
+
+        @classmethod
+        @property
+        def DEV(cls):
+            return QUAD(Datasets.Squad1.DEV)
+
+    class GermanQUAD:
+        @classmethod
+        @property
+        def TRAIN(cls):
+            return QUAD(Datasets.GermanQuad.TRAIN)
+
+        @classmethod
+        @property
+        def TEST(cls):
+            return QUAD(Datasets.GermanQuad.TEST)
+
+    class MLQA:
+        @classmethod
+        @property
+        def TEST(cls):
+            return QUAD(Datasets.Mlqa.TEST)
+
+    class XQUAD:
+        @classmethod
+        @property
+        def TEST(self):
+            return QUAD(Datasets.Xquad.TEST)
+
+    class Raw:
+        @classmethod
+        @property
+        def TRAIN(cls):
+            return QUAD(Datasets.Squad1.Translated.Raw.TRAIN)
+
+        @classmethod
+        @property
+        def TRAIN_CLEAN(cls):
+            return QUAD(Datasets.Squad1.Translated.Raw.TRAIN_CLEAN)
+
+    class StressTest:
+        class Base:
+            @classmethod
+            @property
+            def DIS(cls):
+                return QUAD(StressTest.Base.DIS)
+
+            @classmethod
+            @property
+            def NOT(cls):
+                return QUAD(StressTest.Base.NOT)
+
+            @classmethod
+            @property
+            def ONE(cls):
+                return QUAD(StressTest.Base.ONE)
+
+        @classmethod
+        @property
+        def DIS(cls):
+            return QUAD(StressTest.DIS)
+
+        @classmethod
+        @property
+        def NOT(cls):
+            return QUAD(StressTest.NOT)
+
+        @classmethod
+        @property
+        def ONE(cls):
+            return QUAD(StressTest.ONE)
+
+        @classmethod
+        @property
+        def OOD(cls):
+            return QUAD(StressTest.OOD)
 
     def __init__(self, path: str = "", _data: QuadData = None):
         self.path = path

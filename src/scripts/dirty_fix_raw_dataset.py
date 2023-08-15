@@ -6,9 +6,9 @@ title, paragraph keys
 from src.qa.quad import QUAD
 from src.tar.translate import Translator
 
-raw_broken = QUAD(QUAD.Datasets.Squad1.Translated.Raw.TRAIN)
+raw_broken = QUAD.Raw.TRAIN
 raw_fixed = QUAD()
-squad1 = QUAD(QUAD.Datasets.Squad1.TRAIN)
+squad1 = QUAD.Squad1.TRAIN
 
 raw_iterator = iter(raw_broken.data._data)
 squad1_iterator = iter(squad1._data["data"])

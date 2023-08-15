@@ -13,10 +13,10 @@ logger.info("Loading Model ...")
 gelectra_base = Gelectra.Base
 
 logger.info("Preparing Datasets ...")
-train_dataset = QUAD(QUAD.Datasets.Squad1.Translated.Raw.TRAIN_CLEAN).as_hf_dataset(
+train_dataset = QUAD.Raw.TRAIN_CLEAN.as_hf_dataset(
     gelectra_base.tokenizer.model
 )
-validation_dataset = QUAD(QUAD.Datasets.GermanQuad.TEST).as_hf_dataset(
+validation_dataset = QUAD.GermanQUAD.TEST.as_hf_dataset(
     gelectra_base.tokenizer.model
 )
 
