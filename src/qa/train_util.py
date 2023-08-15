@@ -1,6 +1,3 @@
-from src.qa.gelectra_quad import Gelectra
-
-
 def flatten_quad(batch):
     result = {
         "id": [],
@@ -19,8 +16,11 @@ def flatten_quad(batch):
                 result["answers"].append(qa["answers"]) # todo, answer list needs to be flattened as well
     return result
 
-def prepare_train_features(examples):
-    tokenizer = Gelectra.tokenizer.model
+def prepare_train_features(examples, tokenizer):
+    """
+    Code with minor adjustments from:
+    https://colab.research.google.com/github/huggingface/notebooks/blob/main/examples/question_answering.ipynb#scrollTo=bYPjccQjpDKv&line=2&uniqifier=1
+    """
     pad_on_right = tokenizer.padding_side == "right"
     max_length = 384
     doc_stride = 128
