@@ -43,6 +43,7 @@ class QuADKeys:
     context = "context"
     qas = "qas"
     question = "question"
+    id = "id"
     answers = "answers"
     text = "text"
     answer_start = "answer_start"
@@ -95,6 +96,13 @@ class QA:
     @property
     def answers(self) -> Answers:
         return Answers(self._data[QuADKeys.answers])
+
+    @property
+    def id(self) -> int:
+        if QuADKeys.id in self._data:
+            return self._data[QuADKeys.id]
+        else:
+            return hash(self.question)
 
 
 class QAS:
