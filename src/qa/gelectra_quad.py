@@ -1,13 +1,13 @@
 import torch
-from transformers.tokenization_utils_base import BatchEncoding
-from transformers.models.electra.tokenization_electra_fast import (
-    ElectraTokenizerFast)
 from transformers.models.electra.modeling_electra import (
     ElectraForQuestionAnswering)
+from transformers.models.electra.tokenization_electra_fast import (
+    ElectraTokenizerFast)
+from transformers.tokenization_utils_base import BatchEncoding
 
-
-from src.nlp_tools.token import Tokenizer, surface_token_mapping
+from src.io.filepaths import Models
 from src.nlp_tools.span import Span
+from src.nlp_tools.token import Tokenizer, surface_token_mapping
 
 
 class Gelectra:

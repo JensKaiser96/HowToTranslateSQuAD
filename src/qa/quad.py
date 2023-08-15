@@ -1,7 +1,10 @@
 import json
 
+import datasets
+
 from src.io.filepaths import Datasets, StressTest
 from src.io.utils import to_json
+from src.qa.train_util import prepare_train_features, flatten_quad
 
 """
 quad structure:

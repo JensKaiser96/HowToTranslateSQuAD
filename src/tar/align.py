@@ -2,11 +2,11 @@ import torch
 from transformers import XLMRobertaConfig, XLMRobertaModel, XLMRobertaTokenizer
 from transformers.tokenization_utils_base import BatchEncoding
 
-from src.nlp_tools.token import Tokenizer
-from src.io.filepaths import Alignment
-from src.tar.utils import Direction
-from src.nlp_tools.span import Span
+from src.io.filepaths import Models
 from src.math.matrix import dimensionalwise_normalize
+from src.nlp_tools.span import Span
+from src.nlp_tools.token import Tokenizer
+from src.tar.utils import Direction
 from src.utils.logging import get_logger
 
 logger = get_logger(__name__)
