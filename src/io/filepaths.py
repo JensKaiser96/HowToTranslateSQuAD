@@ -6,6 +6,7 @@ should be a yaml, but eh, maybe one day
 plotpath = "./data/plots/"
 
 _DATASETS = "./data/datasets/"
+_MODELS = "./data/models/"
 
 
 class Datasets:
@@ -53,9 +54,15 @@ class StressTest:
         ONE = _dir_path + "ONE.json"
 
 
-class Alignment:
-    _dir_path = "/mount/arbeitsdaten31/studenten1/kaiserjs/models/xlm-align-base/"
-    config = _dir_path + "config.json"
-    model_path = _dir_path
-    bpq = _dir_path + "sentencepiece.bpe.model"
-    vocab = _dir_path + "fairseq-dict.txt"
+class Models:
+    class Alignment:
+        _dir_path = "/mount/arbeitsdaten31/studenten1/kaiserjs/models/xlm-align-base/"
+        config = _dir_path + "config.json"
+        model_path = _dir_path
+        bpq = _dir_path + "sentencepiece.bpe.model"
+        vocab = _dir_path + "fairseq-dict.txt"
+
+    class QA:
+        class Gelectra:
+            _dir_path = _MODELS + "gelectra/"
+            raw_clean = _dir_path + "raw_clean/"

@@ -12,21 +12,21 @@ from src.utils.logging import get_logger
 logger = get_logger(__name__)
 
 # load and set model config
-_model_config = XLMRobertaConfig.from_pretrained(Alignment.config)
+_model_config = XLMRobertaConfig.from_pretrained(Models.Alignment.config)
 _model_config.output_hidden_states = True
 _model_config.return_dict = False
 
 # load alignment model
 model = XLMRobertaModel.from_pretrained(
-    Alignment.model_path, config=_model_config)
+    Models.Alignment.model_path, config=_model_config)
 
 tokenizer = Tokenizer(
-    XLMRobertaTokenizer.from_pretrained(Alignment.model_path))
+    XLMRobertaTokenizer.from_pretrained(Models.Alignment.model_path))
 
 
 def align(source_text: str, target_text: str,
           direction: Direction = Direction.forwards,
-          ) -> list[tuple[int, int]]:
+          ):
     """
     returns the alignment between the tokens in text_1 and sentence2
     as well as the tokens in source_text and target_text, without [BOS] and
