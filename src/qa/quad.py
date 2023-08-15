@@ -61,7 +61,7 @@ class Answer:
     def answer_start(self) -> int:
         return int(self._data[QuADKeys.answer_start])
 
-    @ answer_start.setter
+    @answer_start.setter
     def answer_start(self, _answer_start: int):
         self._data[QuADKeys.answer_start] = str(_answer_start)
 
