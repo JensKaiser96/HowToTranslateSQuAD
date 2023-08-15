@@ -3,16 +3,26 @@ from transformers.models.electra.modeling_electra import ElectraForQuestionAnswe
 from transformers.models.electra.tokenization_electra_fast import ElectraTokenizerFast
 from transformers.tokenization_utils_base import BatchEncoding
 
-from src.io.filepaths import Models
+from src.io.filepaths import Models, prediction_path
+from src.io.utils import to_json
 from src.nlp_tools.span import Span
 from src.nlp_tools.token import Tokenizer, surface_token_mapping
 from src.qa.quad import QUAD
+from src.qa.squad_eval_script import normalize_answer, compute_exact, compute_f1
+from src.utils.logging import get_logger
+
+logger = get_logger(__name__)
 
 
 class Gelectra:
-    def __init__(self, name):
+    def __init__(self, name: str):
+        self.name = name
         self.tokenizer = Tokenizer(ElectraTokenizerFast.from_pretrained(name))
         self.model = ElectraForQuestionAnswering.from_pretrained(name)
+
+    @property
+    def _normalized_name(self):
+        return "_".join(self.name.strip("/").split("/")[-2:])
 
     @classmethod
     @property
@@ -27,13 +37,47 @@ class Gelectra:
     @classmethod
     @property
     def RawClean(cls):
-        return Gelectra(Models.QA)
+        return Gelectra(Models.QA.Gelectra.raw_clean)
 
-    def evaluate(self, Dataset: QUAD, out_file: str):
+    def evaluate(self, dataset: QUAD, out_file: str):
         """
         generates predictions on the dataset, saves them to the out_file, and then calls the evaluation script on it
+        partially stolen from: https://rajpurkar.github.io/SQuAD-explorer/ -> "Evaluation Script"
         """
-        pass
+        predictions = {}
+        exact_scores = {}
+        f1_scores = {}
+        for article in dataset.data:
+            for paragraph in article:
+                context = paragraph.context
+                for qa in paragraph.qas:
+                    prediction = self.prompt(context, qa.question)
+                    predictions[qa.id] = prediction
+                    gold_answers = [
+                        a["text"] for a in qa["answers"] if normalize_answer(a["text"])
+                    ]
+                    if not gold_answers:
+                        # For unanswerable questions, only correct answer is empty string
+                        gold_answers = [""]
+                    # Take max over all gold answers
+                    exact_scores[qa.id] = max(
+                        compute_exact(a, predictions) for a in gold_answers
+                    )
+                    f1_scores[qa.id] = max(
+                        compute_f1(a, predictions) for a in gold_answers
+                    )
+        # save predictions
+        to_json(predictions, prediction_path + self._normalized_name)
+
+        # compute total scores
+        total = len(predictions)
+        total_scores = {
+            "exact": 100.0 * sum(exact_scores.values() / total),
+            "f1": 100.0 * sum(f1_scores.values() / total),
+            "total": total,
+        }
+        logger.info(total_scores)
+        return total_scores
 
     def prompt(self, context: str, question: str):
         model_input = self.tokenizer.encode(context, question)
