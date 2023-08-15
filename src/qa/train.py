@@ -13,11 +13,15 @@ logger.info("Loading Model ...")
 gelectra_base = Gelectra.Base
 
 logger.info("Preparing Datasets ...")
-train_dataset = QUAD(QUAD.Datasets.Squad1.Translated.Raw.TRAIN_CLEAN).as_hf_dataset(gelectra_base.tokenizer.model)
-validation_dataset = QUAD(QUAD.Datasets.GermanQuad.TEST).as_hf_dataset(gelectra_base.tokenizer.model)
+train_dataset = QUAD(QUAD.Datasets.Squad1.Translated.Raw.TRAIN_CLEAN).as_hf_dataset(
+    gelectra_base.tokenizer.model
+)
+validation_dataset = QUAD(QUAD.Datasets.GermanQuad.TEST).as_hf_dataset(
+    gelectra_base.tokenizer.model
+)
 
 trained_model_name = "raw_clean"
-#TODO, get train args from GermanQuad Guys
+# TODO, get train args from GermanQuad Guys
 args = TrainingArguments(
     trained_model_name,
     remove_unused_columns=False,
@@ -33,7 +37,7 @@ trainer = Trainer(
     args=args,
     train_dataset=train_dataset,
     eval_dataset=validation_dataset,
-    tokenizer=gelectra_base.tokenizer.model
+    tokenizer=gelectra_base.tokenizer.model,
 )
 logger.info("Training Model ...")
 trainer.train()

@@ -17,7 +17,7 @@ def save_plt(plt, path: str):
 def to_json(data: dict, path: str):
     suffix = ".json"
     path = str_to_safe_path(path, suffix)
-    with open(path, 'w', encoding='utf-8') as f_out:
+    with open(path, "w", encoding="utf-8") as f_out:
         json.dump(data, f_out, ensure_ascii=False, indent=4)
 
 

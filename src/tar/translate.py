@@ -24,7 +24,8 @@ class Translator:
             "fairseq.tasks.fairseq_task",
             "fairseq.tasks.translation",
             "fairseq.models.fairseq_model",
-            "fairseq.file_utils")
+            "fairseq.file_utils",
+        )
         for fairseq_logger in fairseq_loggers:
             logging.getLogger(fairseq_logger).setLevel(logging.WARN)
 
@@ -34,9 +35,12 @@ class Translator:
         with warnings.catch_warnings():
             warnings.simplefilter("ignore")
             model = torch.hub.load(
-                    self._repo, model_name,
-                    checkpoint_file='model1.pt:model2.pt:model3.pt:model4.pt',
-                    tokenizer=self._tokenizer, bpe=self._bpe)
+                self._repo,
+                model_name,
+                checkpoint_file="model1.pt:model2.pt:model3.pt:model4.pt",
+                tokenizer=self._tokenizer,
+                bpe=self._bpe,
+            )
         model.eval()  # disable dropout
         model.cuda()  # move model to GPU
         return model

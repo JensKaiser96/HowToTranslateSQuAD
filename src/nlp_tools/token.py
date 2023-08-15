@@ -17,8 +17,9 @@ class Tokenizer:
         return [self.model.decode(token_id) for token_id in tokens_ids]
 
 
-def surface_token_mapping(text: str, tokens: list[str], padding_char: str = ""
-                          ) -> list[Span]:
+def surface_token_mapping(
+    text: str, tokens: list[str], padding_char: str = ""
+) -> list[Span]:
     """
     returns a list of spans corresponding to the tokens in tokens.
     """
@@ -28,7 +29,7 @@ def surface_token_mapping(text: str, tokens: list[str], padding_char: str = ""
         if padding_char:
             token = token.strip(padding_char)
         # advance curser if the next char is a whitespace.
-        while text[curser_pos: curser_pos + 1] in string.whitespace:
+        while text[curser_pos : curser_pos + 1] in string.whitespace:
             curser_pos += 1
         # create span over current token
         span = Span(curser_pos, curser_pos + len(token))
@@ -38,7 +39,8 @@ def surface_token_mapping(text: str, tokens: list[str], padding_char: str = ""
         else:
             raise ValueError(
                 f"Expected token '{token}' to be at {span.start}: "
-                f"{span.end} in \n'{text}'\n, was: \n'{span(text)}'")
+                f"{span.end} in \n'{text}'\n, was: \n'{span(text)}'"
+            )
         # move curser to the end of the span
         curser_pos = span.end
     return mapping

@@ -14,9 +14,9 @@ def set_log_path(path: str):
     global _default_log_path
     if str(_log_path) != _default_log_path:
         logger.warn(
-                f"custom log path already set {_log_path} "
-                f"new path will be respected nonetheless"
-                )
+            f"custom log path already set {_log_path} "
+            f"new path will be respected nonetheless"
+        )
     _log_path = str_to_safe_path(path, ".log")
 
 
@@ -40,9 +40,9 @@ def get_logger(name: str, script=False) -> logging.Logger:
     logger.setLevel(logging.DEBUG)
 
     formatter = logging.Formatter(
-            '%(asctime)s %(name)-12s [%(levelname).1s]: %(message)s',
-            datefmt='%y.%m.%d %H:%M:%S'
-            )
+        "%(asctime)s %(name)-12s [%(levelname).1s]: %(message)s",
+        datefmt="%y.%m.%d %H:%M:%S",
+    )
 
     console_handler = logging.StreamHandler()
     console_handler.setLevel(logging.DEBUG)

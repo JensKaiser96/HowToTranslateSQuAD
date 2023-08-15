@@ -25,8 +25,8 @@ def main():
             for qa in paragraph.qas:
                 f.print(f"\t- {qa.question}")
             user_input = input(
-                    "\n\nEnter unanswerable Question (leave blank to skip):\n"
-                    )
+                "\n\nEnter unanswerable Question (leave blank to skip):\n"
+            )
             if not user_input:
                 continue
             not_annotated.add_unanswerable_question(context, user_input)

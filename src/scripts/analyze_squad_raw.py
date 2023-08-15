@@ -25,16 +25,17 @@ def get_answer_counts():
 
 def plot_counts(answer_counts):
     plot_data = [
-            answer_counts[1],
-            answer_counts[0],
-            sum(answer_counts.values()) - answer_counts[1] - answer_counts[0]
-            ]
+        answer_counts[1],
+        answer_counts[0],
+        sum(answer_counts.values()) - answer_counts[1] - answer_counts[0],
+    ]
     plot_labels = ["1", "0", ">1"]
     explode = [0.1, 0, 0]
     fig, ax = plt.subplots()
 
-    ax.pie(plot_data, explode=explode, labels=plot_labels, autopct="%1.1f%%",
-           startangle=90)
+    ax.pie(
+        plot_data, explode=explode, labels=plot_labels, autopct="%1.1f%%", startangle=90
+    )
     fig.tight_layout()
     save_plt(plt, "SQuAD1_raw_translation_answer_count_distribution")
 
@@ -46,5 +47,5 @@ def main():
     plot_counts(answer_counts)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

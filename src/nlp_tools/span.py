@@ -31,15 +31,13 @@ class Span:
             sequence = sequence.input_ids
             if isinstance(sequence, torch.Tensor) and sequence.dim() > 1:
                 sequence = sequence.flatten()
-        return sequence[self.start: self.end]
+        return sequence[self.start : self.end]
 
     def __len__(self) -> int:
         return self.end - self.start
 
     def __add__(self, other: "Span") -> "Span":
-        return Span(
-            start=min(self.start, other.start),
-            end=max(self.end, other.end))
+        return Span(start=min(self.start, other.start), end=max(self.end, other.end))
 
     @property
     def is_empty(self) -> bool:

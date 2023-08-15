@@ -13,8 +13,11 @@ def flatten_quad(batch):
                 result["title"].append("")
                 result["context"].append(sub_entry["context"])
                 result["question"].append(qa["question"])
-                result["answers"].append(qa["answers"]) # todo, answer list needs to be flattened as well
+                result["answers"].append(
+                    qa["answers"]
+                )  # todo, answer list needs to be flattened as well
     return result
+
 
 def prepare_train_features(examples, tokenizer):
     """
@@ -66,7 +69,7 @@ def prepare_train_features(examples, tokenizer):
         # One example can give several spans, this is the index of the example containing this span of text.
         sample_index = sample_mapping[i]
         answers = examples["answers"][sample_index]
-        #if isinstance(answers, list):
+        # if isinstance(answers, list):
         #    print(answers)
         # If no answers are given, set the cls_index as answer.
         if isinstance(answers, dict) and len(answers["answer_start"]) == 0:
@@ -92,13 +95,19 @@ def prepare_train_features(examples, tokenizer):
                 token_end_index -= 1
 
             # Detect if the answer is out of the span (in which case this feature is labeled with the CLS index).
-            if not (offsets[token_start_index][0] <= start_char and offsets[token_end_index][1] >= end_char):
+            if not (
+                offsets[token_start_index][0] <= start_char
+                and offsets[token_end_index][1] >= end_char
+            ):
                 tokenized_examples["start_positions"].append(cls_index)
                 tokenized_examples["end_positions"].append(cls_index)
             else:
                 # Otherwise move the token_start_index and token_end_index to the two ends of the answer.
                 # Note: we could go after the last offset if the answer is the last word (edge case).
-                while token_start_index < len(offsets) and offsets[token_start_index][0] <= start_char:
+                while (
+                    token_start_index < len(offsets)
+                    and offsets[token_start_index][0] <= start_char
+                ):
                     token_start_index += 1
                 tokenized_examples["start_positions"].append(token_start_index - 1)
                 while offsets[token_end_index][1] >= end_char:

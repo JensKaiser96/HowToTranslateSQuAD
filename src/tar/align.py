@@ -18,15 +18,15 @@ _model_config.return_dict = False
 
 # load alignment model
 model = XLMRobertaModel.from_pretrained(
-    Models.Alignment.model_path, config=_model_config)
+    Models.Alignment.model_path, config=_model_config
+)
 
-tokenizer = Tokenizer(
-    XLMRobertaTokenizer.from_pretrained(Models.Alignment.model_path))
+tokenizer = Tokenizer(XLMRobertaTokenizer.from_pretrained(Models.Alignment.model_path))
 
 
-def align(source_text: str, target_text: str,
-          direction: Direction = Direction.forwards,
-          ):
+def align(
+    source_text: str, target_text: str, direction: Direction = Direction.forwards
+):
     """
     returns the alignment between the tokens in text_1 and sentence2
     as well as the tokens in source_text and target_text, without [BOS] and
@@ -38,7 +38,8 @@ def align(source_text: str, target_text: str,
     output = _get_model_output(encoding)
     source_span, target_span = split_encoding(encoding)
     alignments = _get_alignments_from_model_output(
-        output, source_span, target_span, direction)
+        output, source_span, target_span, direction
+    )
 
     # add position (idx) to each token before returning the token list
     source_tokens = tokenizer.decode(source_span(encoding))
@@ -59,13 +60,12 @@ def _get_model_output(encoding: dict = None) -> torch.Tensor:
 
 
 def _get_alignments_from_model_output(
-        output: torch.Tensor,
-        source_span: Span,
-        target_span: Span,
-        direction: Direction):
+    output: torch.Tensor, source_span: Span, target_span: Span, direction: Direction
+):
     # crop array to exclude tokens outside the spans
-    relevant_output = output[source_span.start: source_span.end,
-                             target_span.start: target_span.end]
+    relevant_output = output[
+        source_span.start : source_span.end, target_span.start : target_span.end
+    ]
     normalized_output = dimensionalwise_normalize(relevant_output)
 
     # actual alignment
@@ -87,8 +87,8 @@ def _get_alignments_from_model_output(
 
     else:
         raise ValueError(
-            f"Direction argument must be a Direction, one of: "
-            f"{Direction._member_names_}")
+            f"Direction argument must be a Direction, one of: {Direction._member_names_}"
+        )
 
 
 def split_encoding(encoding: BatchEncoding) -> tuple[Span, Span]:
@@ -109,16 +109,19 @@ def split_encoding(encoding: BatchEncoding) -> tuple[Span, Span]:
     if ids[0] != BOS:
         raise ValueError(
             f"Expected sequence to start with [BOS] token (id:{BOS}), "
-            f"but sequence starts with id:{ids[0]}.")
+            f"but sequence starts with id:{ids[0]}."
+        )
     if ids[-1] != EOS:
         raise ValueError(
             f"Expected sequence to end with [EOS] token (id:{EOS}), "
-            f"but sequence ends with id:{ids[-1]}.")
+            f"but sequence ends with id:{ids[-1]}."
+        )
     if list(ids).count(EOS) != 3:
         raise ValueError(
             f"Expected sequence to have exactly three occurences of the "
             f"[EOS] token (id:{EOS}), but counted {list(ids).count(EOS)} "
-            f"instead.")
+            f"instead."
+        )
 
     first_eos = ids.index(EOS)
 
@@ -126,17 +129,16 @@ def split_encoding(encoding: BatchEncoding) -> tuple[Span, Span]:
         raise ValueError(
             f"Expected sequence to have the second [EOS] directly follow "
             f" the first [EOS] (id:{EOS}), but the token after the first "
-            f"[EOS] has id: {ids[first_eos + 1]} instead.")
+            f"[EOS] has id: {ids[first_eos + 1]} instead."
+        )
 
     source = Span(1, first_eos)
-    target = Span(first_eos + 2, len(ids)-1)
+    target = Span(first_eos + 2, len(ids) - 1)
 
     # Verify spans are not empty
     if source.is_empty:
-        raise ValueError(
-            f"Source span is not allowed to be empty. {source}")
+        raise ValueError(f"Source span is not allowed to be empty. {source}")
     if target.is_empty:
-        raise ValueError(
-            f"Target span is not allowed to be empty. {target}")
+        raise ValueError(f"Target span is not allowed to be empty. {target}")
 
     return source, target

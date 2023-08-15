@@ -5,6 +5,9 @@ import datasets
 from src.io.filepaths import Datasets, StressTest
 from src.io.utils import to_json
 from src.qa.train_util import prepare_train_features, flatten_quad
+from src.utils.logging import get_logger
+
+logger = get_logger(__name__)
 
 """
 quad structure:
@@ -183,13 +186,13 @@ class QUAD:
 
     def add_unanswerable_question(self, context: str, question: str):
         qa = QA({QuADKeys.question: question, QuADKeys.answers: []})
-        paragraph = Paragraph({QuADKeys.context: context,
-                               QuADKeys.qas: [qa._data]})
+        paragraph = Paragraph({QuADKeys.context: context, QuADKeys.qas: [qa._data]})
         self.data._data.append({QuADKeys.paragraphs: [paragraph._data]})
 
     def save(self, path: str, version: str = ""):
-        print(f"saving dataset '{version}' of size: '{len(self.data)}'"
-              f"to path: '{path}'")
+        logger.info(
+            f"saving dataset '{version}' of size: '{len(self.data)} to path: '{path}'"
+        )
         if version:
             self.version = version
         to_json(self._data, path)
@@ -200,18 +203,21 @@ class QUAD:
         the QUAD Object, only the data saved to the path is loaded.
         """
         if not self.path:
-            raise AttributeError("No path to load from specified. The HuggingFace dataset is loaded directly from the "
-                                 "file, and not the actual QUAD Object")
-        raw_dataset = datasets.load_dataset("json", data_files=self.path, field="data", split=split)
+            raise AttributeError(
+                "No path to load from specified. The HuggingFace dataset is loaded directly from the "
+                "file, and not the actual QUAD Object"
+            )
+        raw_dataset = datasets.load_dataset(
+            "json", data_files=self.path, field="data", split=split
+        )
         flatt_dataset = raw_dataset.map(
-            flatten_quad,
-            batched=True,
-            remove_columns=raw_dataset.column_names
+            flatten_quad, batched=True, remove_columns=raw_dataset.column_names
         )
         tokenized_dataset = flatt_dataset.map(
             prepare_train_features,
             batched=True,
             remove_columns=flatt_dataset.column_names,
-            fn_kwargs={"tokenizer": tokenizer})
+            fn_kwargs={"tokenizer": tokenizer},
+        )
         tokenized_dataset.set_format("torch")
         return tokenized_dataset

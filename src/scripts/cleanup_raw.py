@@ -10,7 +10,7 @@ def main():
     for article in raw.data._data:
         clean_article = article.copy()
         clean_article["paragraphs"] = []
-        for paragraph in article['paragraphs']:
+        for paragraph in article["paragraphs"]:
             clean_paragraph = paragraph.copy()
             clean_paragraph["qas"] = []
             context = paragraph["context"]
