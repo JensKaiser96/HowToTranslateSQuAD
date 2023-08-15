@@ -1,7 +1,6 @@
+from src.nlp_tools.span import Span
 from src.qa.quad import QUAD
 from src.tar.retrive import retrive
-from src.nlp_tools.token import surface_token_mapping
-from src.nlp_tools.span import Span
 from src.utils.logging import get_logger
 
 logger = get_logger(__name__)

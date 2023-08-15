@@ -1,8 +1,9 @@
 from collections import Counter
+
 import matplotlib.pyplot as plt
 
-from src.qa.quad import QUAD
 from src.io.utils import save_plt
+from src.qa.quad import QUAD
 from src.utils.logging import get_logger
 
 logger = get_logger(__file__, script=True)

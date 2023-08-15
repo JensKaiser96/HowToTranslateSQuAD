@@ -1,7 +1,7 @@
 from src.nlp_tools.span import Span
-from src.utils.logging import get_logger
-from src.tar.align import align
 from src.nlp_tools.token import surface_token_mapping
+from src.tar.align import align
+from src.utils.logging import get_logger
 
 logger = get_logger(__name__)
 

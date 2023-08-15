@@ -1,7 +1,8 @@
+import tqdm
+
 from src.qa.quad import QUAD, Paragraphs
 from src.tar.translate import Translator
 from src.utils.logging import get_logger
-import tqdm
 
 logger = get_logger(__file__, script=True)
 

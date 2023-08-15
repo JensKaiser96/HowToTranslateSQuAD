@@ -1,6 +1,7 @@
 import string
-from transformers.tokenization_utils_base import BatchEncoding
 from typing import Sequence
+
+from transformers.tokenization_utils_base import BatchEncoding
 
 from src.nlp_tools.span import Span
 

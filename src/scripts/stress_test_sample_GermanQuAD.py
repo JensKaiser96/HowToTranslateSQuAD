@@ -1,4 +1,5 @@
 import random
+
 from src.qa.quad import QUAD
 from src.utils.logging import get_logger
 
