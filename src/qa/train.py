@@ -16,18 +16,8 @@ logger.info("Preparing Datasets ...")
 train_dataset = QUAD(QUAD.Datasets.Squad1.Translated.Raw.TRAIN_CLEAN).as_hf_dataset(gelectra_base.tokenizer.model)
 validation_dataset = QUAD(QUAD.Datasets.GermanQuad.TEST).as_hf_dataset(gelectra_base.tokenizer.model)
 
-train_dataloader = DataLoader(
-    tokenized_train_dataset,
-    shuffle=True,
-    collate_fn=default_data_collator,
-    batch_size=254,
-)
-eval_dataloader = DataLoader(
-    tokenized_validation_dataset, collate_fn=default_data_collator, batch_size=8
-)
-
-model = AutoModelForQuestionAnswering.from_pretrained("deepset/gelectra-large")
-trained_model_name = "test"
+trained_model_name = "raw_clean"
+#TODO, get train args from GermanQuad Guys
 args = TrainingArguments(
     trained_model_name,
     remove_unused_columns=False,
