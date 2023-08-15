@@ -1,27 +1,20 @@
-import datasets
-from torch.utils.data import DataLoader
-from transformers import AutoModelForQuestionAnswering, TrainingArguments, Trainer
-from transformers import default_data_collator
+from transformers import TrainingArguments, Trainer
 
-from src.io.filepaths import Datasets
+from src.io.filepaths import Models
 from src.io.utils import str_to_safe_path
 from src.qa.gelectra_quad import Gelectra
-from src.qa.train_util import prepare_train_features, flatten_quad
+from src.qa.quad import QUAD
 from src.utils.logging import get_logger
 
 logger = get_logger(__name__)
 
-tokenizer = Gelectra.tokenizer.model
+# TODO, make pipeline modular: -> train dataset var, (model) var, save path var
+logger.info("Loading Model ...")
+gelectra_base = Gelectra.Base
 
-train_dataset = datasets.load_dataset("json", data_files=Datasets.Squad1.Translated.Raw.TRAIN_CLEAN, field="data", split="train")
-train_dataset = train_dataset.map(flatten_quad, batched=True, remove_columns=train_dataset.column_names)
-tokenized_train_dataset = train_dataset.map(prepare_train_features, batched=True, remove_columns=train_dataset.column_names)
-tokenized_train_dataset.set_format("torch")
-
-validation_dataset = datasets.load_dataset("json", data_files=Datasets.GermanQuad.TEST, field="data", split="train")
-validation_dataset = validation_dataset.map(flatten_quad, batched=True, remove_columns=validation_dataset.column_names)
-tokenized_validation_dataset = validation_dataset.map(prepare_train_features, batched=True, remove_columns=validation_dataset.column_names)
-tokenized_validation_dataset.set_format("torch")
+logger.info("Preparing Datasets ...")
+train_dataset = QUAD(QUAD.Datasets.Squad1.Translated.Raw.TRAIN_CLEAN).as_hf_dataset(gelectra_base.tokenizer.model)
+validation_dataset = QUAD(QUAD.Datasets.GermanQuad.TEST).as_hf_dataset(gelectra_base.tokenizer.model)
 
 train_dataloader = DataLoader(
     tokenized_train_dataset,
@@ -46,13 +39,14 @@ args = TrainingArguments(
     fp16=True,
 )
 trainer = Trainer(
-    model=model,
+    model=gelectra_base.model,
     args=args,
-    train_dataset=tokenized_train_dataset,
-    eval_dataset=tokenized_validation_dataset,
-    tokenizer=tokenizer
+    train_dataset=train_dataset,
+    eval_dataset=validation_dataset,
+    tokenizer=gelectra_base.tokenizer.model
 )
+logger.info("Training Model ...")
 trainer.train()
 
-trainer.save_model(str_to_safe_path("data/models/gelectra/raw_clean/"))
-
+logger.info("Saving Model ...")
+trainer.save_model(str_to_safe_path(Models.QA.Gelectra.raw_clean))
