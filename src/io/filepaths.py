@@ -4,6 +4,7 @@ should be a yaml, but eh, maybe one day
 """
 
 plotpath = "./data/plots/"
+prediction_path = "data/predictions/"
 
 _DATASETS = "./data/datasets/"
 _MODELS = "./data/models/"
