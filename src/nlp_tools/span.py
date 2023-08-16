@@ -7,10 +7,17 @@ from transformers.tokenization_utils_base import BatchEncoding
 from src.qa.quad import Answer
 
 
-@dataclass(frozen=True)
+@dataclass
 class Span:
     start: int
     end: int
+
+    def __init__(self, start: int, end:int, absolute=True):
+        self.start = start
+        if absolute:
+            self.end = end
+        else:
+            self.end = start + end
 
     @classmethod
     def from_answer(cls, answer: Answer):
@@ -21,7 +28,7 @@ class Span:
     @classmethod
     def combine(cls, spans: list["Span"]):
         if not spans:
-            return cls(0,0)
+            return cls(0, 0)
         min_start = min(spans, key=lambda span: span.start)
         max_end = max(spans, key=lambda span: span.end)
         return cls(min_start.start, max_end.end)
