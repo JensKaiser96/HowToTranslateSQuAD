@@ -32,20 +32,34 @@ def surface_token_mapping(
     """
     mapping = []
     curser_pos = 0
-    for token in tokens:
-        if padding_char:
+    last_unknown = False
+    for i, token in enumerate(tokens):
+        if (
+            padding_char and token != padding_char
+        ):  # remove padding but don't remove it if its just that char
             token = token.strip(padding_char)
-        # advance curser if the next char is a whitespace, or ASCII CHAR 160 (non-breaking space)
+        # advance curser if the next char is a whitespace, or ASCII CHAR 160 (non-breaking space), or S
         while (
-            text[curser_pos : curser_pos + 1] in string.whitespace
-            or ord(text[curser_pos : curser_pos + 1]) == 160
+            text[curser_pos : curser_pos + 1] in string.whitespace  # skip if whitespace
+            or ord(text[curser_pos : curser_pos + 1]) == 160  # non-breaking space
+            or ord(text[curser_pos : curser_pos + 1]) == 173  # soft-hyphen
         ):
             curser_pos += 1
-        # create span over current token
-        span = Span(curser_pos, curser_pos + len(token))
+
+        # create span over current token and deal with last unknown token
+        if last_unknown:
+            span = Span(text.find(token, curser_pos), len(token), absolute=False)
+            last_span = Span(curser_pos, span.start)
+            mapping.append(last_span)
+        else:
+            span = Span(curser_pos, curser_pos + len(token))
+
         # check if content of the span matches with the token
         if token == span(text):
             mapping.append(span)
+        elif token == "[UNK]":
+            last_unknown = True
+            continue
         else:
             raise ValueError(
                 f"Expected token '{token}' to be at {span.start}: {span.end} in \n"
