@@ -1,4 +1,5 @@
 import torch
+from tqdm import tqdm
 from transformers.models.electra.modeling_electra import ElectraForQuestionAnswering
 from transformers.models.electra.tokenization_electra_fast import ElectraTokenizerFast
 from transformers.tokenization_utils_base import BatchEncoding
@@ -47,7 +48,7 @@ class Gelectra:
         predictions = {}
         exact_scores = {}
         f1_scores = {}
-        for article in dataset.data:
+        for article in tqdm(dataset.data):
             for paragraph in article:
                 context = paragraph.context
                 for qa in paragraph.qas:
