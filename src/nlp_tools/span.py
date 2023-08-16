@@ -20,6 +20,8 @@ class Span:
 
     @classmethod
     def combine(cls, spans: list["Span"]):
+        if not spans:
+            return cls(0,0)
         min_start = min(spans, key=lambda span: span.start)
         max_end = max(spans, key=lambda span: span.end)
         return cls(min_start.start, max_end.end)
