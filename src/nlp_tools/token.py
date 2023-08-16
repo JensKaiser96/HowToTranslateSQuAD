@@ -51,8 +51,11 @@ def surface_token_mapping(
             mapping.append(span)
         else:
             raise ValueError(
-                f"Expected token '{token}' to be at {span.start}: "
-                f"{span.end} in \n'{text}'\n was: \n ...{text[span.start-10:span.start]} '{span(text)}' {text[span.end:span.end - 10]}"
+                f"Expected token '{token}' to be at {span.start}: {span.end} in \n"
+                f"...{text[span.start - 100: span.end + 100]}...\n"
+                f"was: '{span(text)}'\n"
+                f"tokens: ...{tokens[i-3:i+3]}...\n"
+                f"mapping: {mapping}"
             )
         # move curser to the end of the span
         curser_pos = span.end
