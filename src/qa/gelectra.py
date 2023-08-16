@@ -74,8 +74,8 @@ class Gelectra:
         # compute total scores
         total = len(predictions)
         total_scores = {
-            "exact": 100.0 * sum(exact_scores.values() / total),
-            "f1": 100.0 * sum(f1_scores.values() / total),
+            "exact": 100.0 * sum(exact_scores.values()) / total,
+            "f1": 100.0 * sum(f1_scores.values()) / total,
             "total": total,
         }
         logger.info(total_scores)
