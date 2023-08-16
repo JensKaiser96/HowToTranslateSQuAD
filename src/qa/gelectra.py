@@ -97,10 +97,10 @@ class Gelectra:
         span = Span.combine(mapping[answer_start_index : answer_end_index + 1])
 
         return {
-            "start_logits": output.start_logits,
-            "end_logits": output.end_logits,
-            "start_index": answer_start_index,
-            "end_index": answer_end_index,
+            "start_logits": output.start_logits.flatten().tolist(),
+            "end_logits": output.end_logits.flatten().tolist(),
+            "start_index": int(answer_start_index),
+            "end_index": int(answer_end_index),
             "surface_span": (span.start, span.end),
             "text": span(context),
         }
