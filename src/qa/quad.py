@@ -282,7 +282,7 @@ class QUAD:
             self.version = version
         to_json(self._data, path)
 
-    def as_hf_dataset(self, tokenizer, split: str = "train"):
+    def as_hf_dataset(self, tokenizer, max_length, split: str = "train"):
         """
         returns the dataset defined at the path as a HuggingFace Dataset. Note this completely ignores the content of
         the QUAD Object, only the data saved to the path is loaded.
@@ -302,7 +302,7 @@ class QUAD:
             prepare_train_features,
             batched=True,
             remove_columns=flatt_dataset.column_names,
-            fn_kwargs={"tokenizer": tokenizer},
+            fn_kwargs={"tokenizer": tokenizer, "max_length": max_length},
         )
         tokenized_dataset.set_format("torch")
         return tokenized_dataset

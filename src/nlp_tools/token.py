@@ -9,9 +9,19 @@ from src.nlp_tools.span import Span
 class Tokenizer:
     def __init__(self, tokenizer):
         self.model = tokenizer
+        self.max_length = tokenizer.max_len_single_sentence
 
     def encode(self, *text: str) -> BatchEncoding:
-        return self.model(*text, return_tensors="pt")
+        return self.model(
+            *text,
+            return_tensors="pt",
+            truncation="only_first",
+            max_length=self.max_length,
+            stride=self.max_length // 3,  # overlap 1/3 of total length
+            return_overflowing_tokens=True,
+            return_offsets_mapping=True,
+            padding="max_length",
+        )
 
     def decode(self, tokens_ids: Sequence) -> list[str]:
         return [self.model.decode(token_id) for token_id in tokens_ids]

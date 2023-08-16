@@ -19,14 +19,12 @@ def flatten_quad(batch):
     return result
 
 
-def prepare_train_features(examples, tokenizer):
+def prepare_train_features(examples, tokenizer, max_length=512):
     """
     Code with minor adjustments from:
     https://colab.research.google.com/github/huggingface/notebooks/blob/main/examples/question_answering.ipynb#scrollTo=bYPjccQjpDKv&line=2&uniqifier=1
     """
     pad_on_right = tokenizer.padding_side == "right"
-    max_length = 384
-    doc_stride = 128
 
     # Some of the questions have lots of whitespace on the left, which is not useful and will make the
     # truncation of the context fail (the tokenized question will take a lots of space). So we remove that
@@ -41,7 +39,7 @@ def prepare_train_features(examples, tokenizer):
         examples["context" if pad_on_right else "question"],
         truncation="only_second" if pad_on_right else "only_first",
         max_length=max_length,
-        stride=doc_stride,
+        stride=max_length // 3,  # overlap 1/3 of total length
         return_overflowing_tokens=True,
         return_offsets_mapping=True,
         padding="max_length",

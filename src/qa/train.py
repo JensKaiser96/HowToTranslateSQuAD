@@ -2,7 +2,7 @@ from transformers import TrainingArguments, Trainer
 
 from src.io.filepaths import Models
 from src.io.utils import str_to_safe_path
-from src.qa.gelectra_quad import Gelectra
+from src.qa.gelectra import Gelectra
 from src.qa.quad import QUAD
 from src.utils.logging import get_logger
 
@@ -13,7 +13,10 @@ logger.info("Loading Model ...")
 gelectra_base = Gelectra.Base
 
 logger.info("Preparing Datasets ...")
-train_dataset = QUAD.Raw.TRAIN_CLEAN.as_hf_dataset(gelectra_base.tokenizer.model)
+train_dataset = QUAD.Raw.TRAIN_CLEAN.as_hf_dataset(
+    tokenizer=gelectra_base.tokenizer.model,
+    max_length=gelectra_base.model.config["max_position_embeddings"],
+)
 validation_dataset = QUAD.GermanQUAD.TEST.as_hf_dataset(gelectra_base.tokenizer.model)
 
 trained_model_name = "raw_clean"
