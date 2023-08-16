@@ -28,8 +28,11 @@ def surface_token_mapping(
     for token in tokens:
         if padding_char:
             token = token.strip(padding_char)
-        # advance curser if the next char is a whitespace.
-        while text[curser_pos : curser_pos + 1] in string.whitespace:
+        # advance curser if the next char is a whitespace, or ASCII CHAR 160 (non-breaking space)
+        while (
+            text[curser_pos : curser_pos + 1] in string.whitespace
+            or ord(text[curser_pos : curser_pos + 1]) == 160
+        ):
             curser_pos += 1
         # create span over current token
         span = Span(curser_pos, curser_pos + len(token))
@@ -39,7 +42,7 @@ def surface_token_mapping(
         else:
             raise ValueError(
                 f"Expected token '{token}' to be at {span.start}: "
-                f"{span.end} in \n'{text}'\n, was: \n'{span(text)}'"
+                f"{span.end} in \n'{text}'\n was: \n ...{text[span.start-10:span.start]} '{span(text)}' {text[span.end:span.end - 10]}"
             )
         # move curser to the end of the span
         curser_pos = span.end
