@@ -12,7 +12,7 @@ class Span:
     start: int
     end: int
 
-    def __init__(self, start: int, end:int, absolute=True):
+    def __init__(self, start: int, end: int, absolute=True):
         self.start = start
         if absolute:
             self.end = end
