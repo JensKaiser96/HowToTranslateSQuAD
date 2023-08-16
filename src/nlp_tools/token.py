@@ -18,9 +18,6 @@ class Tokenizer:
             truncation="only_first",
             max_length=self.max_length,
             stride=self.max_length // 3,  # overlap 1/3 of total length
-            return_overflowing_tokens=True,
-            return_offsets_mapping=True,
-            padding="max_length",
         )
 
     def decode(self, tokens_ids: Sequence) -> list[str]:
