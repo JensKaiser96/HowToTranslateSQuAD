@@ -7,5 +7,5 @@ def main():
     raw_clean_model.evaluate(QUAD.GermanQUAD.TEST, "test")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
