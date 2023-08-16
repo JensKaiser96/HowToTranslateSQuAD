@@ -39,7 +39,7 @@ class Gelectra:
     def RawClean(cls):
         return Gelectra(Models.QA.Gelectra.raw_clean)
 
-    def evaluate(self, dataset: QUAD, out_file: str):
+    def evaluate(self, dataset: QUAD, out_file_suffix: str = ""):
         """
         generates predictions on the dataset, saves them to the out_file, and then calls the evaluation script on it
         partially stolen from: https://rajpurkar.github.io/SQuAD-explorer/ -> "Evaluation Script"
@@ -54,7 +54,7 @@ class Gelectra:
                     prediction = self.prompt(context, qa.question)
                     predictions[qa.id] = prediction
                     gold_answers = [
-                        a["text"] for a in qa["answers"] if normalize_answer(a["text"])
+                        a.text for a in qa.answers if normalize_answer(a.text)
                     ]
                     if not gold_answers:
                         # For unanswerable questions, only correct answer is empty string
@@ -67,7 +67,8 @@ class Gelectra:
                         compute_f1(a, predictions) for a in gold_answers
                     )
         # save predictions
-        to_json(predictions, prediction_path + self._normalized_name)
+        path = prediction_path + self._normalized_name + out_file_suffix
+        to_json(predictions, path)
 
         # compute total scores
         total = len(predictions)
