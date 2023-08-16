@@ -61,10 +61,10 @@ class Gelectra:
                         gold_answers = [""]
                     # Take max over all gold answers
                     exact_scores[qa.id] = max(
-                        compute_exact(a, predictions) for a in gold_answers
+                        compute_exact(a, prediction["text"]) for a in gold_answers
                     )
                     f1_scores[qa.id] = max(
-                        compute_f1(a, predictions) for a in gold_answers
+                        compute_f1(a, prediction["text"]) for a in gold_answers
                     )
         # save predictions
         path = prediction_path + self._normalized_name + out_file_suffix
