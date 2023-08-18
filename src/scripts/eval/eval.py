@@ -36,10 +36,10 @@ def main():
 
     if Gelectra.has_results_file(chosen_model_name, dataset.name):
         evaluate_again = input(
-                f"{chosen_model_name} has already been evaluated on {dataset.name}.\n"
-                f"Do you want to do it again (y/N)"
+            f"{chosen_model_name} has already been evaluated on {dataset.name}.\n"
+            f"Do you want to do it again (y/N)"
         )
-        if evaluate_again.lower() != 'y':
+        if evaluate_again.lower() != "y":
             print("Exiting ...")
             return
 
