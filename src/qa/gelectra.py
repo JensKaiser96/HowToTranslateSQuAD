@@ -4,7 +4,7 @@ from transformers.models.electra.modeling_electra import ElectraForQuestionAnswe
 from transformers.models.electra.tokenization_electra_fast import ElectraTokenizerFast
 from transformers.tokenization_utils_base import BatchEncoding
 
-from src.io.filepaths import Models, prediction_path
+from src.io.filepaths import Models, PREDICTIONS_PATH
 from src.io.utils import to_json
 from src.nlp_tools.span import Span
 from src.nlp_tools.token import Tokenizer, surface_token_mapping
@@ -68,7 +68,7 @@ class Gelectra:
                         compute_f1(a, prediction["text"]) for a in gold_answers
                     )
         # save predictions
-        path = prediction_path + self._normalized_name + out_file_suffix
+        path = PREDICTIONS_PATH + self._normalized_name + out_file_suffix
         to_json(predictions, path)
 
         # compute total scores

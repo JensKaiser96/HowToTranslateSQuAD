@@ -3,13 +3,13 @@ import json
 import os
 from pathlib import Path
 
-from src.io.filepaths import plotpath
+from src.io.filepaths import PLOTS_PATH
 
 
 def save_plt(plt, path: str):
     suffix = ".png"
     if "/plots" not in path:
-        path = plotpath + path
+        path = PLOTS_PATH + path
     path = str_to_safe_path(path, suffix)
     plt.savefig(path, transparent=True)
 
