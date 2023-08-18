@@ -34,7 +34,9 @@ def main():
     dataset_parent = getattr(QUAD, dataset_parent_name)
     dataset = getattr(dataset_parent, dataset_child_name)
 
-    if Gelectra.has_results_file(chosen_model_name, dataset.name):
+    model: Gelectra = getattr(Gelectra, model_names[chosen_model_index])
+
+    if model.has_results_file(dataset.name):
         evaluate_again = input(
             f"{chosen_model_name} has already been evaluated on {dataset.name}.\n"
             f"Do you want to do it again (y/N)"
@@ -43,7 +45,6 @@ def main():
             print("Exiting ...")
             return
 
-    model: Gelectra = getattr(Gelectra, model_names[chosen_model_index])
     model.evaluate(dataset)
 
 

@@ -29,7 +29,7 @@ class Gelectra:
         return Gelectra.path2name(self.path)
 
     @staticmethod
-    def path2name(path:str):
+    def path2name(path: str):
         return ".".join(path.strip("/").split("/")[-2:])
 
     @classmethod
@@ -93,9 +93,10 @@ class Gelectra:
     def results_pathname(model_name: str, dataset_name: str):
         return f"{PREDICTIONS_PATH}{model_name}_{dataset_name}.json"
 
-    @staticmethod
-    def has_results_file(model_path: str, dataset_name: str):
-        return os.path.isfile(Gelectra.results_pathname(Gelectra.path2name(model_path), dataset_name))
+    def has_results_file(self, dataset_name: str):
+        return os.path.isfile(
+            Gelectra.results_pathname(self.name, dataset_name)
+        )
 
     def prompt(self, context: str, question: str):
         model_input = self.tokenizer.encode(context, question)
