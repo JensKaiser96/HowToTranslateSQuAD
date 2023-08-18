@@ -16,14 +16,15 @@ logger = get_logger(__name__)
 
 
 class Gelectra:
-    def __init__(self, name: str):
-        self.name = name
-        self.tokenizer = Tokenizer(ElectraTokenizerFast.from_pretrained(name))
-        self.model = ElectraForQuestionAnswering.from_pretrained(name)
+    def __init__(self, path: str):
+        self.path = path
+        logger.info(f"Loading model {self.name} ...")
+        self.tokenizer = Tokenizer(ElectraTokenizerFast.from_pretrained(path))
+        self.model = ElectraForQuestionAnswering.from_pretrained(path)
 
     @property
-    def _normalized_name(self):
-        return "_".join(self.name.strip("/").split("/")[-2:])
+    def name(self):
+        return ".".join(self.path.strip("/").split("/")[-2:])
 
     @classmethod
     @property
