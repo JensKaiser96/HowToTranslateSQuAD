@@ -2,7 +2,7 @@ import json
 
 import datasets
 
-from src.io.filepaths import Datasets, StressTest
+from src.io.filepaths import Datasets, StressTest, DATASETS_PATH
 from src.io.utils import to_json
 from src.qa.train_util import prepare_train_features, flatten_quad
 from src.utils.logging import get_logger
@@ -245,12 +245,17 @@ class QUAD:
 
     def __init__(self, path: str = "", _data: QuadData = None):
         self.path = path
+        logger.info(f"Loading Dataset {self.name} ...")
         if path:
             self._data = self._load(path)
         if _data:
             self._data = {QuADKeys.data: _data}
         if not path and not _data:
             self._data = {QuADKeys.data: []}
+
+    @property
+    def name(self):
+        return self.path.removeprefix(DATASETS_PATH).replace("/", ".")
 
     @property
     def data(self) -> QuadData:
