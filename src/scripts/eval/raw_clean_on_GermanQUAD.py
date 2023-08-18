@@ -1,5 +1,8 @@
 from src.qa.gelectra import Gelectra
 from src.qa.quad import QUAD
+from src.utils.logging import get_logger
+
+logger = get_logger(__file__)
 
 
 def main():
