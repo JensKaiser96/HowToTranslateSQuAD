@@ -255,7 +255,7 @@ class QUAD:
 
     @property
     def name(self):
-        return self.path.removeprefix(DATASETS_PATH).replace("/", ".")
+        return self.path.removeprefix(DATASETS_PATH).removesuffix(".json").replace("/", ".")
 
     @property
     def data(self) -> QuadData:
