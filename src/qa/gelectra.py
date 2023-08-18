@@ -48,6 +48,7 @@ class Gelectra:
         generates predictions on the dataset, saves them to the out_file, and then calls the evaluation script on it
         partially stolen from: https://rajpurkar.github.io/SQuAD-explorer/ -> "Evaluation Script"
         """
+        logger.info(f"Evaluating {self.name} on {dataset.name} ...")
         predictions = {}
         exact_scores = {}
         f1_scores = {}
