@@ -7,7 +7,7 @@ logger = get_logger(__file__)
 
 def main():
     raw_clean_model = Gelectra.RawClean
-    raw_clean_model.evaluate(QUAD.GermanQUAD.TEST, "test")
+    raw_clean_model.evaluate(QUAD.GermanQUAD.TEST)
 
 
 if __name__ == "__main__":
