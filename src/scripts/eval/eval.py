@@ -44,7 +44,7 @@ def main():
             return
 
     model = getattr(Gelectra, model_names[chosen_model_index])
-    model.evaluate(dataset, f"{model.name}")
+    model.evaluate(dataset)
 
 
 if __name__ == "__main__":
