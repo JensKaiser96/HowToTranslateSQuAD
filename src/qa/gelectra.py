@@ -94,9 +94,7 @@ class Gelectra:
         return f"{PREDICTIONS_PATH}{model_name}_{dataset_name}.json"
 
     def has_results_file(self, dataset_name: str):
-        return os.path.isfile(
-            Gelectra.results_pathname(self.name, dataset_name)
-        )
+        return os.path.isfile(Gelectra.results_pathname(self.name, dataset_name))
 
     def prompt(self, context: str, question: str):
         model_input = self.tokenizer.encode(context, question)

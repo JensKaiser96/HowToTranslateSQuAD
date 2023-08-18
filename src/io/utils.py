@@ -41,7 +41,9 @@ def _rename_old_file(path: Path, verbose=False):
 def str_to_safe_path(filepath: str, suffix: str = "", verbose=False):
     fixed_path = _fix_relative_paths(filepath)
     path = Path(fixed_path)
-    if suffix and path.suffix != suffix:  # set the suffix if explicitly given and not already set via path
+    if (
+        suffix and path.suffix != suffix
+    ):  # set the suffix if explicitly given and not already set via path
         path = path.with_suffix(suffix)
     # warn if suffix is given neiter explicitly nor implicitly
     elif not path.suffix and not path.is_dir():
