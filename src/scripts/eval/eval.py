@@ -43,7 +43,7 @@ def main():
             print("Exiting ...")
             return
 
-    model = getattr(Gelectra, model_names[chosen_model_index])
+    model: Gelectra = getattr(Gelectra, model_names[chosen_model_index])
     model.evaluate(dataset)
 
 

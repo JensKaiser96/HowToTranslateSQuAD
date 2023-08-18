@@ -78,7 +78,7 @@ class Gelectra:
             "total": total,
         }
         to_json(
-            data={"scores": total_scores, "predictions": prediction},
+            data={"scores": total_scores, "predictions": predictions},
             path=Gelectra.results_pathname(self.name, dataset.name),
         )
         logger.info(total_scores)
