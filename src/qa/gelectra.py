@@ -70,16 +70,17 @@ class Gelectra:
                     f1_scores[qa.id] = max(
                         compute_f1(a, prediction["text"]) for a in gold_answers
                     )
-        # save predictions
-        to_json(predictions, Gelectra.results_pathname(self.name, dataset.name))
-
         # compute total scores
         total = len(predictions)
         total_scores = {
-            "exact": 100.0 * sum(exact_scores.values()) / total,
-            "f1": 100.0 * sum(f1_scores.values()) / total,
+            "EM": round(sum(exact_scores.values()) / total, 5),
+            "F1": round(sum(f1_scores.values()) / total, 5),
             "total": total,
         }
+        to_json(
+            data={"scores": total_scores, "predictions": prediction},
+            path=Gelectra.results_pathname(self.name, dataset.name)
+        )
         logger.info(total_scores)
         return total_scores
 
@@ -104,7 +105,7 @@ class Gelectra:
         context_token_ids, _ = self._split_encoding(model_input)
         context_tokens = self.tokenizer.decode(context_token_ids(model_input))
         mapping = surface_token_mapping(context, context_tokens, "#")
-        span = Span.combine(mapping[answer_start_index : answer_end_index + 1])
+        span = Span.combine(mapping[answer_start_index: answer_end_index + 1])
 
         return {
             "start_logits": output.start_logits.flatten().tolist(),
