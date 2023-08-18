@@ -7,11 +7,11 @@ logger = get_logger(__file__, script=True)
 
 def main():
     # Model
-    model_names = ["RawClean, GermanQUAD"]
+    model_names = ["RawClean", "GermanQUAD"]
     print("Chose which model you would like to evaluate:")
     for i, model_name in enumerate(model_names):
         print(f"\t[{i}] - {model_name}")
-    chosen_model_index = input("Enter Number associated with the model: ")
+    chosen_model_index = int(input("Enter Number associated with the model: "))
     chosen_model_name = model_names[chosen_model_index]
     print(f"Chosen Model: {chosen_model_name}")
 
@@ -26,7 +26,7 @@ def main():
     print("Chose which dataset you want to evaluate the model on:")
     for i, dataset_name in enumerate(dataset_names):
         print(f"\t[{i}] - {dataset_name}")
-    chosen_dataset_index = input("Enter Number associated with the dataset: ")
+    chosen_dataset_index = int(input("Enter Number associated with the dataset: "))
     print(f"Chosen Dataset: {dataset_names[chosen_dataset_index]}")
     dataset_parent_name, dataset_child_name = dataset_names[chosen_dataset_index].split(
         "."
