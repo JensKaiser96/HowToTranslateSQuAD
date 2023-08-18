@@ -1,3 +1,5 @@
+import os
+
 import torch
 from tqdm import tqdm
 from transformers.models.electra.modeling_electra import ElectraForQuestionAnswering
@@ -41,7 +43,7 @@ class Gelectra:
     def RawClean(cls):
         return Gelectra(Models.QA.Gelectra.raw_clean)
 
-    def evaluate(self, dataset: QUAD, out_file_suffix: str = ""):
+    def evaluate(self, dataset: QUAD):
         """
         generates predictions on the dataset, saves them to the out_file, and then calls the evaluation script on it
         partially stolen from: https://rajpurkar.github.io/SQuAD-explorer/ -> "Evaluation Script"
@@ -69,8 +71,7 @@ class Gelectra:
                         compute_f1(a, prediction["text"]) for a in gold_answers
                     )
         # save predictions
-        path = PREDICTIONS_PATH + self._normalized_name + out_file_suffix
-        to_json(predictions, path)
+        to_json(predictions, Gelectra.results_pathname(self.name, dataset.name))
 
         # compute total scores
         total = len(predictions)
@@ -81,6 +82,14 @@ class Gelectra:
         }
         logger.info(total_scores)
         return total_scores
+
+    @staticmethod
+    def results_pathname(model_name: str, dataset_name: str):
+        return f"{PREDICTIONS_PATH}{model_name}_{dataset_name}.json"
+
+    @staticmethod
+    def has_results_file(model_name: str, dataset_name: str):
+        return os.path.isfile(Gelectra.results_pathname(model_name, dataset_name))
 
     def prompt(self, context: str, question: str):
         model_input = self.tokenizer.encode(context, question)
