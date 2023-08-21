@@ -9,7 +9,7 @@ from transformers.tokenization_utils_base import BatchEncoding
 from src.io.filepaths import Models, PREDICTIONS_PATH
 from src.io.utils import to_json
 from src.nlp_tools.span import Span
-from src.nlp_tools.token import Tokenizer, surface_token_mapping
+from src.nlp_tools.token import Tokenizer
 from src.qa.quad import QUAD
 from src.qa.squad_eval_script import normalize_answer, compute_exact, compute_f1
 from src.utils.logging import get_logger
@@ -110,18 +110,19 @@ class Gelectra:
         answer_end_index = output.end_logits.argmax()
 
         # convert token to surface level
-        context_token_ids, _ = self._split_encoding(model_input)
-        context_tokens = self.tokenizer.decode(context_token_ids(model_input))
-        mapping = surface_token_mapping(context, context_tokens, "#")
-        span = Span.combine(mapping[answer_start_index : answer_end_index + 1])
+        # context_token_ids, _ = self._split_encoding(model_input)
+        # context_tokens = self.tokenizer.decode(context_token_ids(model_input))
+        text = self.tokenizer.model.decode(
+            model_input.input_ids[0][answer_start_index : answer_end_index + 1]
+        )
 
+        # TODO, add span information.
         return {
             "start_logits": output.start_logits.flatten().tolist(),
             "end_logits": output.end_logits.flatten().tolist(),
             "start_index": int(answer_start_index),
             "end_index": int(answer_end_index),
-            "surface_span": (span.start, span.end),
-            "text": span(context),
+            "text": text,
         }
 
     def _split_encoding(self, encoding: BatchEncoding) -> tuple[Span, Span]:
