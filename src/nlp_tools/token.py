@@ -12,10 +12,11 @@ class Tokenizer:
         self.max_length = tokenizer.max_len_single_sentence
 
     def encode(self, *text: str) -> BatchEncoding:
+        # QA: first question then context
         return self.model(
             *text,
             return_tensors="pt",
-            truncation="only_first",
+            truncation="only_second",
             max_length=self.max_length,
             stride=self.max_length // 3,  # overlap 1/3 of total length
         )

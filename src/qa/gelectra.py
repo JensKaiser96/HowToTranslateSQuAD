@@ -97,7 +97,11 @@ class Gelectra:
         return os.path.isfile(Gelectra.results_pathname(self.name, dataset_name))
 
     def prompt(self, context: str, question: str):
-        model_input = self.tokenizer.encode(context, question)
+        try:
+            model_input = self.tokenizer.encode(question, context)
+        except Exception:
+            print(f"'{question}'\n\n ''{context}")
+            exit(1337)
         with torch.no_grad():
             output = self.model(**model_input)
 
