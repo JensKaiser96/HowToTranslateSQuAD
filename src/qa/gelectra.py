@@ -112,8 +112,12 @@ class Gelectra:
         answer_end_token_index = int(output.end_logits.argmax())
 
         # get answer on surface level
-        answer_start_surface_index = int(model_input.offset_mapping[0][answer_start_token_index ][0])
-        answer_end_surface_index = int(model_input.offset_mapping[0][ answer_end_token_index ][1])
+        answer_start_surface_index = int(
+            model_input.offset_mapping[0][answer_start_token_index][0]
+        )
+        answer_end_surface_index = int(
+            model_input.offset_mapping[0][answer_end_token_index][1]
+        )
 
         return {
             "start_logits": output.start_logits.flatten().tolist(),
@@ -121,7 +125,7 @@ class Gelectra:
             "start_index": answer_start_token_index,
             "end_index": answer_end_token_index,
             "span": (answer_start_surface_index, answer_end_surface_index),
-            "text": context[answer_start_surface_index: answer_end_surface_index + 1],
+            "text": context[answer_start_surface_index : answer_end_surface_index + 1],
         }
 
     def _split_encoding(self, encoding: BatchEncoding) -> tuple[Span, Span]:

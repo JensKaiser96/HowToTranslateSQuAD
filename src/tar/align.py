@@ -31,7 +31,7 @@ def align(
     """
     returns the alignment between the tokens in text_1 and sentence2
     as well as the tokens in source_text and target_text, without [BOS] and
-    [EOS], combinded with their index in the text to distiglish between
+    [EOS], combined with their index in the text to distinguish between
     tokens with the same string representation
     """
     # split text into sentences
@@ -70,7 +70,7 @@ def align(
     return alignments, source_tokens, target_tokens
 
 
-def _get_model_output(encoding: dict = None) -> torch.Tensor:
+def _get_model_output(encoding: BatchEncoding = None) -> torch.Tensor:
     with torch.no_grad():
         _, _, outputs = model(**encoding)
     output = outputs[8]  # layer 8 has the best alignment
@@ -90,11 +90,11 @@ def _get_alignments_from_model_output(
     # actual alignment
     if direction == Direction.forwards:
         best_match = normalized_output.argmax(axis=1)
-        return [[i, t] for i, t in enumerate(best_match)]
+        return [[i, int(t)] for i, t in enumerate(best_match)]
 
     elif direction == Direction.backwards:
         best_match = normalized_output.argmax(axis=0)
-        return [[i, t] for i, t in enumerate(best_match)]
+        return [[i, int(t)] for i, t in enumerate(best_match)]
 
     elif direction == Direction.bidirectional:
         # sinkhorn algorithm
