@@ -16,9 +16,18 @@ class Tokenizer:
         return self.model(
             *text,
             return_tensors="pt",
+            return_offsets_mapping=True,
+        )
+
+    def encode_qa(self, question: str, context: str):
+        return self.model(
+            question,
+            context,
+            return_tensors="pt",
             truncation="only_second",
             max_length=self.max_length,
             stride=self.max_length // 3,  # overlap 1/3 of total length
+            return_offsets_mapping=True,
         )
 
     def decode(self, tokens_ids: Sequence) -> list[str]:
