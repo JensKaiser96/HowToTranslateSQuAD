@@ -45,6 +45,8 @@ def surface_token_mapping(
     text: str, tokens: list[str], padding_char: str = ""
 ) -> list[Span]:
     """
+    TODO - completely replace with offset_mapping
+    encode(..., return_offsets_mapping=True).offset_mapping[[token0.start, token0.end], [token1.start, token1.end], ...]
     returns a list of spans corresponding to the tokens in tokens.
     """
     mapping = []
