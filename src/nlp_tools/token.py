@@ -24,17 +24,13 @@ class Tokenizer:
     def decode(self, tokens_ids: Sequence) -> list[str]:
         return [self.model.decode(token_id) for token_id in tokens_ids]
 
-def char_is_valid(text: str, curser_pos: int):
-    char = text[curser_pos: curser_pos + 1]
 
-    if char in string.whitespace:
-        return False
+def blank_or_weird_char(text: str, curser_pos: int) -> bool:
+    char = text[curser_pos : curser_pos + 1]
+    # non-breaking space, soft-hyphen, zero width space
+    weird_symbol_codes = {160, 173, 8208}
+    return char in string.whitespace or ord(char) in weird_symbol_codes
 
-    # non-breaking space, soft-hyphen, zero with space
-    weird_symbols = {160, 173, 200}
-    if ord(char) in weird_symbols:
-        return False
-    return True
 
 def surface_token_mapping(
     text: str, tokens: list[str], padding_char: str = ""
@@ -51,7 +47,7 @@ def surface_token_mapping(
         ):  # remove padding but don't remove it if its just that char
             token = token.strip(padding_char)
         # advance curser if the next char a wired symbol
-        while not char_is_valid(text, curser_pos):
+        while blank_or_weird_char(text, curser_pos):
             curser_pos += 1
 
         # create span over current token and deal with last unknown token
