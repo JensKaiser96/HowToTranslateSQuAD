@@ -1,4 +1,5 @@
 import torch
+from nltk import tokenize
 from transformers import XLMRobertaConfig, XLMRobertaModel, XLMRobertaTokenizer
 from transformers.tokenization_utils_base import BatchEncoding
 
@@ -33,20 +34,38 @@ def align(
     [EOS], combinded with their index in the text to distiglish between
     tokens with the same string representation
     """
-    # get encodings, aligner output and spans
-    encoding = tokenizer.encode(source_text, target_text)
-    output = _get_model_output(encoding)
-    source_span, target_span = split_encoding(encoding)
-    alignments = _get_alignments_from_model_output(
-        output, source_span, target_span, direction
-    )
+    # split text into sentences
+    source_text_splits = tokenize.sent_tokenize(source_text)
+    target_text_splits = tokenize.sent_tokenize(target_text)
 
-    # add position (idx) to each token before returning the token list
-    source_tokens = tokenizer.decode(source_span(encoding))
-    target_tokens = tokenizer.decode(target_span(encoding))
+    # check if we have an equal amount of sentences
+    if len(source_text_splits) != len(target_text_splits):
+        # logger.debug("sentence split failed, trunkating, sowwy")
+        min_length = min(len(source_text_splits), len(target_text_splits))
+        source_text_splits = source_text_splits[:min_length]
+        target_text_splits = target_text_splits[:min_length]
+    alignments = []
+    source_index_offset = 0
+    target_index_offset = 0
+    source_tokens = []
+    target_tokens = []
+    for source_sentence, target_sentence in zip(source_text_splits, target_text_splits):
+        # get encodings, aligner output and spans
+        encoding = tokenizer.encode(source_sentence, target_sentence)
+        output = _get_model_output(encoding)
+        source_span, target_span = split_encoding(encoding)
+        new_alignments = _get_alignments_from_model_output(
+            output, source_span, target_span, direction
+        )
+        alignments += [
+            [si + source_index_offset, ti + target_index_offset]
+            for si, ti in new_alignments
+        ]
+        source_index_offset += len(source_span)
+        target_index_offset += len(target_span)
 
-    for source, target in alignments:
-        logger.debug(f"{source_tokens[source]}\t->\t{target_tokens[target]}")
+        source_tokens += tokenizer.decode(source_span(encoding))
+        target_tokens += tokenizer.decode(target_span(encoding))
 
     return alignments, source_tokens, target_tokens
 
