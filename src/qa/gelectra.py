@@ -99,26 +99,29 @@ class Gelectra:
     def prompt(self, context: str, question: str):
         model_input = self.tokenizer.encode(question, context)
         with torch.no_grad():
-            output = self.model(**model_input)
+            output = self.model(
+                **{
+                    key: value
+                    for key, value in model_input.items()
+                    if key != "offset_mapping"
+                }
+            )
 
         # get answer on token level
-        answer_start_index = output.start_logits.argmax()
-        answer_end_index = output.end_logits.argmax()
+        answer_start_token_index = int(output.start_logits.argmax())
+        answer_end_token_index = int(output.end_logits.argmax())
 
-        # convert token to surface level
-        # context_token_ids, _ = self._split_encoding(model_input)
-        # context_tokens = self.tokenizer.decode(context_token_ids(model_input))
-        text = self.tokenizer.model.decode(
-            model_input.input_ids[0][answer_start_index : answer_end_index + 1]
-        )
+        # get answer on surface level
+        answer_start_surface_index = int(model_input.offset_mapping[0][answer_start_token_index ][0])
+        answer_end_surface_index = int(model_input.offset_mapping[0][ answer_end_token_index ][1])
 
-        # TODO, add span information.
         return {
             "start_logits": output.start_logits.flatten().tolist(),
             "end_logits": output.end_logits.flatten().tolist(),
-            "start_index": int(answer_start_index),
-            "end_index": int(answer_end_index),
-            "text": text,
+            "start_index": answer_start_token_index,
+            "end_index": answer_end_token_index,
+            "span": (answer_start_surface_index, answer_end_surface_index),
+            "text": context[answer_start_surface_index: answer_end_surface_index + 1],
         }
 
     def _split_encoding(self, encoding: BatchEncoding) -> tuple[Span, Span]:
