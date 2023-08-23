@@ -107,15 +107,18 @@ class Gelectra:
             output = self.model(**Gelectra.filter_dict_for_model_input(model_input))
 
         # get answer on token level
+        # This works even on a tensor, the output of argmax() is its index as if it was 1D
         answer_start_token_index = int(output.start_logits.argmax())
         answer_end_token_index = int(output.end_logits.argmax())
 
         # get answer on surface level
+        # flatten the whole vector except for the start and end pairs:
+        # [[token_1_start, token_1_end], [token_2_start, token_2_end], ...]
         answer_start_surface_index = int(
-            model_input.offset_mapping[0][answer_start_token_index][0]
+            model_input.offset_mapping.reshape(-1, 2)[answer_start_token_index][0]
         )
         answer_end_surface_index = int(
-            model_input.offset_mapping[0][answer_end_token_index][1]
+            model_input.offset_mapping.reshape(-1, 2)[answer_end_token_index][1]
         )
 
         return {
@@ -124,7 +127,7 @@ class Gelectra:
             "start_index": answer_start_token_index,
             "end_index": answer_end_token_index,
             "span": (answer_start_surface_index, answer_end_surface_index),
-            "text": context[answer_start_surface_index : answer_end_surface_index + 1],
+            "text": context[answer_start_surface_index:answer_end_surface_index],
         }
 
     def _split_encoding(self, encoding: BatchEncoding) -> tuple[Span, Span]:
