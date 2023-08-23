@@ -13,3 +13,6 @@ Nunc id porttitor massa. Phasellus dictum dui vel lectus suscipit vestibulum. Su
 """
 
 t = model.tokenizer.model
+
+model.prompt(short_input, short_input)
+model.prompt(short_input, long_input)
