@@ -53,7 +53,6 @@ class Gelectra:
         generates predictions on the dataset, saves them to the out_file, and then calls the evaluation script on it
         partially stolen from: https://rajpurkar.github.io/SQuAD-explorer/ -> "Evaluation Script"
         """
-        self.model.to_gpu()
         logger.info(f"Evaluating {self.name} on {dataset.name} ...")
         predictions = {}
         exact_scores = {}
@@ -105,6 +104,7 @@ class Gelectra:
 
     def prompt(self, question: str, context: str):
         model_input = self.tokenizer.encode_qa(question, context)
+        model_input.to("cuda:0")
         with torch.no_grad():
             output = self.model(**Gelectra.filter_dict_for_model_input(model_input))
 
