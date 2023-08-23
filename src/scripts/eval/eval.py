@@ -17,6 +17,7 @@ def main():
 
     # Dataset
     dataset_names = [
+        "GermanQUAD.SMALL"
         "GermanQUAD.TEST",
         "StressTest.NOT",
         "StressTest.DIS",

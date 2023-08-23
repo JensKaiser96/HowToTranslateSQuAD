@@ -13,6 +13,7 @@ MODELS_PATH = "./data/models/"
 class Datasets:
     class GermanQuad:
         _dir_path = DATASETS_PATH + "GermanQuAD/"
+        SMALL = _dir_path + "GermanQUAD_small.json"
         TEST = _dir_path + "GermanQuAD_test.json"
         TRAIN = _dir_path + "GermanQuAD_train.json"
 

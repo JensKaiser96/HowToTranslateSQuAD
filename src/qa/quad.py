@@ -175,6 +175,11 @@ class QUAD:
     class GermanQUAD:
         @classmethod
         @property
+        def SMALL(cls):
+            return QUAD(Datasets.GermanQuad.SMALL)
+
+        @classmethod
+        @property
         def TRAIN(cls):
             return QUAD(Datasets.GermanQuad.TRAIN)
 

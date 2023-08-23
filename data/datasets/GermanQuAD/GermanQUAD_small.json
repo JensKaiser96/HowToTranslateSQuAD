@@ -1,0 +1,429 @@
+{
+  "data": [
+    {
+      "paragraphs": [
+        {
+          "context": "Aufzugsanlage\n\n=== Seilloser Aufzug ===\nAn der RWTH Aachen im Institut für Elektrische Maschinen wurde ein seilloser Aufzug entwickelt und ein Prototyp aufgebaut. Die Kabine wird hierbei durch zwei elektromagnetische Synchron-Linearmotoren angetrieben und somit nur durch ein vertikal bewegliches Magnetfeld gehalten bzw. bewegt. Diese Arbeit soll der Entwicklung von Aufzugsanlagen für sehr hohe Gebäude dienen. Ein Ziel ist der Einsatz mehrerer Kabinen pro Schacht, die sich unabhängig voneinander steuern lassen. Bei Auswahl des Fahrtziels vor Fahrtantritt (d. h. noch außerhalb des Aufzug) wird ein bestimmter Fahrkorb in einem der Aufzugsschächte für die Fahrt ausgewählt, mit der sich der geplante Transport am schnellsten durchführen lässt. Der Platzbedarf für die gesamte Aufzugsanlage könnte somit um ein oder mehrere Schächte reduziert werden. Da die Kabinen seillos betrieben werden, ist ein Schachtwechsel ebenfalls denkbar. Hiermit können weitere Betriebsstrategien für die seillose Aufzugsanlage entwickelt werden, zum Beispiel ein moderner Paternosteraufzug mit unabhängig voneinander beweglichen Kabinen.\nIm Rahmen der Forschungen an dem seillosen Aufzug wird ebenfalls an der Entwicklung elektromagnetischer Linearführungen gearbeitet, um den Verschleiß der seillosen Aufzugsanlage bei hohem Fahrkomfort zu minimieren. Weltweit wird an verschiedenen Forschungseinrichtungen an seillosen Antriebslösungen für Aufzüge gearbeitet. Otis betreibt zu diesem Zweck seit 2007 den ''Shibayama Test Tower''. ThyssenKrupp Elevator weihte 2017 im süddeutschen Rottweil einen Testturm ein, in welchem die Technik des seillosen Aufzugs mit Synchron-Linearmotoren im Originalmaßstab getestet wird. Der erste Aufzug dieses Typs soll 2020 in Berlin in Betrieb gehen.",
+          "document_id": 40885,
+          "qas": [
+            {
+              "question": "Was kann den Verschleiß des seillosen Aufzuges minimieren?",
+              "id": 40369,
+              "answers": [
+                {
+                  "answer_id": 39730,
+                  "document_id": 40885,
+                  "question_id": 40369,
+                  "text": "elektromagnetischer Linearführungen",
+                  "answer_start": 1205,
+                  "answer_category": "SHORT"
+                },
+                {
+                  "answer_id": 67903,
+                  "document_id": 40885,
+                  "question_id": 40369,
+                  "text": " elektromagnetischer Linearführungen",
+                  "answer_start": 1204,
+                  "answer_category": "SHORT"
+                },
+                {
+                  "answer_id": 15878,
+                  "document_id": 40885,
+                  "question_id": 40369,
+                  "text": "elektromagnetischer Linearführungen",
+                  "answer_start": 1205,
+                  "answer_category": "SHORT"
+                }
+              ],
+              "is_impossible": false
+            },
+            {
+              "question": "In welcher deutschen Stadt wird der seillose Aufzug getestet?",
+              "id": 40370,
+              "answers": [
+                {
+                  "answer_id": 39731,
+                  "document_id": 40885,
+                  "question_id": 40370,
+                  "text": "Rottweil",
+                  "answer_start": 1565,
+                  "answer_category": "SHORT"
+                },
+                {
+                  "answer_id": 67902,
+                  "document_id": 40885,
+                  "question_id": 40370,
+                  "text": "Rottweil",
+                  "answer_start": 1565,
+                  "answer_category": "SHORT"
+                }
+              ],
+              "is_impossible": false
+            },
+            {
+              "question": "Wo wurde ein seilloser Aufzug entwickelt?",
+              "id": 40366,
+              "answers": [
+                {
+                  "answer_id": 39727,
+                  "document_id": 40885,
+                  "question_id": 40366,
+                  "text": "An der RWTH Aachen im Institut für Elektrische Maschinen",
+                  "answer_start": 40,
+                  "answer_category": "SHORT"
+                },
+                {
+                  "answer_id": 67900,
+                  "document_id": 40885,
+                  "question_id": 40366,
+                  "text": "An der RWTH Aachen",
+                  "answer_start": 40,
+                  "answer_category": "SHORT"
+                },
+                {
+                  "answer_id": 15880,
+                  "document_id": 40885,
+                  "question_id": 40366,
+                  "text": "An der RWTH Aachen",
+                  "answer_start": 40,
+                  "answer_category": "SHORT"
+                }
+              ],
+              "is_impossible": false
+            },
+            {
+              "question": "Wie funktioniert ein seilloser Aufzug?",
+              "id": 40367,
+              "answers": [
+                {
+                  "answer_id": 39728,
+                  "document_id": 40885,
+                  "question_id": 40367,
+                  "text": "Die Kabine wird hierbei durch zwei elektromagnetische Synchron-Linearmotoren angetrieben und somit nur durch ein vertikal bewegliches Magnetfeld gehalten bzw. bewegt.",
+                  "answer_start": 163,
+                  "answer_category": "LONG"
+                },
+                {
+                  "answer_id": 67901,
+                  "document_id": 40885,
+                  "question_id": 40367,
+                  "text": "Die Kabine wird hierbei durch zwei elektromagnetische Synchron-Linearmotoren angetrieben und somit nur durch ein vertikal bewegliches Magnetfeld gehalten bzw. bewegt",
+                  "answer_start": 163,
+                  "answer_category": "SHORT"
+                },
+                {
+                  "answer_id": 15881,
+                  "document_id": 40885,
+                  "question_id": 40367,
+                  "text": "Kabine wird hierbei durch zwei elektromagnetische Synchron-Linearmotoren angetrieben und somit nur durch ein vertikal bewegliches Magnetfeld gehalten bzw. bewegt",
+                  "answer_start": 167,
+                  "answer_category": "LONG"
+                }
+              ],
+              "is_impossible": false
+            },
+            {
+              "question": "Wann muss man die Zieletage in seillosen Aufzügen auswählen? ",
+              "id": 40368,
+              "answers": [
+                {
+                  "answer_id": 39729,
+                  "document_id": 40885,
+                  "question_id": 40368,
+                  "text": "vor Fahrtantritt (d. h. noch außerhalb des Aufzug)",
+                  "answer_start": 543,
+                  "answer_category": "SHORT"
+                },
+                {
+                  "answer_id": 67905,
+                  "document_id": 40885,
+                  "question_id": 40368,
+                  "text": " vor Fahrtantritt (d. h. noch außerhalb des Aufzug)",
+                  "answer_start": 542,
+                  "answer_category": "SHORT"
+                },
+                {
+                  "answer_id": 15882,
+                  "document_id": 40885,
+                  "question_id": 40368,
+                  "text": "vor Fahrtantritt",
+                  "answer_start": 543,
+                  "answer_category": "SHORT"
+                }
+              ],
+              "is_impossible": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paragraphs": [
+        {
+          "context": "Sichuan\n\n=== Landwirtschaft ===\nSichuan gilt vorwiegend als Reisanbaugebiet, ist aber auch bedeutender Produzent von Mais, Süßkartoffeln, Weizen, Raps und Soja. Der Anbau von Obst und Zitrusfrüchten ist ebenfalls verbreitet. An tierischen Produkten sind vor allem Schweinefleisch und Seidenkokons bedeutend. Des Weiteren wird in Sichuan Tee von internationalem Rang produziert. Dieser Tee ist ausschließlich für den Export bestimmt. In den Gebirgslagen der Provinz wird außerdem der großrahmige Jiulong-Yak gezüchtet. Eine Zuchtstation, die das Leistungsniveau dieser Yak-Rasse weiter verbessern soll, besteht seit 1980 in Jiulong.\nDer Wert der landwirtschaftlichen Produktion stieg von 1994 bis 1999 jährlich um durchschnittlich 5,6 % auf 144,5 Milliarden RMB.",
+          "document_id": 40887,
+          "qas": [
+            {
+              "question": "Was wird in Sichuan angebaut?",
+              "id": 40372,
+              "answers": [
+                {
+                  "answer_id": 39733,
+                  "document_id": 40887,
+                  "question_id": 40372,
+                  "text": "Sichuan gilt vorwiegend als Reisanbaugebiet, ist aber auch bedeutender Produzent von Mais, Süßkartoffeln, Weizen, Raps und Soja. Der Anbau von Obst und Zitrusfrüchten ist ebenfalls verbreitet.",
+                  "answer_start": 32,
+                  "answer_category": "LONG"
+                },
+                {
+                  "answer_id": 67910,
+                  "document_id": 40887,
+                  "question_id": 40372,
+                  "text": " gilt vorwiegend als Reisanbaugebiet, ist aber auch bedeutender Produzent von Mais, Süßkartoffeln, Weizen, Raps und Soja. Der Anbau von Obst und Zitrusfrüchten ist ebenfalls verbreitet",
+                  "answer_start": 39,
+                  "answer_category": "SHORT"
+                },
+                {
+                  "answer_id": 15883,
+                  "document_id": 40887,
+                  "question_id": 40372,
+                  "text": "Mais, Süßkartoffeln, Weizen, Raps und Soja",
+                  "answer_start": 117,
+                  "answer_category": "SHORT"
+                }
+              ],
+              "is_impossible": false
+            },
+            {
+              "question": "Welches für den Export bestimmte Produkt wird in Sichuan produziert?",
+              "id": 40373,
+              "answers": [
+                {
+                  "answer_id": 39734,
+                  "document_id": 40887,
+                  "question_id": 40373,
+                  "text": "Tee",
+                  "answer_start": 337,
+                  "answer_category": "SHORT"
+                },
+                {
+                  "answer_id": 67911,
+                  "document_id": 40887,
+                  "question_id": 40373,
+                  "text": "Tee",
+                  "answer_start": 385,
+                  "answer_category": "SHORT"
+                },
+                {
+                  "answer_id": 15885,
+                  "document_id": 40887,
+                  "question_id": 40373,
+                  "text": "Tee",
+                  "answer_start": 337,
+                  "answer_category": "SHORT"
+                }
+              ],
+              "is_impossible": false
+            },
+            {
+              "question": "Was wird in den Gebirgen von Sichuan gezüchtet?",
+              "id": 40374,
+              "answers": [
+                {
+                  "answer_id": 39735,
+                  "document_id": 40887,
+                  "question_id": 40374,
+                  "text": "der großrahmige Jiulong-Yak",
+                  "answer_start": 479,
+                  "answer_category": "SHORT"
+                },
+                {
+                  "answer_id": 67913,
+                  "document_id": 40887,
+                  "question_id": 40374,
+                  "text": " der großrahmige Jiulong-Yak",
+                  "answer_start": 478,
+                  "answer_category": "SHORT"
+                },
+                {
+                  "answer_id": 15884,
+                  "document_id": 40887,
+                  "question_id": 40374,
+                  "text": "der großrahmige Jiulong-Yak",
+                  "answer_start": 479,
+                  "answer_category": "SHORT"
+                }
+              ],
+              "is_impossible": false
+            },
+            {
+              "question": "Welche tierische Produkte werden in Sichuan produziert?",
+              "id": 40375,
+              "answers": [
+                {
+                  "answer_id": 39736,
+                  "document_id": 40887,
+                  "question_id": 40375,
+                  "text": "vor allem Schweinefleisch und Seidenkokons",
+                  "answer_start": 254,
+                  "answer_category": "SHORT"
+                },
+                {
+                  "answer_id": 67912,
+                  "document_id": 40887,
+                  "question_id": 40375,
+                  "text": "vor allem Schweinefleisch und Seidenkokons",
+                  "answer_start": 254,
+                  "answer_category": "SHORT"
+                },
+                {
+                  "answer_id": 15886,
+                  "document_id": 40887,
+                  "question_id": 40375,
+                  "text": "vor allem Schweinefleisch und Seidenkokons",
+                  "answer_start": 254,
+                  "answer_category": "SHORT"
+                }
+              ],
+              "is_impossible": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paragraphs": [
+        {
+          "context": "Antenne\n\n==== Polarisation ====\nAntennen strahlen polarisierte Wellen ab. Als Polarisationsebene wurde die Richtung des elektrischen Feldvektors gewählt. So schwingt bei vertikaler Polarisation der elektrische Feldvektor zwischen oben und unten, bei horizontaler Polarisation zwischen links und rechts. Empfangs- und Sendeantenne sollen in ihrer Polarisation übereinstimmen, andernfalls wird die Signalübertragung stark gedämpft.\nDas kann mit zirkular polarisierter Strahlung umgangen werden: Änderungen der Polarisationsebene wie bei rotierenden Satelliten werden dadurch vermieden, da der elektrische Feldvektor nicht in einer Ebene schwingt, sondern rotiert. Zirkular polarisierte Signale kehren ihre Drehrichtung allerdings bei Reflexion um. Man erzeugt sie z. B. mit Kreuzdipolen, wobei horizontal und vertikal polarisierte Wellen gleicher Phasenlage überlagert werden. Bei 90° Phasenverschiebung zwischen der horizontal und der vertikal polarisierten Welle spricht man von ''zirkularer Polarisation''. Je nach Phasenfolge spricht man von ''rechtszirkularer'' oder ''linkszirkularer'' Polarisation. Sind die beiden Komponenten unterschiedlich stark, entsteht eine ''elliptische Polarisation''.\nEine verbreitete Antenne zur Erzeugung zirkular polarisierter Wellen ist die Wendelantenne.",
+          "document_id": 40889,
+          "qas": [
+            {
+              "question": "Was passiert, wenn die Polarisation einer Empfangs- und Sendeantenne nicht übereinstimmen?",
+              "id": 40376,
+              "answers": [
+                {
+                  "answer_id": 39737,
+                  "document_id": 40889,
+                  "question_id": 40376,
+                  "text": "wird die Signalübertragung stark gedämpft.",
+                  "answer_start": 387,
+                  "answer_category": "SHORT"
+                },
+                {
+                  "answer_id": 67916,
+                  "document_id": 40889,
+                  "question_id": 40376,
+                  "text": "die Signalübertragung stark gedämpft",
+                  "answer_start": 392,
+                  "answer_category": "SHORT"
+                },
+                {
+                  "answer_id": 15887,
+                  "document_id": 40889,
+                  "question_id": 40376,
+                  "text": "Signalübertragung stark gedämpft",
+                  "answer_start": 396,
+                  "answer_category": "SHORT"
+                }
+              ],
+              "is_impossible": false
+            },
+            {
+              "question": "Was wird von Antennen abgestrahlt?",
+              "id": 40377,
+              "answers": [
+                {
+                  "answer_id": 39738,
+                  "document_id": 40889,
+                  "question_id": 40377,
+                  "text": "polarisierte Wellen",
+                  "answer_start": 50,
+                  "answer_category": "SHORT"
+                },
+                {
+                  "answer_id": 67918,
+                  "document_id": 40889,
+                  "question_id": 40377,
+                  "text": "polarisierte Wellen",
+                  "answer_start": 50,
+                  "answer_category": "SHORT"
+                },
+                {
+                  "answer_id": 15888,
+                  "document_id": 40889,
+                  "question_id": 40377,
+                  "text": "polarisierte Wellen",
+                  "answer_start": 50,
+                  "answer_category": "SHORT"
+                }
+              ],
+              "is_impossible": false
+            },
+            {
+              "question": "Wie bewegt sich der elektrische Feldvektor einer Antenne?",
+              "id": 40378,
+              "answers": [
+                {
+                  "answer_id": 39739,
+                  "document_id": 40889,
+                  "question_id": 40378,
+                  "text": "rotiert",
+                  "answer_start": 653,
+                  "answer_category": "SHORT"
+                },
+                {
+                  "answer_id": 67915,
+                  "document_id": 40889,
+                  "question_id": 40378,
+                  "text": "schwingt bei vertikaler Polarisation der elektrische Feldvektor zwischen oben und unten, bei horizontaler Polarisation zwischen links und rechts",
+                  "answer_start": 157,
+                  "answer_category": "SHORT"
+                },
+                {
+                  "answer_id": 15890,
+                  "document_id": 40889,
+                  "question_id": 40378,
+                  "text": "rotiert",
+                  "answer_start": 653,
+                  "answer_category": "SHORT"
+                }
+              ],
+              "is_impossible": false
+            },
+            {
+              "question": "Was ist eine Wendelantenne?",
+              "id": 40379,
+              "answers": [
+                {
+                  "answer_id": 39740,
+                  "document_id": 40889,
+                  "question_id": 40379,
+                  "text": "Eine verbreitete Antenne zur Erzeugung zirkular polarisierter Wellen",
+                  "answer_start": 1199,
+                  "answer_category": "SHORT"
+                },
+                {
+                  "answer_id": 67920,
+                  "document_id": 40889,
+                  "question_id": 40379,
+                  "text": "Eine verbreitete Antenne zur Erzeugung zirkular polarisierter Wellen",
+                  "answer_start": 1199,
+                  "answer_category": "SHORT"
+                },
+                {
+                  "answer_id": 15889,
+                  "document_id": 40889,
+                  "question_id": 40379,
+                  "text": "Antenne zur Erzeugung zirkular polarisierter Wellen",
+                  "answer_start": 1216,
+                  "answer_category": "SHORT"
+                }
+              ],
+              "is_impossible": false
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
