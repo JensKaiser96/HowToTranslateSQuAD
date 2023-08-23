@@ -23,6 +23,7 @@ class Gelectra:
         logger.info(f"Loading model {self.name} ...")
         self.tokenizer = Tokenizer(ElectraTokenizerFast.from_pretrained(path))
         self.model = ElectraForQuestionAnswering.from_pretrained(path)
+        self.model.to("cuda:0")
 
     @property
     def name(self):
@@ -52,6 +53,7 @@ class Gelectra:
         generates predictions on the dataset, saves them to the out_file, and then calls the evaluation script on it
         partially stolen from: https://rajpurkar.github.io/SQuAD-explorer/ -> "Evaluation Script"
         """
+        self.model.to_gpu()
         logger.info(f"Evaluating {self.name} on {dataset.name} ...")
         predictions = {}
         exact_scores = {}
@@ -60,7 +62,7 @@ class Gelectra:
             for paragraph in article:
                 context = paragraph.context
                 for qa in paragraph.qas:
-                    prediction = self.prompt(context, qa.question)
+                    prediction = self.prompt(qa.question, context)
                     predictions[qa.id] = prediction
                     gold_answers = [
                         a.text for a in qa.answers if normalize_answer(a.text)

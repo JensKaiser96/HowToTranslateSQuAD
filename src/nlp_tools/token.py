@@ -9,6 +9,7 @@ from src.nlp_tools.span import Span
 class Tokenizer:
     def __init__(self, tokenizer):
         self.model = tokenizer
+        self.model.to("cuda:0")
         self.max_length = tokenizer.max_len_single_sentence
 
     def encode(self, *text: str) -> BatchEncoding:
@@ -21,6 +22,7 @@ class Tokenizer:
         )
 
     def encode_qa(self, question: str, context: str):
+        # print(f"{len(question)=}, {question=}\n{len(context)=}{context=}\n")
         return self.model(
             question,
             context,
