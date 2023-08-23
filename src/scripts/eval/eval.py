@@ -46,7 +46,6 @@ def main():
             print("Exiting ...")
             return
 
-    # TODO, fix, runs on CPU not GPU
     model.evaluate(dataset)
 
 

@@ -13,9 +13,7 @@ def flatten_quad(batch):
                 result["title"].append("")
                 result["context"].append(sub_entry["context"])
                 result["question"].append(qa["question"])
-                result["answers"].append(
-                    qa["answers"]
-                )  # todo, answer list needs to be flattened as well
+                result["answers"].append(qa["answers"])
     return result
 
 
