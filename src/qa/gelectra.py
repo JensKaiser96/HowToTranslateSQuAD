@@ -96,16 +96,15 @@ class Gelectra:
     def has_results_file(self, dataset_name: str):
         return os.path.isfile(Gelectra.results_pathname(self.name, dataset_name))
 
+    @staticmethod
+    def filter_dict_for_model_input(input_dict: dict):
+        valid_keys = ["input_ids", "token_type_ids", "attention_mask"]
+        return {key: value for key, value in input_dict.items() if key in valid_keys}
+
     def prompt(self, question: str, context: str):
         model_input = self.tokenizer.encode_qa(question, context)
         with torch.no_grad():
-            output = self.model(
-                **{
-                    key: value
-                    for key, value in model_input.items()
-                    if key != "offset_mapping"
-                }
-            )
+            output = self.model(**Gelectra.filter_dict_for_model_input(model_input))
 
         # get answer on token level
         answer_start_token_index = int(output.start_logits.argmax())
