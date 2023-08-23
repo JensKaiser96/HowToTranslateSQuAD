@@ -13,14 +13,14 @@ def extract_suitable_test_pairs(source_dataset, target_dataset):
             # extract context
             source_text = source_paragraph.context
             target_text = target_paragraph.context
-            # estract answers
+            # extract answers
             for source_qa, target_qa in zip(source_paragraph.qas, target_paragraph.qas):
                 for source_answer, target_answer in zip(
                     source_qa.answers, target_qa.answers
                 ):
-                    # only take ansers where the answer text appears once
+                    # only take answers where the answer text appears once
                     if target_text.count(target_answer.text) == 1:
-                        yield (source_text, source_answer, target_text, target_answer)
+                        yield source_text, source_answer, target_text, target_answer
 
 
 def test_answer_extraction():
