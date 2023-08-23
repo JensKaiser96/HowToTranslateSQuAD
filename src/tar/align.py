@@ -59,8 +59,7 @@ def align(
         )
         # add alignment, to alignments with offset due to prior sentences
         alignments += [
-            [si + source_index_offset, ti + target_index_offset]
-            for si, ti in alignment
+            [si + source_index_offset, ti + target_index_offset] for si, ti in alignment
         ]
         source_index_offset += len(source_span)
         target_index_offset += len(target_span)
