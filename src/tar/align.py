@@ -54,12 +54,13 @@ def align(
         encoding = tokenizer.encode(source_sentence, target_sentence)
         output = _get_model_output(encoding)
         source_span, target_span = split_encoding(encoding)
-        new_alignments = _get_alignments_from_model_output(
+        alignment = _get_alignment_from_model_output(
             output, source_span, target_span, direction
         )
+        # add alignment, to alignments with offset due to prior sentences
         alignments += [
             [si + source_index_offset, ti + target_index_offset]
-            for si, ti in new_alignments
+            for si, ti in alignment
         ]
         source_index_offset += len(source_span)
         target_index_offset += len(target_span)
@@ -78,12 +79,12 @@ def _get_model_output(encoding: BatchEncoding = None) -> torch.Tensor:
     return torch.bmm(output, output.transpose(1, 2))[0]
 
 
-def _get_alignments_from_model_output(
+def _get_alignment_from_model_output(
     output: torch.Tensor, source_span: Span, target_span: Span, direction: Direction
 ):
     # crop array to exclude tokens outside the spans
     relevant_output = output[
-        source_span.start : source_span.end, target_span.start : target_span.end
+        source_span.start: source_span.end, target_span.start: target_span.end
     ]
     normalized_output = dimensionalwise_normalize(relevant_output)
 
