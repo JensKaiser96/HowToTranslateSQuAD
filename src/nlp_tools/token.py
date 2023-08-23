@@ -13,6 +13,7 @@ class Tokenizer:
 
     def encode(self, *text: str) -> BatchEncoding:
         # QA: first question then context
+        # todo, see if other args are needed, see encode_qa
         return self.model(
             *text,
             return_tensors="pt",
