@@ -51,7 +51,7 @@ def align(
     target_tokens = []
     for source_sentence, target_sentence in zip(source_text_splits, target_text_splits):
         # get encodings, aligner output and spans
-        encoding = tokenizer.encode(source_sentence, target_sentence)
+        encoding = tokenizer.encode_align(source_sentence, target_sentence)
         output = _get_model_output(encoding)
         source_span, target_span = split_encoding(encoding)
         alignment = _get_alignment_from_model_output(
@@ -84,7 +84,7 @@ def _get_alignment_from_model_output(
 ):
     # crop array to exclude tokens outside the spans
     relevant_output = output[
-        source_span.start: source_span.end, target_span.start: target_span.end
+        source_span.start : source_span.end, target_span.start : target_span.end
     ]
     normalized_output = dimensionalwise_normalize(relevant_output)
 

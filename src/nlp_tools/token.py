@@ -11,13 +11,12 @@ class Tokenizer:
         self.model = tokenizer
         self.max_length = tokenizer.max_len_single_sentence
 
-    def encode(self, *text: str) -> BatchEncoding:
+    def encode_align(self, *text: str) -> BatchEncoding:
         # QA: first question then context
         # todo, see if other args are needed, see encode_qa
         return self.model(
             *text,
             return_tensors="pt",
-            return_offsets_mapping=True,
         )
 
     def encode_qa(self, question: str, context: str):
