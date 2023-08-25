@@ -46,11 +46,11 @@ def test_answer_extraction():
         #     f"\n ====== Target answer: ====== \n"
         #     f"{target_answer.text}\n"
         # )
-        retrived_span = retrieve(
+        retrieved_span = retrieve(
             source_text, Span.from_answer(source_answer), target_text
         )
-        # logger.info(f"{retrived_span=}")
-        # logger.info(f"\n====== Extracted answer ======\n{retrived_span(target_text)}")
+        # logger.info(f"{retrieved_span=}")
+        # logger.info(f"\n====== Extracted answer ======\n{retrieved_span(target_text)}")
 
         # fix target_span, at this time (2023-07-21) the answer.answer_start
         # values are not correctly set
@@ -59,15 +59,22 @@ def test_answer_extraction():
             end=target_text.find(target_answer.text) + len(target_answer.text),
         )
 
-        if target_span == retrived_span:
+        if target_span == retrieved_span:
             successes += 1
-        elif target_span.is_subspan(retrived_span) or retrived_span.is_subspan(
+        elif target_span.is_subspan(retrieved_span) or retrieved_span.is_subspan(
             target_span
         ):
             soft_fails += 1
         else:
             hard_fails += 1
 
-        # print(
-        #     f"total: {total_samples}, success: {successes}, soft: {soft_fails}, hard: {hard_fails}"
-        # )
+        print(
+            f"total: {total_samples}, success: {successes}, soft: {soft_fails}, hard: {hard_fails}"
+        )
+
+
+# todo, find this case and fix it
+"""
+ ['Fr', 'édé', 'ric', 'François', 'Cho', 'pin', ...], padding_char = ''
+ .['pronuncia', 'tion', ':', '[', 'f', 'ʁ']...
+"""
