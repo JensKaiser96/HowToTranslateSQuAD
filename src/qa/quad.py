@@ -1,7 +1,5 @@
 import json
 
-import datasets
-
 from src.io.filepaths import Datasets, StressTest, DATASETS_PATH
 from src.io.utils import to_json
 from src.qa.train_util import prepare_train_features, flatten_quad
@@ -300,6 +298,8 @@ class QUAD:
         returns the dataset defined at the path as a HuggingFace Dataset. Note this completely ignores the content of
         the QUAD Object, only the data saved to the path is loaded.
         """
+        import datasets
+
         if not self.path:
             raise AttributeError(
                 "No path to load from specified. The HuggingFace dataset is loaded directly from the "
