@@ -10,7 +10,7 @@ from src.io.filepaths import Models, PREDICTIONS_PATH
 from src.io.utils import to_json
 from src.nlp_tools.span import Span
 from src.nlp_tools.token import Tokenizer
-from src.qa.quad import QUAD
+from src.qa.dataset import Dataset
 from src.qa.squad_eval_script import normalize_answer, compute_exact, compute_f1
 from src.utils.logging import get_logger
 
@@ -48,7 +48,7 @@ class Gelectra:
     def RawClean(cls):
         return Gelectra(Models.QA.Gelectra.raw_clean)
 
-    def evaluate(self, dataset: QUAD):
+    def evaluate(self, dataset: Dataset):
         """
         generates predictions on the dataset, saves them to the out_file, and then calls the evaluation script on it
         partially stolen from: https://rajpurkar.github.io/SQuAD-explorer/ -> "Evaluation Script"
@@ -58,7 +58,7 @@ class Gelectra:
         exact_scores = {}
         f1_scores = {}
         for article in tqdm(dataset.data):
-            for paragraph in article:
+            for paragraph in article.paragraphs:
                 context = paragraph.context
                 for qa in paragraph.qas:
                     prediction = self.prompt(qa.question, context)

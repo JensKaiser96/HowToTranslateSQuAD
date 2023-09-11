@@ -3,17 +3,17 @@ from collections import Counter
 import matplotlib.pyplot as plt
 
 from src.io.utils import save_plt
-from src.qa.quad import QUAD
+from src.qa.dataset import Dataset
 from src.utils.logging import get_logger
 
 logger = get_logger(__file__, script=True)
 
 
 def get_answer_counts():
-    squad_raw = QUAD.Raw.TRAIN
+    squad_raw: Dataset = Dataset.Raw.TRAIN
     answer_counts = Counter()
     for article in squad_raw.data:
-        for paragraph in article:
+        for paragraph in article.paragraphs:
             context = paragraph.context
             for qa in paragraph.qas:
                 for answer in qa.answers:

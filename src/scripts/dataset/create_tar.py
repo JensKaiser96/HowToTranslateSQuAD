@@ -2,7 +2,7 @@ import re
 
 from src.io.filepaths import Datasets
 from src.nlp_tools.span import Span
-from src.qa.quad import QUAD
+from src.qa.dataset import Dataset, Article, Paragraph, QA, Answer
 from src.tar.retrive import retrieve
 from src.utils.logging import get_logger
 
@@ -23,31 +23,29 @@ def tar(context, answer):
 
 
 def main():
-    raw = QUAD.Raw.TRAIN
-    squad = QUAD.Squad1.TRAIN
-    dataset = QUAD()
-    for article_no, article in enumerate(raw.data._data):
-        clean_article = article.copy()
-        clean_article["paragraphs"] = []
-        for paragraph_no, paragraph in enumerate(["paragraphs"]):
-            clean_paragraph = paragraph.copy()
-            clean_paragraph["qas"] = []
-            context = paragraph["context"]
-            for qa_no, qa in enumerate(paragraph["qas"]):
-                clean_qa = qa.copy()
-                answer = clean_qa["answers"][0]
+    raw: Dataset = Dataset.Raw.TRAIN
+    squad: Dataset = Dataset.Squad1.TRAIN
+    dataset = Dataset(data=[])
+    for article_no, article in enumerate(raw.data):
+        tar_article = Article(paragraphs=[])
+        for paragraph_no, paragraph in enumerate(article.paragraphs):
+            tar_paragraph = Paragraph(context="", qas=[])
+            context = paragraph.context
+            for qa_no, qa in enumerate(paragraph.qas):
+                tar_qa = QA(question="", answers=[], id=qa.id)
+                answer = qa.answers[0]
                 possible_spans = [Span(*match.span()) for match in re.finditer(answer, context)]
                 if len(possible_spans) == 1:
                     answer["answer_start"] = possible_spans.pop().start
                 else:
-                    squad_paragraph = squad.data._data[article_no]["paragraphs"][paragraph_no]
-                    source_context = squad_paragraph["context"]
-                    source_answer_start = squad_paragraph["qas"][qa_no]['answers'][0]['answer_start']
+                    squad_paragraph = squad.data[article_no].paragraphs[paragraph_no]
+                    source_context = squad_paragraph.context
+                    source_answer_start = squad_paragraph.qas[qa_no].answers[0].answer_start
                     answer["answer_start"] = tar(context, answer["text"])
-                clean_paragraph["qas"].append(clean_qa)
-            if clean_paragraph["qas"]:
-                clean_article["paragraphs"].append(clean_paragraph)
-        dataset.data._data.append(clean_article)
+                tar_paragraph.qas.append(tar_qa)
+            if tar_paragraph.qas:
+                tar_article.paragraphs.append(tar_paragraph)
+        dataset.data.append(tar_article)
     dataset.save(
         Datasets.Squad1.Translated.Tar.TRAIN,
         version="TAR: v1. do alignment sentence wise, e.g. use nltk to split both target, and source into list of "

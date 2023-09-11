@@ -1,5 +1,5 @@
+from src.qa.dataset import Dataset
 from src.qa.gelectra import Gelectra
-from src.qa.quad import QUAD
 from src.utils.logging import get_logger
 
 logger = get_logger(__file__, script=True)
@@ -32,7 +32,7 @@ def main():
     dataset_parent_name, dataset_child_name = dataset_names[chosen_dataset_index].split(
         "."
     )
-    dataset_parent = getattr(QUAD, dataset_parent_name)
+    dataset_parent = getattr(Dataset, dataset_parent_name)
     dataset = getattr(dataset_parent, dataset_child_name)
 
     model: Gelectra = getattr(Gelectra, model_names[chosen_model_index])

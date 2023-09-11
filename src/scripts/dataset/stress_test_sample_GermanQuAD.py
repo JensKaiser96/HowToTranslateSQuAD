@@ -1,6 +1,6 @@
 import random
 
-from src.qa.quad import QUAD
+from src.qa.dataset import QUAD
 from src.utils.logging import get_logger
 
 logger = get_logger(__file__, script=True)
