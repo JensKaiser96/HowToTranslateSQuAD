@@ -25,14 +25,14 @@ class Paragraph(BaseModel):
     qas: list[QA]
 
 
-class Articles(BaseModel):
+class Article(BaseModel):
     title: Optional[str]
     paragraphs: list[Paragraph]
 
 
 class Dataset(BaseModel):
     version: Optional[str]
-    data: list[Articles]
+    data: list[Article]
     path: Optional[str]
 
     class Squad1:
@@ -45,6 +45,11 @@ class Dataset(BaseModel):
         @property
         def DEV(cls):
             return Dataset.load(Datasets.Squad1.DEV)
+
+        @classmethod
+        @property
+        def TRAIN_SMALL(cls):
+            return Dataset.load(Datasets.Squad1.TRAIN_SMALL)
 
     class GermanQUAD:
         @classmethod
