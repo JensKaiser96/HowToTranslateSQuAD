@@ -1,7 +1,7 @@
 from tqdm import tqdm
 
 from src.io.filepaths import Datasets
-from src.qa.dataset import Dataset, Articles, Paragraph, QA, Answer
+from src.qa.dataset import Dataset, Article, Paragraph, QA, Answer
 from src.tar.translate import Translator
 from src.utils.logging import get_logger
 
@@ -15,14 +15,14 @@ def add_quotes(context, answer):
 
 
 def main():
-    squad: Dataset = Dataset.Squad1.DEV  # todo change to TRAIN after verifing it works
+    squad: Dataset = Dataset.Squad1.TRAIN_SMALL # todo change to TRAIN after verifing it works
     quote: Dataset = Dataset(data=[])
     t = Translator()
     successes = 0
     fails = 0
 
     for en_articles in tqdm(squad.data):
-        de_articles = Articles(paragraphs=[])
+        de_articles = Article(paragraphs=[])
         for en_paragraph in en_articles.paragraphs:
             context = en_paragraph.context
             for en_qa in en_paragraph.qas:

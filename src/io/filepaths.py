@@ -21,6 +21,7 @@ class Datasets:
         _dir_path = DATASETS_PATH + "SQuAD/"
         TRAIN = _dir_path + "train-v1.1.json"
         DEV = _dir_path + "dev-v1.1.json"
+        TRAIN_SMALL = _dir_path + "train-v1.1.small.json"
 
         class Translated:
             class Raw:
