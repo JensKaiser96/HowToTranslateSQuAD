@@ -32,6 +32,10 @@ class Datasets:
                 _dir_path = DATASETS_PATH + "TAR/"
                 TRAIN = _dir_path + "train-v1.1.json"
 
+            class Quote:
+                _dir_path = DATASETS_PATH + "QUOTE/"
+                TRAIN = _dir_path + "train-v1.1.json"
+
     class Squad2:
         _dir_path = DATASETS_PATH + "SQuAD/"
         TRAIN = _dir_path + "train-v2.0.json"
