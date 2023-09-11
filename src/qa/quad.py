@@ -1,4 +1,5 @@
 import json
+import warnings
 
 from src.io.filepaths import Datasets, StressTest, DATASETS_PATH
 from src.io.utils import to_json
@@ -6,7 +7,8 @@ from src.qa.train_util import prepare_train_features, flatten_quad
 from src.utils.logging import get_logger
 
 logger = get_logger(__name__)
-
+logger.warning("DEPRECIATED - use Dataset instead of QUAD")
+warnings.warn("QUAD is deprecated, use Dataset instead", DeprecationWarning, 2)
 """
 quad structure:
     (version: <str>)
@@ -49,7 +51,13 @@ class QuADKeys:
 
 class Answer:
     def __init__(self, _data: dict):
-        self._data = _data
+        if _data:
+            self._data = _data
+        else:
+            self._data = {
+                QuADKeys.text: "",
+                QuADKeys.answer_start: 0,
+            }
 
     @property
     def text(self) -> str:
@@ -70,7 +78,10 @@ class Answer:
 
 class Answers:
     def __init__(self, _data):
-        self._data = _data
+        if _data:
+            self._data = _data
+        else:
+            self._data = [Answer()._data]
 
     def __getitem__(self, index) -> Answer:
         return Answer(self._data[index])
@@ -81,7 +92,14 @@ class Answers:
 
 class QA:
     def __init__(self, _data: dict):
-        self._data = _data
+        if _data:
+            self._data = _data
+        else:
+            self._data = {
+                QuADKeys.question: "",
+                QuADKeys.answers: Answers()._data,
+                QuADKeys.id: 0,
+            }
 
     @property
     def question(self) -> str:
@@ -105,7 +123,10 @@ class QA:
 
 class QAS:
     def __init__(self, _data: list):
-        self._data = _data
+        if _data:
+            self._data = _data
+        else:
+            self._data = [QA()._data]
 
     def __getitem__(self, index: int) -> QA:
         return QA(self._data[index])
@@ -116,7 +137,10 @@ class QAS:
 
 class Paragraph:
     def __init__(self, _data: dict):
-        self._data = _data
+        if _data:
+            self._data = _data
+        else:
+            self._data = {QuADKeys.qas: QAS()._data, QuADKeys.context: ""}
 
     @property
     def qas(self) -> QAS:
@@ -133,7 +157,10 @@ class Paragraph:
 
 class Paragraphs:
     def __init__(self, _data: list):
-        self._data = _data
+        if _data:
+            self._data = _data
+        else:
+            self._data = [Paragraph()._data]
 
     def __getitem__(self, index: int) -> Paragraph:
         return Paragraph(self._data[index])
@@ -144,7 +171,10 @@ class Paragraphs:
 
 class QuadData:
     def __init__(self, _data: list):
-        self._data = _data
+        if _data:
+            self._data = _data
+        else:
+            self._data = [{QuADKeys.paragraphs: Paragraphs()._data}]
 
     def __getitem__(self, index: int) -> Paragraphs:
         return Paragraphs(self._data[index][QuADKeys.paragraphs])
@@ -253,7 +283,7 @@ class QUAD:
         if _data:
             self._data = {QuADKeys.data: _data}
         if not path and not _data:
-            self._data = {QuADKeys.data: []}
+            self._data = {QuADKeys.data: QuadData()}
 
     @property
     def name(self):
@@ -279,6 +309,10 @@ class QUAD:
     def _load(path: str) -> dict:
         with open(path, mode="r", encoding="utf-8") as f_in:
             return json.load(f_in)
+
+    def add_article(self, article: QuadData):
+        self._data[QuADKeys.data].append(article._data)
+        return self
 
     def add_unanswerable_question(self, context: str, question: str):
         qa = QA({QuADKeys.question: question, QuADKeys.answers: []})
