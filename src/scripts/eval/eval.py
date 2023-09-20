@@ -1,4 +1,5 @@
 from src.qa.dataset import Dataset
+from src.qa.evaluate import evaluate
 from src.qa.gelectra import Gelectra
 from src.utils.logging import get_logger
 
@@ -46,7 +47,7 @@ def main():
             print("Exiting ...")
             return
 
-    model.evaluate(dataset)
+    evaluate(model, dataset)
 
 
 if __name__ == "__main__":

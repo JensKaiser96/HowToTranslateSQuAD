@@ -1,17 +1,14 @@
 import os
 
 import torch
-from tqdm import tqdm
 from transformers.models.electra.modeling_electra import ElectraForQuestionAnswering
 from transformers.models.electra.tokenization_electra_fast import ElectraTokenizerFast
 from transformers.tokenization_utils_base import BatchEncoding
 
 from src.io.filepaths import Models, PREDICTIONS_PATH
-from src.io.utils import to_json
 from src.nlp_tools.span import Span
 from src.nlp_tools.token import Tokenizer
-from src.qa.dataset import Dataset
-from src.qa.squad_eval_script import normalize_answer, compute_exact, compute_f1
+from src.qa.evaluate import ModelOutput
 from src.utils.logging import get_logger
 
 logger = get_logger(__name__)
@@ -48,48 +45,6 @@ class Gelectra:
     def RawClean(cls):
         return Gelectra(Models.QA.Gelectra.raw_clean)
 
-    def evaluate(self, dataset: Dataset):
-        """
-        generates predictions on the dataset, saves them to the out_file, and then calls the evaluation script on it
-        partially stolen from: https://rajpurkar.github.io/SQuAD-explorer/ -> "Evaluation Script"
-        """
-        logger.info(f"Evaluating {self.name} on {dataset.name} ...")
-        predictions = {}
-        exact_scores = {}
-        f1_scores = {}
-        for article in tqdm(dataset.data):
-            for paragraph in article.paragraphs:
-                context = paragraph.context
-                for qa in paragraph.qas:
-                    prediction = self.prompt(qa.question, context)
-                    predictions[qa.id] = prediction
-                    gold_answers = [
-                        a.text for a in qa.answers if normalize_answer(a.text)
-                    ]
-                    if not gold_answers:
-                        # For unanswerable questions, only correct answer is empty string
-                        gold_answers = [""]
-                    # Take max over all gold answers
-                    exact_scores[qa.id] = max(
-                        compute_exact(a, prediction["text"]) for a in gold_answers
-                    )
-                    f1_scores[qa.id] = max(
-                        compute_f1(a, prediction["text"]) for a in gold_answers
-                    )
-        # compute total scores
-        total = len(predictions)
-        total_scores = {
-            "EM": round(sum(exact_scores.values()) / total, 5),
-            "F1": round(sum(f1_scores.values()) / total, 5),
-            "total": total,
-        }
-        to_json(
-            data={"scores": total_scores, "predictions": predictions},
-            path=Gelectra.results_pathname(self.name, dataset.name),
-        )
-        logger.info(total_scores)
-        return total_scores
-
     @staticmethod
     def results_pathname(model_name: str, dataset_name: str):
         return f"{PREDICTIONS_PATH}{model_name}_{dataset_name}.json"
@@ -102,7 +57,7 @@ class Gelectra:
         valid_keys = ["input_ids", "token_type_ids", "attention_mask"]
         return {key: value for key, value in input_dict.items() if key in valid_keys}
 
-    def prompt(self, question: str, context: str):
+    def prompt(self, question: str, context: str) -> ModelOutput:
         model_input = self.tokenizer.encode_qa(question, context)
         model_input.to("cuda:0")
         with torch.no_grad():
@@ -123,14 +78,14 @@ class Gelectra:
             model_input.offset_mapping.reshape(-1, 2)[answer_end_token_index][1]
         )
 
-        return {
-            "start_logits": output.start_logits.flatten().tolist(),
-            "end_logits": output.end_logits.flatten().tolist(),
-            "start_index": answer_start_token_index,
-            "end_index": answer_end_token_index,
-            "span": (answer_start_surface_index, answer_end_surface_index),
-            "text": context[answer_start_surface_index:answer_end_surface_index],
-        }
+        return ModelOutput(
+            start_logits=output.start_logits.flatten().tolist(),
+            end_logits=output.end_logits.flatten().tolist(),
+            start_index=answer_start_token_index,
+            end_index=answer_end_token_index,
+            span=(answer_start_surface_index, answer_end_surface_index),
+            text=context[answer_start_surface_index:answer_end_surface_index],
+        )
 
     def _split_encoding(self, encoding: BatchEncoding) -> tuple[Span, Span]:
         """
