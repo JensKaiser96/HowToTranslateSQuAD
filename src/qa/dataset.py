@@ -139,7 +139,7 @@ class Dataset(BaseModel):
         )
         if version:
             self.version = version
-        to_json(self.json(), path)
+        to_json(self.json(indent=4), path)
 
     @property
     def name(self):
