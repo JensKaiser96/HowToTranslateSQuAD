@@ -6,7 +6,7 @@ from src.qa.dataset import Dataset
 from src.qa.gelectra import Gelectra
 from src.utils.logging import get_logger
 
-logger = get_logger(__name__)
+logger = get_logger(__file__, script=True)
 
 # TODO, make pipeline modular: -> train dataset var, (model) var, save path var
 logger.info("Loading Model ...")
@@ -15,16 +15,19 @@ gelectra_base = Gelectra.Base
 logger.info("Preparing Datasets ...")
 train_dataset = Dataset.Raw.TRAIN_CLEAN.as_hf_dataset(
     tokenizer=gelectra_base.tokenizer.model,
-    max_length=gelectra_base.model.config["max_position_embeddings"],
+    max_length=gelectra_base.model.config.max_position_embeddings,
 )
 validation_dataset = Dataset.GermanQUAD.TEST.as_hf_dataset(
-    gelectra_base.tokenizer.model
+    tokenizer=gelectra_base.tokenizer.model,
+    max_length=gelectra_base.model.config.max_position_embeddings,
 )
 
 trained_model_name = "raw_clean"
 # TODO, get train args from GermanQuad Guys
 args = TrainingArguments(
     trained_model_name,
+    per_device_train_batch_size=4,
+    per_device_eval_batch_size=4,
     remove_unused_columns=False,
     evaluation_strategy="no",
     save_strategy="epoch",
