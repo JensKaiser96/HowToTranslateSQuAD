@@ -2,6 +2,7 @@ import datetime
 import json
 import os
 from pathlib import Path
+from typing import Union
 
 from src.io.filepaths import PLOTS_PATH
 
@@ -14,11 +15,14 @@ def save_plt(plt, path: str):
     plt.savefig(path, transparent=True)
 
 
-def to_json(data: dict, path: str):
+def to_json(data: Union[dict, str], path: str):
     suffix = ".json"
     path = str_to_safe_path(path, suffix)
     with open(path, "w", encoding="utf-8") as f_out:
-        json.dump(data, f_out, ensure_ascii=False, indent=4)
+        if isinstance(data, dict):
+            json.dump(data, f_out, ensure_ascii=False, indent=4)
+        else:
+            f_out.write(data)
 
 
 def _fix_relative_paths(path: str) -> str:
