@@ -12,12 +12,12 @@ class Span:
     start: int
     end: int
 
-    def __init__(self, start: int, end: int, absolute=True):
+    def __init__(self, start: int, end: int, relative=False):
         self.start = start
-        if absolute:
-            self.end = end
-        else:
+        if relative:
             self.end = start + end
+        else:
+            self.end = end
 
     @classmethod
     def from_answer(cls, answer: Answer):
