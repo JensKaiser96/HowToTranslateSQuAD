@@ -16,7 +16,6 @@ def plot_results(results: Evaluation, name: str, save_path: Path):
     ]
     for metric in metrics:
         data = [getattr(result, metric) for result in results.individual_results]
-        print(data[0])
         # Define the bins
         bins = np.arange(0, 1.1, 0.1)  # Bins from 0 to 1 in 0.1 increments
 
