@@ -10,7 +10,7 @@ logger = get_logger(__file__, script=True)
 
 # TODO, make pipeline modular: -> train dataset var, (model) var, save path var
 logger.info("Loading Model ...")
-gelectra_base = Gelectra.Base
+gelectra_base: Gelectra = Gelectra.Base
 
 logger.info("Preparing Datasets ...")
 train_dataset = Dataset.Raw.TRAIN_CLEAN.as_hf_dataset(
