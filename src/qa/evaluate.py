@@ -52,6 +52,10 @@ class Evaluation(BaseModel):
         self.summarize_results()
         to_json(self.json(indent=4), path=path)
 
+    @classmethod
+    def load(cls, path: str) -> "Evaluation":
+        return cls.parse_file(path)
+
     def summarize_results(self):
         self.total = len(self.individual_results)
         self.EM = self.calculate_average("EM")
