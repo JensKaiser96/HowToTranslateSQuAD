@@ -17,3 +17,14 @@ Repository containing the material for my master thesis
 - [ ] DIS - Distracting Content: (25-50) short contexts from GermanQuAD testset extended with some distracting context
 - [ ] ONE - Question Reduction: (50-100) Questions from GermanQuAD reduced to a single word
 - [ ] SDT - SQuAD testset MT: MT version of the SQuAD(2.0) testset
+
+## Preliminary Results
+
+| Name        | EM   | F1   |
+|-------------|------|------|
+| GQUAD_paper | 68.6 | 88.1 |
+| GQUAD_repli | 71.9 | 84.9 |
+| raw         | 52.7 | 67.7 |
+| MLQA-GER    | 49.8 | 68.0 |
+|             |      |      |
+|             |      |      |
