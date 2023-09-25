@@ -4,7 +4,7 @@ from typing import Sequence, Union
 import torch
 from transformers.tokenization_utils_base import BatchEncoding
 
-from src.qa.quad import Answer
+from src.qa.dataset import Answer
 
 
 @dataclass
