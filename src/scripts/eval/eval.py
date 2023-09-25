@@ -1,5 +1,4 @@
 from src.qa.dataset import Dataset
-from src.qa.evaluate import evaluate
 from src.qa.gelectra import Gelectra
 from src.utils.logging import get_logger
 
@@ -36,6 +35,7 @@ def main():
     dataset_parent = getattr(Dataset, dataset_parent_name)
     dataset = getattr(dataset_parent, dataset_child_name)
 
+    Gelectra.lazy_loading = True  # only load model weights once needed
     model: Gelectra = getattr(Gelectra, model_names[chosen_model_index])
 
     if model.has_results_file(dataset.name):
@@ -47,7 +47,7 @@ def main():
             print("Exiting ...")
             return
 
-    evaluate(model, dataset)
+    model.get_evaluation(dataset, redo=True)
 
 
 if __name__ == "__main__":
