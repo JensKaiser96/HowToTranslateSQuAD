@@ -77,3 +77,7 @@ class Models:
         class Gelectra:
             _dir_path = MODELS_PATH + "gelectra/"
             raw_clean = _dir_path + "raw_clean/"
+            raw_clean_1 = _dir_path + "raw_clean_1/"
+            raw_clean_2 = _dir_path + "raw_clean_2/"
+            raw_clean_3 = _dir_path + "raw_clean_3/"
+            raw_clean_4 = _dir_path + "raw_clean_4/"

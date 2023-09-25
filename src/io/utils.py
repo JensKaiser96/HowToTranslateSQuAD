@@ -42,7 +42,9 @@ def _rename_old_file(path: Path, verbose=False):
     os.rename(path, new_file_name)
 
 
-def str_to_safe_path(filepath: Union[str, Path], suffix: str = "", verbose=False, replace=False):
+def str_to_safe_path(
+    filepath: Union[str, Path], suffix: str = "", verbose=False, replace=False
+):
     if isinstance(filepath, Path):
         filepath = str(filepath)
     fixed_path = _fix_relative_paths(filepath)
@@ -59,7 +61,9 @@ def str_to_safe_path(filepath: Union[str, Path], suffix: str = "", verbose=False
 
     if os.path.exists(path):
         if replace:
-            print(f"src.io.utils.str_to_safe_path.py [I]:\nREPLACING '{path}' with new file")
+            print(
+                f"src.io.utils.str_to_safe_path.py [I]:\nREPLACING '{path}' with new file"
+            )
         else:
             _rename_old_file(path, verbose)
     return path

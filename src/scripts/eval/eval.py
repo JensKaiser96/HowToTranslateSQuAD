@@ -7,7 +7,14 @@ logger = get_logger(__file__, script=True)
 
 def main():
     # Model
-    model_names = ["RawClean", "GermanQuad"]
+    model_names = [
+        "RawClean",
+        "GermanQuad",
+        "RawClean1",
+        "RawClean2",
+        "RawClean3",
+        "RawClean4",
+    ]
     print("Chose which model you would like to evaluate:")
     for i, model_name in enumerate(model_names):
         print(f"\t[{i}] - {model_name}")

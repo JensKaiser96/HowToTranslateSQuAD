@@ -60,6 +60,26 @@ class Gelectra:
     def RawClean(cls) -> "Gelectra":
         return Gelectra(Models.QA.Gelectra.raw_clean)
 
+    @classmethod
+    @classproperty
+    def RawClean1(cls) -> "Gelectra":
+        return Gelectra(Models.QA.Gelectra.raw_clean_1)
+
+    @classmethod
+    @classproperty
+    def RawClean2(cls) -> "Gelectra":
+        return Gelectra(Models.QA.Gelectra.raw_clean_2)
+
+    @classmethod
+    @classproperty
+    def RawClean3(cls) -> "Gelectra":
+        return Gelectra(Models.QA.Gelectra.raw_clean_3)
+
+    @classmethod
+    @classproperty
+    def RawClean4(cls) -> "Gelectra":
+        return Gelectra(Models.QA.Gelectra.raw_clean_4)
+
     def results_path(self, dataset_name: str):
         return f"{PREDICTIONS_PATH}{self.name}_{dataset_name}.json"
 
