@@ -32,6 +32,11 @@ class Gelectra:
         self.model = ElectraForQuestionAnswering.from_pretrained(self.path)
         self.model.to("cuda:0")
 
+    def get_evaluation(self, dataset: Dataset, redo=False) -> Evaluation:
+        if not redo and self.has_results_file(dataset.name):
+            return Evaluation.load(self.results_path(dataset.name))
+        return evaluate(self, dataset)
+
     @property
     def name(self):
         return Gelectra.path2name(self.path)
@@ -55,12 +60,11 @@ class Gelectra:
     def RawClean(cls) -> "Gelectra":
         return Gelectra(Models.QA.Gelectra.raw_clean)
 
-    @staticmethod
-    def results_pathname(model_name: str, dataset_name: str):
-        return f"{PREDICTIONS_PATH}{model_name}_{dataset_name}.json"
+    def results_path(self, dataset_name: str):
+        return f"{PREDICTIONS_PATH}{self.name}_{dataset_name}.json"
 
     def has_results_file(self, dataset_name: str):
-        return os.path.isfile(Gelectra.results_pathname(self.name, dataset_name))
+        return os.path.isfile(self.results_path(dataset_name))
 
     @staticmethod
     def filter_dict_for_model_input(input_dict: dict):
