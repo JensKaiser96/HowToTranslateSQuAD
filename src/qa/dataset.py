@@ -4,6 +4,7 @@ from pydantic import BaseModel
 
 from src.io.filepaths import Datasets, StressTest, DATASETS_PATH
 from src.io.utils import to_json
+from src.utils.decorators import classproperty
 from src.utils.logging import get_logger
 
 logger = get_logger(__name__)
@@ -58,13 +59,13 @@ class Dataset(BaseModel):
             return Dataset.load(Datasets.GermanQuad.SMALL)
 
         @classmethod
-        @property
-        def TRAIN(cls):
+        @classproperty
+        def TRAIN(cls) -> "Dataset":
             return Dataset.load(Datasets.GermanQuad.TRAIN)
 
         @classmethod
-        @property
-        def TEST(cls):
+        @classproperty
+        def TEST(cls) -> "Dataset":
             return Dataset.load(Datasets.GermanQuad.TEST)
 
     class MLQA:

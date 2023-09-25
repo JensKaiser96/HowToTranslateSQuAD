@@ -8,7 +8,9 @@ from transformers.tokenization_utils_base import BatchEncoding
 from src.io.filepaths import Models, PREDICTIONS_PATH
 from src.nlp_tools.span import Span
 from src.nlp_tools.token import Tokenizer
-from src.qa.evaluate import ModelOutput
+from src.qa.dataset import Dataset
+from src.qa.evaluate import ModelOutput, Evaluation, evaluate
+from src.utils.decorators import classproperty
 from src.utils.logging import get_logger
 
 logger = get_logger(__name__)
@@ -31,18 +33,18 @@ class Gelectra:
         return ".".join(path.strip("/").split("/")[-2:])
 
     @classmethod
-    @property
-    def Base(cls):
+    @classproperty
+    def Base(cls) -> "Gelectra":
         return Gelectra("deepset/gelectra-large")
 
     @classmethod
-    @property
-    def GermanQuad(cls):
+    @classproperty
+    def GermanQuad(cls) -> "Gelectra":
         return Gelectra("deepset/gelectra-large-germanquad")
 
     @classmethod
-    @property
-    def RawClean(cls):
+    @classproperty
+    def RawClean(cls) -> "Gelectra":
         return Gelectra(Models.QA.Gelectra.raw_clean)
 
     @staticmethod
