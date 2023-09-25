@@ -42,7 +42,8 @@ class Evaluation(BaseModel):
     F1: float
     recall: float
     precision: float
-    confidence: float
+    confidence_start: float
+    confidence_end: float
     total: int
 
     individual_results: list[Result]
@@ -57,7 +58,8 @@ class Evaluation(BaseModel):
         self.F1 = self.calculate_average("F1")
         self.recall = self.calculate_average("recall")
         self.precision = self.calculate_average("precision")
-        self.confidence = self.calculate_average("confidence")
+        self.confidence_start = self.calculate_average("confidence_start")
+        self.confidence_end = self.calculate_average("confidence_end")
 
     def calculate_average(self, field):
         return round(
@@ -74,7 +76,14 @@ def evaluate(model, dataset: Dataset):
     """
     logger.info(f"Evaluating {model.name} on {dataset.name} ...")
     evaluation = Evaluation(
-        EM=0, F1=0, recall=0, precision=0, confidence=0, total=0, individual_results=[]
+        EM=0,
+        F1=0,
+        recall=0,
+        precision=0,
+        confidence_start=0,
+        confidence_end=0,
+        total=0,
+        individual_results=[],
     )
     for article in tqdm(dataset.data):
         for paragraph in article.paragraphs:
@@ -87,15 +96,16 @@ def evaluate(model, dataset: Dataset):
 
     evaluation.summarize_results()
     evaluation.save(
-        path=model.results_pathname(model.name, dataset.name),
+        path=model.results_path(dataset.name),
     )
     logger.info(
-        f"=== Results ==="
+        f"=== Results ===\n"
         f"EM:         {evaluation.EM}\n"
         f"F1:         {evaluation.F1}\n"
         f"recall:     {evaluation.recall}\n"
         f"precision:  {evaluation.precision}\n"
-        f"confidence: {evaluation.confidence}\n"
+        f"confidence_start: {evaluation.confidence_start}\n"
+        f"confidence_end: {evaluation.confidence_end}\n"
         f"total:      {evaluation.total}"
     )
     return evaluation
