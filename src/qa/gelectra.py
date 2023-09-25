@@ -17,11 +17,19 @@ logger = get_logger(__name__)
 
 
 class Gelectra:
+    lazy_loading = False
+
     def __init__(self, path: str):
         self.path = path
+        self.tokenizer = None
+        self.model = None
+        if not Gelectra.lazy_loading:
+            self.load_weights()
+
+    def load_weights(self):
         logger.info(f"Loading model {self.name} ...")
-        self.tokenizer = Tokenizer(ElectraTokenizerFast.from_pretrained(path))
-        self.model = ElectraForQuestionAnswering.from_pretrained(path)
+        self.tokenizer = Tokenizer(ElectraTokenizerFast.from_pretrained(self.path))
+        self.model = ElectraForQuestionAnswering.from_pretrained(self.path)
         self.model.to("cuda:0")
 
     @property
@@ -60,6 +68,8 @@ class Gelectra:
         return {key: value for key, value in input_dict.items() if key in valid_keys}
 
     def prompt(self, question: str, context: str) -> ModelOutput:
+        if self.model is None or self.tokenizer is None:
+            self.load_weights()
         model_input = self.tokenizer.encode_qa(question, context)
         model_input.to("cuda:0")
         with torch.no_grad():
