@@ -28,3 +28,7 @@ Repository containing the material for my master thesis
 | MLQA-GER    | 49.8 | 68.0 |
 |             |      |      |
 |             |      |      |
+
+
+## notes
+MLQA guys do translation with answer span retivial via attention of the translator
