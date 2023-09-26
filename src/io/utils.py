@@ -48,6 +48,7 @@ def str_to_safe_path(
     if isinstance(filepath, Path):
         filepath = str(filepath)
     fixed_path = _fix_relative_paths(filepath)
+    fixed_path = fixed_path.replace(" ", "_")  # replace space with '_'
     path = Path(fixed_path)
     if (
         suffix and path.suffix != suffix
