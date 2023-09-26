@@ -1,48 +1,100 @@
 from pathlib import Path
 
-import matplotlib.pyplot as plt
-import numpy as np
-
 from src.io.filepaths import PLOTS_PATH
-from src.io.utils import str_to_safe_path
+from src.plot import scatter, histogram
 from src.qa.dataset import Dataset
 from src.qa.evaluate import Evaluation, Result
 from src.qa.gelectra import Gelectra
 
 
-def plot_results(results: Evaluation, name: str, save_path: Path):
+def plot_scatter(results: Evaluation, name: str, save_path: Path):
+    # confidence, f1
+    # recall vs precision
+    # confidence start, confidence end
+    confidence = [
+        result.confidence_start * result.confidence_end
+        for result in results.individual_results
+    ]
+    f1 = [result.F1 for result in results.individual_results]
+    recall = [result.recall for result in results.individual_results]
+    precision = [result.precision for result in results.individual_results]
+    start = [result.confidence_start for result in results.individual_results]
+    end = [result.confidence_end for result in results.individual_results]
+
+    comparisions = [
+        ["confidence", confidence, "F1", f1],
+        ["recall", recall, "precision", precision],
+        ["start", start, "end", end],
+    ]
+    for xlabel, xdata, ylabel, ydata in comparisions:
+        scatter(xlabel, xdata, ylabel, ydata, save_path, name, new_fig=True)
+
+
+def plot_hist(results: Evaluation, name: str, save_path: Path):
     metrics = [
         name for name, _type in Result.__annotations__.items() if _type in (float, int)
     ]
     for metric in metrics:
         data = [getattr(result, metric) for result in results.individual_results]
-        # Define the bins
-        bins = np.arange(0, 1.1, 0.1)  # Bins from 0 to 1 in 0.1 increments
+        histogram(data, metric, "Frequency", save_path, title=name)
 
-        # Create the histogram
-        plt.figure()
-        plt.hist(data, bins=bins, edgecolor="black", alpha=0.7)
 
-        # Add labels and title
-        plt.xlabel(metric)
-        plt.ylabel("Frequency")
-        plt.title(f"{metric} - {name}")
-
-        # Show the plot
-        plt.grid(axis="y", linestyle="--", alpha=0.7)
-        plot_path = str_to_safe_path(save_path / f"hist_{metric}_{name}", ".png")
-        plt.savefig(plot_path)
+def plot_hist_comp(results_raw, results_sota, name: str, save_path: Path):
+    metrics = [
+        name for name, _type in Result.__annotations__.items() if _type in (float, int)
+    ]
+    for metric in metrics:
+        data_raw = [
+            getattr(result, metric) for result in results_raw.individual_results
+        ]
+        data_sota = [
+            getattr(result, metric) for result in results_sota.individual_results
+        ]
+        histogram(
+            data=data_raw,
+            xlabel=metric,
+            ylabel="Frequency",
+            new_fig=True,
+            save_path="",
+            title=name,
+            alpha=0.5,
+            color="blue",
+            label="raw",
+        )
+        histogram(
+            data=data_sota,
+            xlabel=metric,
+            ylabel="Frequency",
+            new_fig=False,
+            save_path=save_path,
+            title=name,
+            alpha=0.5,
+            color="red",
+            label="sota",
+            legend=True,
+        )
 
 
 Gelectra.lazy_loading = True
+dataset: Dataset = Dataset.GermanQUAD.TEST
+for model in [Gelectra.GermanQuad, Gelectra.RawClean]:
+    results = model.get_evaluation(dataset)
 
-raw_test: Evaluation = Gelectra.RawClean.get_evaluation(Dataset.GermanQUAD.TEST)
+    plot_hist(
+        results=results,
+        name=f"{model.name} {dataset.name}",
+        save_path=Path(PLOTS_PATH) / model.name / dataset.name,
+    )
 
-model_name = Gelectra.RawClean.name
-dataset_name = Dataset.GermanQUAD.TEST.name
+    plot_scatter(
+        results=results,
+        name=f"{model.name} {dataset.name}",
+        save_path=Path(PLOTS_PATH) / model.name / dataset.name,
+    )
 
-plot_results(
-    results=raw_test,
-    name=f"{model_name} {dataset_name}",
-    save_path=Path(PLOTS_PATH) / model_name / dataset_name,
+plot_hist_comp(
+    results_raw=Gelectra.RawClean.get_evaluation(dataset),
+    results_sota=Gelectra.GermanQuad.get_evaluation(dataset),
+    name=f"raw vs sota - {dataset.name}",
+    save_path=Path(PLOTS_PATH) / "RawVsSOTA" / dataset.name,
 )
