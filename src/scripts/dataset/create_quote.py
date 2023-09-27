@@ -118,8 +118,8 @@ def main():
                     )
         quote_ds.data.append(de_articles)
 
-        print(f"... - ({successes}/{fails+fails})")
-    print(f"Done - ({successes}/{fails+fails})")
+        print(f"... - ({successes}/{fails+successes})")
+    print(f"Done - ({successes}/{fails+successes})")
     quote_ds.save(Datasets.Squad1.Translated.Quote.TRAIN)
 
 
