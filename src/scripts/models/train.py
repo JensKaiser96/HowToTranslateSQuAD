@@ -11,5 +11,6 @@ train(
     base_model=Gelectra.Base,
     train_dataset=Dataset.Raw.TRAIN_CLEAN,
     validation_dataset=Dataset.GermanQUAD.TEST,
-    save_path=Models.QA.Gelectra.raw_clean_3
+    save_path=Models.QA.Gelectra.raw_clean_3,
+    name=Gelectra.RawClean3.name,
 )

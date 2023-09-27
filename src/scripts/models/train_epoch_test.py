@@ -12,6 +12,7 @@ train(
     train_dataset=Dataset.Squad1.TRAIN_SMALL,  # todo set to correct dataset
     validation_dataset=Dataset.GermanQUAD.TEST,
     save_path=MODELS_PATH + "epoch_test/",
+    name="epoch_test",
     save_strategy="epoch",
     num_train_epochs=10,
 )

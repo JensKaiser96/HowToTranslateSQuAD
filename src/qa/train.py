@@ -14,7 +14,7 @@ def train(
     train_dataset: Dataset,
     validation_dataset: Dataset,
     save_path,
-    name="",
+    name,
     **kwargs
 ):
     logger.info("Preparing Datasets ...")
