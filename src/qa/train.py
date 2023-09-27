@@ -44,7 +44,7 @@ def train(
         default_args[key] = value
 
     # TODO: which hyper-parameters do i use??!??!?
-    args = TrainingArguments( name, **default_args)
+    args = TrainingArguments(name, **default_args)
     trainer = Trainer(
         model=base_model.model,
         args=args,
