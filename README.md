@@ -32,3 +32,5 @@ Repository containing the material for my master thesis
 
 ## notes
 MLQA guys do translation with answer span retivial via attention of the translator
+
+Translatin of quoted(") results in no translation. lel, hehe
