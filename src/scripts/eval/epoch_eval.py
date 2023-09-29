@@ -6,9 +6,13 @@ from src.utils.logging import get_logger
 
 logger = get_logger(__file__, script=True)
 
-directory_path = './data/models/gelectra/epoch_test/checkpoints/'
+directory_path = "./data/models/gelectra/epoch_test/checkpoints/"
 directory_contents = os.listdir(directory_path)
-folders = [item for item in directory_contents if os.path.isdir(os.path.join(directory_path, item))]
+folders = [
+    item
+    for item in directory_contents
+    if os.path.isdir(os.path.join(directory_path, item))
+]
 
 for checkpoint in folders:
     model = Gelectra(path=checkpoint)
