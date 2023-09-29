@@ -9,17 +9,26 @@ from src.utils.logging import get_logger
 logger = get_logger(__file__)
 
 
-def tar(context, answer):
+def tar(src_context: str, src_answer: Answer, trg_context: str, trg_answer: Answer):
     """
     returns the answer start index using the TAR method
     """
-    possible_spans = [Span(*match.span()) for match in re.finditer(answer, context)]
-    if len(possible_spans) == 0:
-        return retrieve(source_text=, source_span=, target_text=context).start
+    possible_spans = [Span(*match.span()) for match in re.finditer(trg_answer.text, trg_context)]
+
     if len(possible_spans) == 1:
-        return possible_spans.pop().start
-    # len > 1
-    return next_best(possible_spans, context, answer)
+        answer_span = possible_spans.pop()
+    else:
+        retrieved_answer_span = retrieve(
+            source_text=src_context,
+            source_span=Span.from_answer(src_answer),
+            target_text=trg_context
+        )
+        if len(possible_spans) == 0:
+            answer_span = retrieved_answer_span
+        else:
+            # sort after smallest difference to retrieved_answer_span and take first element
+            answer_span = sorted(possible_spans, key=lambda element: retrieved_answer_span.compare(element)).pop()
+    return Answer(answer_start=answer_span.start, text=answer_span(trg_context))
 
 
 def main():
@@ -32,17 +41,21 @@ def main():
             tar_paragraph = Paragraph(context="", qas=[])
             context = paragraph.context
             for qa_no, qa in enumerate(paragraph.qas):
-                tar_qa = QA(question="", answers=[], id=qa.id)
                 answer = qa.answers[0]
                 possible_spans = [Span(*match.span()) for match in re.finditer(answer, context)]
+                # trivial
                 if len(possible_spans) == 1:
-                    answer["answer_start"] = possible_spans.pop().start
-                else:
+                    retrieved_answer = Answer(text=answer, answer_start=possible_spans.pop().start)
+                else:  # use tar
+                    # load source references
                     squad_paragraph = squad.data[article_no].paragraphs[paragraph_no]
                     source_context = squad_paragraph.context
-                    source_answer_start = squad_paragraph.qas[qa_no].answers[0].answer_start
-                    answer["answer_start"] = tar(context, answer["text"])
-                tar_paragraph.qas.append(tar_qa)
+                    source_answer = squad_paragraph.qas[qa_no].answers[0]
+                    # retrieve answer using TAR, AR
+                    retrieved_answer = tar(source_context, source_answer, context, answer)
+                tar_paragraph.qas.append(
+                    QA(question=qa.question, answers=[retrieved_answer], id=qa.id)
+                )
             if tar_paragraph.qas:
                 tar_article.paragraphs.append(tar_paragraph)
         dataset.data.append(tar_article)
