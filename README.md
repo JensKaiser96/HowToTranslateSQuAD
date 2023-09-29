@@ -34,3 +34,5 @@ Repository containing the material for my master thesis
 MLQA guys do translation with answer span retivial via attention of the translator
 
 Translatin of quoted(") results in no translation. lel, hehe
+
+Quote takes way longer to translate, because each context needs to be translated as often as there are answers for it
