@@ -7,6 +7,7 @@ from src.utils.logging import get_logger
 
 logger = get_logger(__name__)
 # https://huggingface.co/docs/transformers/tasks/question_answering
+# https://huggingface.co/docs/transformers/main_classes/trainer#transformers.TrainingArguments
 
 
 def train(
@@ -31,7 +32,7 @@ def train(
         per_device_eval_batch_size=4,
         remove_unused_columns=False,
         evaluation_strategy="no",
-        save_strategy="epoch",
+        save_strategy="no",
         learning_rate=2e-5,
         num_train_epochs=3,
         weight_decay=0.01,
