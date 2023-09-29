@@ -14,7 +14,6 @@ def train(
     train_dataset: Dataset,
     validation_dataset: Dataset,
     save_path,
-    name,
     **kwargs
 ):
     logger.info("Preparing Datasets ...")
@@ -44,7 +43,7 @@ def train(
         default_args[key] = value
 
     # TODO: which hyper-parameters do i use??!??!?
-    args = TrainingArguments(name, **default_args)
+    args = TrainingArguments(output_dir=save_path + "/checkpoints", **default_args)
     trainer = Trainer(
         model=base_model.model,
         args=args,
