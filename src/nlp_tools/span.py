@@ -48,6 +48,12 @@ class Span:
     def __add__(self, other: "Span") -> "Span":
         return Span(start=min(self.start, other.start), end=max(self.end, other.end))
 
+    def compare(self, other: "Span") -> int:
+        """
+        returns the sum of the difference of start and end
+        """
+        return abs(self.start - other.start) + abs(self.end - other.end)
+
     @property
     def is_empty(self) -> bool:
         return self.start >= self.end
