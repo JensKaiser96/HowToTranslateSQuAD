@@ -13,8 +13,8 @@ logger = get_logger(__name__)
 def train(
     base_model: Gelectra,
     train_dataset: Dataset,
-    validation_dataset: Dataset,
     save_path,
+    validation_dataset: Dataset = None,
     **kwargs
 ):
     logger.info("Preparing Datasets ...")
@@ -22,10 +22,11 @@ def train(
         tokenizer=base_model.tokenizer.model,
         max_length=base_model.model.config.max_position_embeddings,
     )
-    validation_dataset = validation_dataset.as_hf_dataset(
-        tokenizer=base_model.tokenizer.model,
-        max_length=base_model.model.config.max_position_embeddings,
-    )
+    if validation_dataset is not None:
+        validation_dataset = validation_dataset.as_hf_dataset(
+            tokenizer=base_model.tokenizer.model,
+            max_length=base_model.model.config.max_position_embeddings,
+        )
 
     default_args = dict(
         per_device_train_batch_size=4,
