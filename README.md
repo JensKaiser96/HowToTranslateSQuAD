@@ -36,3 +36,16 @@ MLQA guys do translation with answer span retivial via attention of the translat
 Translatin of quoted(") results in no translation. lel, hehe
 
 Quote takes way longer to translate, because each context needs to be translated as often as there are answers for it
+
+QUOTE SUCCESS/FAIL 78.498 / 9.101
+
+GermanQuad talk about using Top-1, when in reality what they mean is, is there any overlap between prediction and gold
+truth.
+one could just call that %recall>1, ..., for whatever that is worth.
+Top-1-accuracy (any overlap of prediction and ground truth)
+I get their intention, but its easily cheesable
+
+### Epoch test
+
+![Performance over training](data/plots/epoch_eval_f1_em.png)
+`learing_rate=2e-5, weight_decay=0.01, batch_size=4`
