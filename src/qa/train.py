@@ -28,13 +28,24 @@ def train(
             max_length=base_model.model.config.max_position_embeddings,
         )
 
+    # https://github.com/google-research/electra/blob/master/configure_finetuning.py
+    """
+    self.num_train_epochs = 2.0
+    self.learning_rate = 1e-4
+    self.weight_decay_rate = 0.01
+    self.layerwise_lr_decay = 0.8  # if > 0, the learning rate for a layer is
+                                   # lr * lr_decay^(depth - max_depth) i.e.,
+                                   # shallower layers have lower learning rates
+    self.warmup_proportion = 0.1  # how much of training to warm up the LR for
+    self.train_batch_size = 32
+    """
     default_args = dict(
-        per_device_train_batch_size=4,
-        per_device_eval_batch_size=4,
+        per_device_train_batch_size=8,
+        per_device_eval_batch_size=8,
         remove_unused_columns=False,
         evaluation_strategy="no",
         save_strategy="no",
-        learning_rate=2e-5,
+        learning_rate=1e-4,
         num_train_epochs=3,
         weight_decay=0.01,
         fp16=True,
