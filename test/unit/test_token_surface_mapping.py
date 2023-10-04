@@ -15,8 +15,8 @@ def test_token_surface_mapping():
         Span(start=0, end=3),
         Span(start=4, end=7),
         Span(start=8, end=9),
-        Span(start=10, end=12),
-        Span(start=13, end=14),
-        Span(start=22, end=22),
-        Span(start=22, end=27),
+        Span(start=9, end=11),
+        Span(start=11, end=12),
+        Span(start=12, end=12),
+        Span(start=12, end=13)
     ]
