@@ -1,8 +1,7 @@
 import os
+from enum import Enum, auto
 
 import torch
-from transformers.models.electra.modeling_electra import ElectraForQuestionAnswering
-from transformers.models.electra.tokenization_electra_fast import ElectraTokenizerFast
 from transformers.tokenization_utils_base import BatchEncoding
 
 from src.io.filepaths import Models, PREDICTIONS_PATH
@@ -16,20 +15,35 @@ from src.utils.logging import get_logger
 logger = get_logger(__name__)
 
 
-class Gelectra:
+class QAModel:
+    class Type(Enum):
+        Gelectra = auto()
+        DistilBert = auto()
+
     lazy_loading = False
 
-    def __init__(self, path: str):
+    def __init__(self, path: str, type_: Type = Type.Gelectra):
         self.path = path
         self.tokenizer = None
         self.model = None
-        if not Gelectra.lazy_loading:
+        self.type = type_
+        if not QAModel.lazy_loading:
             self.load_weights()
 
     def load_weights(self):
-        logger.info(f"Loading model {self.name} ...")
-        self.tokenizer = Tokenizer(ElectraTokenizerFast.from_pretrained(self.path))
-        self.model = ElectraForQuestionAnswering.from_pretrained(self.path)
+        logger.info(f"Loading {self.type} model {self.name} ...")
+        if self.type == self.Type.Gelectra:
+            from transformers.models.electra.modeling_electra import ElectraForQuestionAnswering
+            from transformers.models.electra.tokenization_electra_fast import ElectraTokenizerFast
+            self.tokenizer = Tokenizer(ElectraTokenizerFast.from_pretrained(self.path))
+            self.model = ElectraForQuestionAnswering.from_pretrained(self.path)
+        if self.type == self.Type.DistilBert:
+            from transformers import DistilBertTokenizer, DistilBertModel
+            self.tokenizer = Tokenizer(DistilBertTokenizer.from_pretrained(self.path))
+            self.model = DistilBertModel.from_pretrained(self.path)
+        else:
+            raise ValueError(f"Unknown QAModel type: '{self.type}'")
+
         self.model.to("cuda:0")
 
     def get_evaluation(self, dataset: Dataset, redo=False) -> Evaluation:
@@ -41,7 +55,7 @@ class Gelectra:
 
     @property
     def name(self):
-        return Gelectra.path2name(self.path)
+        return QAModel.path2name(self.path)
 
     @staticmethod
     def path2name(path: str):
@@ -49,38 +63,43 @@ class Gelectra:
 
     @classmethod
     @classproperty
-    def Base(cls) -> "Gelectra":
-        return Gelectra("deepset/gelectra-large")
+    def Base(cls) -> "QAModel":
+        return QAModel("deepset/gelectra-large")
 
     @classmethod
     @classproperty
-    def GermanQuad(cls) -> "Gelectra":
-        return Gelectra("deepset/gelectra-large-germanquad")
+    def GermanQuad(cls) -> "QAModel":
+        return QAModel("deepset/gelectra-large-germanquad")
 
     @classmethod
     @classproperty
-    def RawClean(cls) -> "Gelectra":
-        return Gelectra(Models.QA.Gelectra.raw_clean)
+    def RawClean(cls) -> "QAModel":
+        return QAModel(Models.QA.Gelectra.raw_clean)
 
     @classmethod
     @classproperty
-    def RawClean1(cls) -> "Gelectra":
-        return Gelectra(Models.QA.Gelectra.raw_clean_1)
+    def RawClean1(cls) -> "QAModel":
+        return QAModel(Models.QA.Gelectra.raw_clean_1)
 
     @classmethod
     @classproperty
-    def RawClean2(cls) -> "Gelectra":
-        return Gelectra(Models.QA.Gelectra.raw_clean_2)
+    def RawClean2(cls) -> "QAModel":
+        return QAModel(Models.QA.Gelectra.raw_clean_2)
 
     @classmethod
     @classproperty
-    def RawClean3(cls) -> "Gelectra":
-        return Gelectra(Models.QA.Gelectra.raw_clean_3)
+    def RawClean3(cls) -> "QAModel":
+        return QAModel(Models.QA.Gelectra.raw_clean_3)
 
     @classmethod
     @classproperty
-    def RawClean4(cls) -> "Gelectra":
-        return Gelectra(Models.QA.Gelectra.raw_clean_4)
+    def RawClean4(cls) -> "QAModel":
+        return QAModel(Models.QA.Gelectra.raw_clean_4)
+
+    @classmethod
+    @classproperty
+    def EnglishQA(cls)-> "QAModel":
+        return QAModel("distilbert-base-cased-distilled-squad")
 
     def results_path(self, dataset_name: str):
         return f"{PREDICTIONS_PATH}{self.name}_{dataset_name}.json"
@@ -99,7 +118,7 @@ class Gelectra:
         model_input = self.tokenizer.encode_qa(question, context)
         model_input.to("cuda:0")
         with torch.no_grad():
-            output = self.model(**Gelectra.filter_dict_for_model_input(model_input))
+            output = self.model(**QAModel.filter_dict_for_model_input(model_input))
 
         # get answer on token level
         # This works even on a tensor, the output of argmax() is its index as if it was 1D

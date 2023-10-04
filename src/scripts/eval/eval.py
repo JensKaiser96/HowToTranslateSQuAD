@@ -2,7 +2,7 @@ import sys
 
 from src.nlp_tools.fuzzy import fuzzy_match
 from src.qa.dataset import Dataset
-from src.qa.gelectra import Gelectra
+from src.qa.qamodel import QAModel
 from src.utils.logging import get_logger
 
 logger = get_logger(__file__, script=True)
@@ -46,8 +46,8 @@ def main(fuzzy_model_name, fuzzy_dataset_name):
         print(f"Chosen Dataset: {dataset_names[chosen_dataset_index]}")
 
     # load model + dataset
-    Gelectra.lazy_loading = True  # only load model weights once needed
-    model: Gelectra = getattr(Gelectra, chosen_model_name)
+    QAModel.lazy_loading = True  # only load model weights once needed
+    model: QAModel = getattr(QAModel, chosen_model_name)
     dataset_parent_name, dataset_child_name = chosen_dataset_name.split(".")
     dataset_parent = getattr(Dataset, dataset_parent_name)
     dataset = getattr(dataset_parent, dataset_child_name)

@@ -2,7 +2,7 @@ from transformers import TrainingArguments, Trainer
 
 from src.io.utils import str_to_safe_path
 from src.qa.dataset import Dataset
-from src.qa.gelectra import Gelectra
+from src.qa.qamodel import QAModel
 from src.utils.logging import get_logger
 
 logger = get_logger(__name__)
@@ -11,7 +11,7 @@ logger = get_logger(__name__)
 
 
 def train(
-    base_model: Gelectra,
+    base_model: QAModel,
     train_dataset: Dataset,
     save_path,
     validation_dataset: Dataset = None,

@@ -5,7 +5,7 @@ from src.math.arithmetic import log10_0
 from src.plot import scatter, histogram
 from src.qa.dataset import Dataset
 from src.qa.evaluate import Evaluation, Result
-from src.qa.gelectra import Gelectra
+from src.qa.qamodel import QAModel
 from src.qa.squad_eval_script import get_tokens
 
 
@@ -80,9 +80,9 @@ def plot_hist_comp(results_raw, results_sota, name: str, save_path: Path):
         )
 
 
-Gelectra.lazy_loading = True
+QAModel.lazy_loading = True
 dataset: Dataset = Dataset.GermanQUAD.TEST
-for model in [Gelectra.GermanQuad, Gelectra.RawClean]:
+for model in [QAModel.GermanQuad, QAModel.RawClean]:
     results = model.get_evaluation(dataset)
 
     plot_hist(
@@ -98,8 +98,8 @@ for model in [Gelectra.GermanQuad, Gelectra.RawClean]:
     )
 
 plot_hist_comp(
-    results_raw=Gelectra.RawClean.get_evaluation(dataset),
-    results_sota=Gelectra.GermanQuad.get_evaluation(dataset),
+    results_raw=QAModel.RawClean.get_evaluation(dataset),
+    results_sota=QAModel.GermanQuad.get_evaluation(dataset),
     name=f"raw vs sota - {dataset.name}",
     save_path=Path(PLOTS_PATH) / "RawVsSOTA" / dataset.name,
 )

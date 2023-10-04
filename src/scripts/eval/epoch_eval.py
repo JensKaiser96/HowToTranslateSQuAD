@@ -1,7 +1,7 @@
 import os
 
 from src.qa.dataset import Dataset
-from src.qa.gelectra import Gelectra
+from src.qa.qamodel import QAModel
 from src.utils.logging import get_logger
 
 logger = get_logger(__file__, script=True)
@@ -16,5 +16,5 @@ folders = [
 ]
 
 for checkpoint in folders:
-    model = Gelectra(path=checkpoint)
+    model = QAModel(path=checkpoint)
     model.get_evaluation(Dataset.GermanQUAD.TEST)

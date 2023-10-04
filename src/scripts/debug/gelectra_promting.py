@@ -1,7 +1,7 @@
 import torch
 
 from src.qa.dataset import Dataset
-from src.qa.gelectra import Gelectra
+from src.qa.qamodel import QAModel
 
 dataset: Dataset = Dataset.GermanQUAD.TEST
 datapoint = dataset.data[0].paragraphs[0]
@@ -21,14 +21,14 @@ Nunc id porttitor massa. Phasellus dictum dui vel lectus suscipit vestibulum. Su
 
 print(f"{context=}\n{question=}\n{answers}")
 
-model = Gelectra.GermanQuad
+model = QAModel.GermanQuad
 
 model_input_s = model.tokenizer.encode_qa(short_input, short_input)
 with torch.no_grad():
-    os = model.model(**Gelectra.filter_dict_for_model_input(model_input_s))
+    os = model.model(**QAModel.filter_dict_for_model_input(model_input_s))
 
 model_input_l = model.tokenizer.encode_qa(short_input, long_input)
 with torch.no_grad():
-    ol = model.model(**Gelectra.filter_dict_for_model_input(model_input_l))
+    ol = model.model(**QAModel.filter_dict_for_model_input(model_input_l))
 
 on = model.prompt(question, context)
