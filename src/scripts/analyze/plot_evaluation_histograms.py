@@ -5,6 +5,7 @@ from src.plot import scatter, histogram
 from src.qa.dataset import Dataset
 from src.qa.evaluate import Evaluation, Result
 from src.qa.gelectra import Gelectra
+from src.qa.squad_eval_script import get_tokens
 
 
 def plot_scatter(results: Evaluation, name: str, save_path: Path):
@@ -20,11 +21,14 @@ def plot_scatter(results: Evaluation, name: str, save_path: Path):
     precision = [result.precision for result in results.individual_results]
     start = [result.confidence_start for result in results.individual_results]
     end = [result.confidence_end for result in results.individual_results]
+    predicted_answer_length = [len(get_tokens(result.model_output.text)) for result in results.individual_results]
+    gold_answer_length = [len(get_tokens(result.best_answer)) for result in results.individual_results]
 
     comparisions = [
         ["confidence", confidence, "F1", f1],
         ["recall", recall, "precision", precision],
-        ["start", start, "end", end],
+        ["confidence_start", start, "confidence_end", end],
+        ["predicted_answer_length", predicted_answer_length, "gold_answer_length", gold_answer_length],
     ]
     for xlabel, xdata, ylabel, ydata in comparisions:
         scatter(xlabel, xdata, ylabel, ydata, save_path, name, new_fig=True)
