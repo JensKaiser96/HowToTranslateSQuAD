@@ -34,6 +34,8 @@ class Gelectra:
 
     def get_evaluation(self, dataset: Dataset, redo=False) -> Evaluation:
         if not redo and self.has_results_file(dataset.name):
+            logger.info("Found Evaluation file of model on provided Dataset."
+                        "Loading existing Evaluation.")
             return Evaluation.load(self.results_path(dataset.name))
         return evaluate(self, dataset)
 
