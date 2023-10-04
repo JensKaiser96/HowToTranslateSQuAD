@@ -55,7 +55,6 @@ def train(
     for key, value in kwargs.items():
         default_args[key] = value
 
-    # TODO: which hyper-parameters do i use??!??!?
     args = TrainingArguments(output_dir=save_path + "/checkpoints", **default_args)
     trainer = Trainer(
         model=base_model.model,
