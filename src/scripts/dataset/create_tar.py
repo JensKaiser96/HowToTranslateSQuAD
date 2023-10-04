@@ -21,9 +21,7 @@ def tar(src_context: str, src_answer: Answer, trg_context: str, possible_spans: 
             source_span=Span.from_answer(src_answer),
             target_text=trg_context
         )
-    except ValueError:
-        return None
-    except RuntimeError:
+    except (ValueError, RuntimeError):
         return None
     if len(possible_spans) == 0:
         stats["tar"] += 1
