@@ -40,8 +40,8 @@ def main():
     for article_no, article in enumerate(raw.data):
         tar_article = Article(paragraphs=[])
         for paragraph_no, paragraph in enumerate(article.paragraphs):
-            tar_paragraph = Paragraph(context="", qas=[])
             context = paragraph.context
+            tar_paragraph = Paragraph(context=context, qas=[])
             for qa_no, qa in enumerate(paragraph.qas):
                 answer = qa.answers[0]
                 possible_spans = [Span(*match.span()) for match in re.finditer(re.escape(answer.text), context)]
