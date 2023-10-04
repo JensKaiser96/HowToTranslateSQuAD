@@ -1,5 +1,7 @@
 import re
 
+from tqdm import tqdm
+
 from src.io.filepaths import Datasets
 from src.nlp_tools.span import Span
 from src.qa.dataset import Dataset, Article, Paragraph, QA, Answer
@@ -37,7 +39,7 @@ def main():
     raw: Dataset = Dataset.Raw.TRAIN
     squad: Dataset = Dataset.Squad1.TRAIN
     dataset = Dataset(data=[])
-    for article_no, article in enumerate(raw.data):
+    for article_no, article in tqdm(enumerate(raw.data)):
         tar_article = Article(paragraphs=[])
         for paragraph_no, paragraph in enumerate(article.paragraphs):
             context = paragraph.context
@@ -64,8 +66,8 @@ def main():
                 )
             if tar_paragraph.qas:
                 tar_article.paragraphs.append(tar_paragraph)
-            logger.info(stats)
         dataset.data.append(tar_article)
+    logger.info(stats)
     dataset.save(
         Datasets.Squad1.Translated.Tar.TRAIN,
         version="TAR: v1. do alignment sentence wise, e.g. use nltk to split both target, and source into list of "
