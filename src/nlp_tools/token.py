@@ -63,7 +63,7 @@ def surface_token_mapping(
                     f"Reached end of text before consuming all tokens. Remaining tokens:\n{tokens[i:]}"
                 )
         # check if the next char is a weired symbol, i.e. not in [a-Z0-9.-`]
-        weird_char = text[curser_pos] not in string.printable
+        weird_char = any([char not in string.printable for char in text[curser_pos: curser_pos + len(token)]])
 
         # create span over current token and deal with last unknown token
         if last_unknown:
