@@ -56,7 +56,7 @@ def main():
                     source_answer = squad_paragraph.qas[qa_no].answers[0]
                     # retrieve answer using TAR, AR
                     retrieved_answer = tar(source_context, source_answer, context, possible_spans)
-                    if retrieved_answer is None:
+                    if not retrieved_answer:
                         stats["fails"] += 1
                         continue
                 tar_paragraph.qas.append(
