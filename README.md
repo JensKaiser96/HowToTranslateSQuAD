@@ -45,6 +45,7 @@ one could just call that %recall>1, ..., for whatever that is worth.
 Top-1-accuracy (any overlap of prediction and ground truth)
 I get their intention, but its easily cheesable
 
+Deutsche Telekom hat "deQuad2.0" erstellt, ist aber nicht open source [hier](https://huggingface.co/deutsche-telekom/bert-multi-english-german-squad2/discussions/2)
 ### Epoch test
 
 ![Performance over training](data/plots/epoch_eval_f1_em.png)
