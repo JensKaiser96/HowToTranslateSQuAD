@@ -8,18 +8,23 @@ from src.utils.logging import get_logger
 
 logger = get_logger(__file__)
 
-stats = {"trivial": 0, "option": 0, "tar": 0}
+stats = {"trivial": 0, "option": 0, "tar": 0, "fails": 0}
 
 
 def tar(src_context: str, src_answer: Answer, trg_context: str, possible_spans: list[Span]):
     """
     returns the answer start index using the TAR method
     """
-    retrieved_answer_span = retrieve(
-        source_text=src_context,
-        source_span=Span.from_answer(src_answer),
-        target_text=trg_context
-    )
+    try:
+        retrieved_answer_span = retrieve(
+            source_text=src_context,
+            source_span=Span.from_answer(src_answer),
+            target_text=trg_context
+        )
+    except ValueError:
+        return None
+    except RuntimeError:
+        return None
     if len(possible_spans) == 0:
         stats["tar"] += 1
         answer_span = retrieved_answer_span
@@ -53,6 +58,9 @@ def main():
                     source_answer = squad_paragraph.qas[qa_no].answers[0]
                     # retrieve answer using TAR, AR
                     retrieved_answer = tar(source_context, source_answer, context, possible_spans)
+                    if retrieved_answer is None:
+                        stats["fails"] += 1
+                        continue
                 tar_paragraph.qas.append(
                     QA(question=qa.question, answers=[retrieved_answer], id=qa.id)
                 )
