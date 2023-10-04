@@ -45,7 +45,7 @@ def train(
         remove_unused_columns=False,
         evaluation_strategy="no",
         save_strategy="no",
-        learning_rate=1e-4,
+        learning_rate=2e-5,
         num_train_epochs=2,
         weight_decay=0.01,
         fp16=True,
