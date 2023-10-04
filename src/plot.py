@@ -23,7 +23,12 @@ def scatter(
     if "marker" not in kwargs:
         kwargs["marker"] = "x"
     if limits is None:
-        limits = (0, 1, 0, 1)
+        limits = (
+            min(0, min(xdata)),
+            max(1, max(xdata)),
+            min(1, min(ydata)),
+            max(1, max(ydata)),
+        )
 
     if new_fig:
         plt.figure()
@@ -35,8 +40,8 @@ def scatter(
     xlim_min, xlim_max, ylim_min, ylim_max = limits
     xmargin = (xlim_max - xlim_min) * margin_ratio
     ymargin = (ylim_max - ylim_min) * margin_ratio
-    plt.xlim(0 - xmargin, 1 + xmargin)
-    plt.ylim(0 - ymargin, 1 + ymargin)
+    plt.xlim(xlim_min - xmargin, xlim_max + xmargin)
+    plt.ylim(ylim_max - ymargin, ylim_max + ymargin)
 
     if grid:
         plt.grid(True, linestyle="--", alpha=0.5)
