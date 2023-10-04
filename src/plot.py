@@ -26,7 +26,7 @@ def scatter(
         limits = (
             min(0, min(xdata)),
             max(1, max(xdata)),
-            min(1, min(ydata)),
+            min(0, min(ydata)),
             max(1, max(ydata)),
         )
 
@@ -41,7 +41,7 @@ def scatter(
     xmargin = (xlim_max - xlim_min) * margin_ratio
     ymargin = (ylim_max - ylim_min) * margin_ratio
     plt.xlim(xlim_min - xmargin, xlim_max + xmargin)
-    plt.ylim(ylim_max - ymargin, ylim_max + ymargin)
+    plt.ylim(ylim_min - ymargin, ylim_max + ymargin)
 
     if grid:
         plt.grid(True, linestyle="--", alpha=0.5)
