@@ -39,9 +39,9 @@ def main():
     raw: Dataset = Dataset.Raw.TRAIN
     squad: Dataset = Dataset.Squad1.TRAIN
     dataset = Dataset(data=[])
-    for article_no, article in tqdm(enumerate(raw.data)):
+    for article_no, article in enumerate(tqdm(raw.data, position=0)):
         tar_article = Article(paragraphs=[])
-        for paragraph_no, paragraph in enumerate(article.paragraphs):
+        for paragraph_no, paragraph in enumerate(tqdm(article.paragraphs, position=1)):
             context = paragraph.context
             tar_paragraph = Paragraph(context=context, qas=[])
             for qa_no, qa in enumerate(paragraph.qas):
