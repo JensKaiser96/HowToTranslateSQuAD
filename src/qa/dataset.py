@@ -91,6 +91,19 @@ class Dataset(BaseModel):
         def TRAIN_CLEAN(cls):
             return Dataset.load(Datasets.Squad1.Translated.Raw.TRAIN_CLEAN)
 
+    class Tar:
+        @classmethod
+        @property
+        def TRAIN(cls):
+            return Dataset.load(Datasets.Squad1.Translated.Tar.TRAIN)
+
+    class Quote:
+        @classmethod
+        @property
+        def TRAIN(cls):
+            return Dataset.load(Datasets.Squad1.Translated.Quote.TRAIN)
+
+
     class StressTest:
         class Base:
             @classmethod

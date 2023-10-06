@@ -101,6 +101,16 @@ class QAModel:
     def EnglishQA(cls)-> "QAModel":
         return QAModel("distilbert-base-cased-distilled-squad")
 
+    @classmethod
+    @classproperty
+    def TAR(cls)-> "QAModel":
+        return QAModel(Models.QA.Gelectra.tar)
+
+    @classmethod
+    @classproperty
+    def QUOTE(cls)->"QAModel":
+        return QAModel(Models.QA.Gelectra.quote)
+
     def results_path(self, dataset_name: str):
         return f"{PREDICTIONS_PATH}{self.name}_{dataset_name}.json"
 
