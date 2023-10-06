@@ -37,7 +37,7 @@ class QAModel:
             from transformers.models.electra.tokenization_electra_fast import ElectraTokenizerFast
             self.tokenizer = Tokenizer(ElectraTokenizerFast.from_pretrained(self.path))
             self.model = ElectraForQuestionAnswering.from_pretrained(self.path)
-        if self.type == self.Type.DistilBert:
+        elif self.type == self.Type.DistilBert:
             from transformers import DistilBertTokenizer, DistilBertModel
             self.tokenizer = Tokenizer(DistilBertTokenizer.from_pretrained(self.path))
             self.model = DistilBertModel.from_pretrained(self.path)
