@@ -1,6 +1,6 @@
 from typing import Optional
 
-from pydantic import BaseModel
+from pydantic import BaseModel, PrivateAttr
 
 from src.io.filepaths import Datasets, StressTest, DATASETS_PATH
 from src.io.utils import to_json
@@ -35,6 +35,7 @@ class Dataset(BaseModel):
     version: Optional[str]
     data: list[Article]
     path: Optional[str]
+    _qa_by_id: dict = PrivateAttr(default_factory=dict)
 
     class Squad1:
         @classmethod
@@ -102,7 +103,6 @@ class Dataset(BaseModel):
         @property
         def TRAIN(cls):
             return Dataset.load(Datasets.Squad1.Translated.Quote.TRAIN)
-
 
     class StressTest:
         class Base:
@@ -172,6 +172,17 @@ class Dataset(BaseModel):
             .removesuffix(".json")
             .replace("/", ".")
         )
+
+    def _generate_qa_id_dict(self):
+        for article_no, article in enumerate(self.data):
+            for paragraph_no, paragraph in enumerate(article.paragraphs):
+                for qa_no, qa in enumerate(paragraph.qas):
+                    self._qa_by_id[qa.id] = (article_no, paragraph_no, qa_no)
+
+    def get_qa_by_id(self, _id) -> tuple[int, int, int]:
+        if not self._qa_by_id:
+            self._generate_qa_id_dict()
+        return self._qa_by_id[_id]
 
     def as_hf_dataset(self, tokenizer, max_length, split: str = "train"):
         """
