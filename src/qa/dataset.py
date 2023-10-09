@@ -142,6 +142,16 @@ class Dataset(BaseModel):
             return Dataset.load(StressTest.OOD)
 
     @classmethod
+    def get_dataset_names(cls):
+        return [
+            f"{attr}.{sub_attr}"
+            for attr in dir(cls)
+            if not attr.startswith('_') and attr[0].isupper()
+            for sub_attr in dir(getattr(cls, attr))
+            if not sub_attr.startswith('_') and sub_attr[0].isupper()
+        ]
+
+    @classmethod
     def load(cls, path: str) -> "Dataset":
         dataset: "Dataset" = cls.parse_file(path)
         dataset.path = path

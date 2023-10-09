@@ -108,6 +108,10 @@ class QAModel:
     def QUOTE(cls)->"QAModel":
         return QAModel(Models.QA.Gelectra.quote)
 
+    @classmethod
+    def get_model_names(cls):
+        return [name for name in dir(cls) if not name.startswith("_") and name[0].isupper() and name != "Type"]
+
     def results_path(self, dataset_name: str):
         return f"{PREDICTIONS_PATH}{self.name}_{dataset_name}.json"
 
