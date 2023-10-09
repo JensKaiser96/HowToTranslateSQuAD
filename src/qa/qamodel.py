@@ -112,6 +112,14 @@ class QAModel:
     def get_model_names(cls):
         return [name for name in dir(cls) if not name.startswith("_") and name[0].isupper() and name != "Type"]
 
+    @classmethod
+    def get_lazy_instances(cls) -> list["QAModel"]:
+        prev = cls.lazy_loading
+        cls.lazy_loading = True
+        models = [getattr(cls, model_name) for model_name in cls.get_model_names()]
+        cls.lazy_loading = prev
+        return models
+
     def results_path(self, dataset_name: str):
         return f"{PREDICTIONS_PATH}{self.name}_{dataset_name}.json"
 
