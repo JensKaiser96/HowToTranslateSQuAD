@@ -6,7 +6,7 @@ from src.utils.logging import get_logger
 
 logger = get_logger(__file__, script=True)
 
-directory_path = "./data/models/gelectra/epoch_test_opt/checkpoints/"
+directory_path = "./data/models/gelectra/epoch_test_1e-5/checkpoints/"
 directory_contents = os.listdir(directory_path)
 folders = [
     os.path.join(directory_path, item)

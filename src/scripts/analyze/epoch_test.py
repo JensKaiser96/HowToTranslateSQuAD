@@ -15,9 +15,9 @@ def extract_steps(file_name: str):
 
 def main():
     logger.info("Loading Evaluation files...")
-    lr = "lr1e-4"
+    lr = "lr1e-5"
     evals = {
-        extract_steps(file): Evaluation.load(f"{PREDICTIONS_PATH}/epoch_eval_{lr}/{file}")
+        extract_steps(file): Evaluation.load(f"{PREDICTIONS_PATH}epoch_eval_{lr}/{file}")
         for file in os.listdir(PREDICTIONS_PATH + "/epoch_eval_" + lr)
         if file.startswith("checkpoints.")
     }

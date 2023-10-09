@@ -9,8 +9,7 @@ logger = get_logger(__file__, script=True)
 
 train(
     base_model=QAModel.Base,
-    train_dataset=Dataset.Raw.TRAIN_CLEAN,
+    train_dataset=Dataset.Quote.TRAIN,
     validation_dataset=Dataset.GermanQUAD.TEST,
-    save_path=Models.QA.Gelectra.raw_clean_3,
-    name=QAModel.RawClean3.name,
+    save_path=Models.QA.Gelectra.quote,
 )
