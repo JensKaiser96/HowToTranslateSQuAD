@@ -80,26 +80,27 @@ def plot_hist_comp(results_raw, results_sota, name: str, save_path: Path):
         )
 
 
-QAModel.lazy_loading = True
-dataset: Dataset = Dataset.GermanQUAD.TEST
-for model in [QAModel.GermanQuad, QAModel.RawClean]:
-    results = model.get_evaluation(dataset)
+if __name__ == '__main__':
+    dataset: Dataset = Dataset.GermanQUAD.TEST
+    for model in QAModel.get_lazy_instances():
+        results = model.get_evaluation(dataset)
 
-    plot_hist(
-        results=results,
-        name=f"{model.name} {dataset.name}",
-        save_path=Path(PLOTS_PATH) / model.name / dataset.name,
-    )
+        plot_hist(
+            results=results,
+            name=f"{model.name} {dataset.name}",
+            save_path=Path(PLOTS_PATH) / model.name / dataset.name,
+        )
 
-    plot_scatter(
-        results=results,
-        name=f"{model.name} {dataset.name}",
-        save_path=Path(PLOTS_PATH) / model.name / dataset.name,
-    )
+        plot_scatter(
+            results=results,
+            name=f"{model.name} {dataset.name}",
+            save_path=Path(PLOTS_PATH) / model.name / dataset.name,
+        )
 
-plot_hist_comp(
-    results_raw=QAModel.RawClean.get_evaluation(dataset),
-    results_sota=QAModel.GermanQuad.get_evaluation(dataset),
-    name=f"raw vs sota - {dataset.name}",
-    save_path=Path(PLOTS_PATH) / "RawVsSOTA" / dataset.name,
-)
+        if model.name != QAModel.GermanQuad.name:
+            plot_hist_comp(
+                results_raw=model.get_evaluation(dataset),
+                results_sota=QAModel.GermanQuad.get_evaluation(dataset),
+                name=f"{model.name} vs sota - {dataset.name}",
+                save_path=Path(PLOTS_PATH) / f"{model.name}vsSOTA" / dataset.name,
+            )
