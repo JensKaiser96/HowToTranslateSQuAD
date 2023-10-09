@@ -1,9 +1,6 @@
 import os
 from enum import Enum, auto
 
-import torch
-from transformers.tokenization_utils_base import BatchEncoding
-
 from src.io.filepaths import Models, PREDICTIONS_PATH
 from src.nlp_tools.span import Span
 from src.nlp_tools.token import Tokenizer
@@ -123,6 +120,7 @@ class QAModel:
         return {key: value for key, value in input_dict.items() if key in valid_keys}
 
     def prompt(self, question: str, context: str) -> ModelOutput:
+        import torch
         if self.model is None or self.tokenizer is None:
             self.load_weights()
         model_input = self.tokenizer.encode_qa(question, context)
@@ -154,12 +152,15 @@ class QAModel:
             text=context[answer_start_surface_index:answer_end_surface_index],
         )
 
-    def _split_encoding(self, encoding: BatchEncoding) -> tuple[Span, Span]:
+    def _split_encoding(self, encoding) -> tuple[Span, Span]:
         """
         splits the combined encoding of the ElectraTokenizer of a context
         question pair into its two spans
             [[CLS, <context>, SEP, <question>, SEP]]
         """
+        from transformers.tokenization_utils_base import BatchEncoding
+        encoding: BatchEncoding
+
         CLS = self.tokenizer.model.cls_token_id
         SEP = self.tokenizer.model.sep_token_id
 
