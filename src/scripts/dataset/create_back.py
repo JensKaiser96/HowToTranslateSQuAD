@@ -2,45 +2,46 @@ import tqdm
 
 from src.io.filepaths import Datasets
 from src.qa.dataset import Dataset
+from src.qa.qamodel import QAModel
+from src.qa.squad_eval_script import compute_f1
 from src.tar.translate import Translator
 from src.utils.logging import get_logger
 
 logger = get_logger(__file__, script=True)
 
 
-# load raw_full
-"""
-WTF is back,
-
-proposal: (c, q, a) =src2trg=> (...) =trg2src=> (c', q', a')
-          m(c, q) => a'' , a'' == a ???
-          
-Goal:
-    Check if translating was successful, 
-
-"""
-
-
 def main():
+    threshold = 2/3
+    english_qa_model: QAModel = QAModel.EnglishQA
+
     src_ds: Dataset = Dataset.Squad1.TRAIN
     trg_ds: Dataset = Dataset.Raw.TRAIN
+    back_ds: Dataset = Dataset(data=[])
 
     translator = Translator()
 
-    for src_article, trg_article in tqdm.tqdm(zip(src_ds.data, trg_ds.data), position=0):
-        for src_paragraph, trg_paragraph in tqdm.tqdm(zip(src_article, trg_article), position=1):
+    for trg_article in tqdm.tqdm(trg_ds.data, position=1):
+        for trg_paragraph in tqdm.tqdm(trg_article.paragraphs, position=0):
             back_context = translator.de2en(trg_paragraph.context)
-            for src_qa, trg_qa in zip(src_paragraph.qas, trg_paragraph.qas):
-                if src_qa.id != trg_qa.id:
-                    raise ValueError(f"IDs are not matching. {src_qa.id = }, {trg_qa.id}")
+            for trg_qa in trg_paragraph.qas:
                 back_question = translator.en2de(trg_qa.question)
-                for src_answer, trg_answer in zip(src_qa.answers, trg_qa.answers):
-                    back_answer = translator.en2de(trg_answer)
+                back_answer = translator.en2de(trg_qa.answers[0].text)
 
-                    if src_paragraph.context == back_context and src_qa.question == back_question and src_answer.text == back_answer:
-                        pass
-                    answer.text = translator.en2de(answer.text)
-    translated.save(Datasets.Squad1.Translated.Raw.TRAIN, "raw")
+                src_article_no, src_paragraph_no, src_qa_no = src_ds.get_qa_by_id(trg_qa.id)
+                src_cqa = src_ds.data[src_article_no].paragraphs[src_paragraph_no]
+                src_context = src_cqa.context
+                src_question = src_cqa.qas[src_qa_no].question
+                src_answer = src_cqa.qas[src_qa_no].answers[0].text
+
+                # like thats ever going to happen, but hey
+                if src_context == back_context and src_question == back_question and src_answer == back_answer:
+                    back_ds.add_cqa_tuple(trg_paragraph.context, trg_qa.question, trg_qa.answers[0], trg_qa.id)
+                orignial_prediction = english_qa_model.prompt(src_question, src_context)
+                back_prediction = english_qa_model.prompt(back_question, back_context)
+                if compute_f1(orignial_prediction.text, back_prediction.text) >= threshold:
+                    back_ds.add_cqa_tuple(trg_paragraph.context, trg_qa.question, trg_qa.answers[0], trg_qa.id)
+
+    back_ds.save(Datasets.Squad1.Translated.BACK.Raw.TRAIN, "raw-back")
 
 
 if __name__ == "__main__":
