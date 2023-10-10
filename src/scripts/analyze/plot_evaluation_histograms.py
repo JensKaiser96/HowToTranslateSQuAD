@@ -82,7 +82,10 @@ def plot_hist_comp(results_raw, results_sota, name: str, save_path: Path):
 
 if __name__ == '__main__':
     dataset: Dataset = Dataset.GermanQUAD.TEST
-    for model in QAModel.get_lazy_instances():
+    QAModel.lazy_loading = True
+    for model in QAModel.get_lazy_qa_instances():
+        if model.name == QAModel.EnglishQA.name or model.name == QAModel.RawClean4.name:
+            continue
         results = model.get_evaluation(dataset)
 
         plot_hist(
