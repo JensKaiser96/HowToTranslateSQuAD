@@ -67,4 +67,4 @@ def train(
     trainer.train()
 
     logger.info("Saving Model ...")
-    trainer.save_model(str_to_safe_path(save_path))
+    trainer.save_model(str_to_safe_path(save_path, dir_ok=True))

@@ -43,7 +43,7 @@ def _rename_old_file(path: Path, verbose=False):
 
 
 def str_to_safe_path(
-    filepath: Union[str, Path], suffix: str = "", verbose=False, replace=False
+    filepath: Union[str, Path], suffix: str = "", verbose=False, replace=False, dir_ok=False
 ):
     if isinstance(filepath, Path):
         filepath = str(filepath)
@@ -61,10 +61,10 @@ def str_to_safe_path(
     path.parent.mkdir(exist_ok=True, parents=True)  # create parent dir
 
     if os.path.exists(path):
-        if replace:
-            print(
-                f"src.io.utils.str_to_safe_path.py [I]:\nREPLACING '{path}' with new file"
-            )
+        if path.is_dir() and dir_ok:
+            pass  # dont create new dir
+        elif replace:
+            print(f"src.io.utils.str_to_safe_path.py [I]:\nREPLACING '{path}' with new file")
         else:
             _rename_old_file(path, verbose)
     return path
