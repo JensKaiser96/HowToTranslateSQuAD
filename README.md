@@ -48,5 +48,11 @@ I get their intention, but its easily cheesable
 Deutsche Telekom hat "deQuad2.0" erstellt, ist aber nicht open source [hier](https://huggingface.co/deutsche-telekom/bert-multi-english-german-squad2/discussions/2)
 ### Epoch test
 
-![Performance over training](data/plots/epoch_eval_f1_em.png)
+![Performance over training](data/plots/epoch_eval_lr2e-5.png)
 `learing_rate=2e-5, weight_decay=0.01, batch_size=4`
+![Performance over training](data/plots/epoch_eval_lr1e-5.png)
+`learing_rate=1e-5, weight_decay=0.01, batch_size=4`
+
+Hyperparametertuing on dev or test. ...
+test just for test, nothing else
+analysis on dev...
