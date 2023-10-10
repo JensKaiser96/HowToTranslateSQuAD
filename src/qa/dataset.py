@@ -69,6 +69,16 @@ class Dataset(BaseModel):
         def TEST(cls) -> "Dataset":
             return Dataset.load(Datasets.GermanQuad.TEST)
 
+        @classmethod
+        @classproperty
+        def DEV(cls) -> "Dataset":
+            return Dataset.load(Datasets.GermanQuad.DEV)
+
+        @classmethod
+        @classproperty
+        def TRAIN_WO_DEV(cls) -> "Dataset":
+            return Dataset.load(Datasets.GermanQuad.TRAIN_WO_DEV)
+
     class MLQA:
         @classmethod
         @property
@@ -183,6 +193,22 @@ class Dataset(BaseModel):
         if not self._qa_by_id:
             self._generate_qa_id_dict()
         return self._qa_by_id[_id]
+
+    def add_cqa_tuple(self, context: str, question: str, answer: Answer, _id: str):
+        """
+        In an optimal world there would be a check if the context is already in the dataset, and the qa pair would be
+        added there instead of creating a whole new entry in the article/paragraph list.
+        """
+        self.data.append(
+            Article(paragraphs=[
+                Paragraph(context=context,
+                          qas=[
+                              QA(question=question,
+                                 answers=[answer],
+                                 id=_id)
+                          ])
+            ])
+        )
 
     def as_hf_dataset(self, tokenizer, max_length, split: str = "train"):
         """

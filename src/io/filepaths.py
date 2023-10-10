@@ -16,6 +16,8 @@ class Datasets:
         SMALL = _dir_path + "GermanQUAD_small.json"
         TEST = _dir_path + "GermanQuAD_test.json"
         TRAIN = _dir_path + "GermanQuAD_train.json"
+        DEV = _dir_path + "GermanQuAD_dev.json"
+        TRAIN_WO_DEV = _dir_path + "GermanQuAD_train_wo_dev.json"
 
     class Squad1:
         _dir_path = DATASETS_PATH + "SQuAD/"
