@@ -4,6 +4,7 @@ from pydantic import BaseModel, PrivateAttr
 
 from src.io.filepaths import Datasets, StressTest, DATASETS_PATH
 from src.io.utils import to_json
+from src.nlp_tools.fuzzy import fuzzy_match
 from src.utils.decorators import classproperty
 from src.utils.logging import get_logger
 
@@ -166,6 +167,16 @@ class Dataset(BaseModel):
         dataset: "Dataset" = cls.parse_file(path)
         dataset.path = path
         return dataset
+
+    @classmethod
+    def from_fuzzy(cls, fuzzy_name: str):
+        dataset_name = fuzzy_match(fuzzy_name, cls.get_dataset_names())
+        if dataset_name is None:
+            raise ValueError(f"Could not find definite match for '{fuzzy_name}'")
+        logger.info(f"Loading Dataset {dataset_name}")
+        dataset_parent_name, dataset_child_name = dataset_name.split(".")
+        dataset_parent = getattr(Dataset, dataset_parent_name)
+        return getattr(dataset_parent, dataset_child_name)
 
     def save(self, path: str, version: str = ""):
         logger.info(
