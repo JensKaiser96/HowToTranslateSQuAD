@@ -4,6 +4,7 @@ from typing import Sequence
 from transformers.tokenization_utils_base import BatchEncoding
 
 from src.nlp_tools.span import Span
+from src.qa.squad_eval_script import get_tokens
 
 
 class Tokenizer:
@@ -38,6 +39,10 @@ class Tokenizer:
 def blank_or_weird_char(text: str, curser_pos: int) -> bool:
     char = text[curser_pos : curser_pos + 1]
     return char in string.whitespace or char not in string.printable
+
+
+def get_token_count(text: str):
+    return len(get_tokens(text))
 
 
 def surface_token_mapping(
