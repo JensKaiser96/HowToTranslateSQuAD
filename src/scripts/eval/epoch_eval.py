@@ -17,4 +17,4 @@ folders = [
 
 for checkpoint in folders:
     model = QAModel(path=checkpoint)
-    model.get_evaluation(Dataset.GermanQUAD.TEST)
+    model.get_evaluation(Dataset.GermanQUAD.DEV)
