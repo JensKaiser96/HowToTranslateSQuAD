@@ -2,11 +2,11 @@ from pathlib import Path
 
 from src.io.filepaths import PLOTS_PATH
 from src.math.arithmetic import log10_0
+from src.nlp_tools.token import get_token_count
 from src.plot import scatter, histogram
 from src.qa.dataset import Dataset
 from src.qa.evaluate import Evaluation, Result
 from src.qa.qamodel import QAModel
-from src.qa.squad_eval_script import get_tokens
 
 
 def plot_scatter(results: Evaluation, name: str, save_path: Path):
@@ -22,8 +22,8 @@ def plot_scatter(results: Evaluation, name: str, save_path: Path):
     precision = [result.precision for result in results.individual_results]
     start = [result.confidence_start for result in results.individual_results]
     end = [result.confidence_end for result in results.individual_results]
-    predicted_answer_length = [log10_0(len(get_tokens(result.model_output.text))) for result in results.individual_results]
-    gold_answer_length = [log10_0(len(get_tokens(result.best_answer))) for result in results.individual_results]
+    predicted_answer_length = [log10_0(get_token_count(result.model_output.text)) for result in results.individual_results]
+    gold_answer_length = [log10_0(get_token_count(result.best_answer)) for result in results.individual_results]
 
     comparisions = [
         ["confidence", confidence, "F1", f1],
