@@ -51,7 +51,7 @@ def scatter(
 
     if save_path:
         plot_path = str_to_safe_path(
-            save_path / f"scatter_{xlabel}_{ylabel}_{title}.png", replace=True
+            save_path / f"scatter_{xlabel}_{ylabel}_{title}.png", replace=True, verbose=False
         )
         plt.savefig(plot_path, dpi=DPI)
         plt.close()
@@ -101,7 +101,7 @@ def histogram(
         plt.legend()
     if save_path:
         plot_path = str_to_safe_path(
-            save_path / f"hist_{xlabel}_{title}", ".png", replace=True
+            save_path / f"hist_{xlabel}_{title}", ".png", replace=True, verbose=False
         )
         plt.savefig(plot_path, dpi=DPI)
         plt.close()
