@@ -56,3 +56,12 @@ Deutsche Telekom hat "deQuad2.0" erstellt, ist aber nicht open source [hier](htt
 Hyperparametertuing on dev or test. ...
 test just for test, nothing else
 analysis on dev...
+
+
+### question type conundrum
+Das Streben nach Registern wird in einigen Sprachen als stimmloser velarer Luftstrom betrachtet, wie etwa was?
+Es gibt zwar eine gewisse Beziehung zwischen dem, wo und wie ein Baum wächst, aber was kann niemand formulieren, um ihn zu regieren?
+Seit wann wurde bei seiner Mutter Krebs diagnostiziert, wie lange lebte sie?
+Lernen, wie Insekten mit der Umwelt interagieren, heißt was?
+
+Nennen Sie drei Maler?
