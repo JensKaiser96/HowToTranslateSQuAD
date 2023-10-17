@@ -5,6 +5,7 @@ from src.io.utils import str_to_safe_path
 
 bin_size = 0.01
 margin_ratio = 0.025
+DPI = 300
 
 
 def scatter(
@@ -52,7 +53,7 @@ def scatter(
         plot_path = str_to_safe_path(
             save_path / f"scatter_{xlabel}_{ylabel}_{title}.png", replace=True
         )
-        plt.savefig(plot_path)
+        plt.savefig(plot_path, dpi=DPI)
         plt.close()
 
 
@@ -102,5 +103,5 @@ def histogram(
         plot_path = str_to_safe_path(
             save_path / f"hist_{xlabel}_{title}", ".png", replace=True
         )
-        plt.savefig(plot_path)
+        plt.savefig(plot_path, dpi=DPI)
         plt.close()
