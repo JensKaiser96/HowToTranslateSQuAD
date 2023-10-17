@@ -35,9 +35,9 @@ class QAModel:
             self.tokenizer = Tokenizer(ElectraTokenizerFast.from_pretrained(self.path))
             self.model = ElectraForQuestionAnswering.from_pretrained(self.path)
         elif self.type == self.Type.DistilBert:
-            from transformers import DistilBertTokenizer, DistilBertModel
-            self.tokenizer = Tokenizer(DistilBertTokenizer.from_pretrained(self.path))
-            self.model = DistilBertModel.from_pretrained(self.path)
+            from transformers import DistilBertTokenizerFast, DistilBertForQuestionAnswering
+            self.tokenizer = Tokenizer(DistilBertTokenizerFast.from_pretrained(self.path))
+            self.model = DistilBertForQuestionAnswering.from_pretrained(self.path)
         else:
             raise ValueError(f"Unknown QAModel type: '{self.type}'")
 
@@ -96,7 +96,7 @@ class QAModel:
     @classmethod
     @classproperty
     def EnglishQA(cls)-> "QAModel":
-        return QAModel("distilbert-base-cased-distilled-squad")
+        return QAModel("distilbert-base-cased-distilled-squad", type_=QAModel.Type.DistilBert)
 
     @classmethod
     @classproperty
