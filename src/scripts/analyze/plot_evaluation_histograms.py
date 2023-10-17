@@ -1,5 +1,7 @@
 from pathlib import Path
 
+from huggingface_hub.utils import HFValidationError
+
 from src.io.filepaths import PLOTS_PATH
 from src.math.arithmetic import log10_0
 from src.nlp_tools.token import get_token_count
@@ -86,7 +88,11 @@ if __name__ == '__main__':
     for model in QAModel.get_lazy_qa_instances():
         if model.name == QAModel.EnglishQA.name or model.name == QAModel.RawClean4.name:
             continue
-        results = model.get_evaluation(dataset)
+        try:
+            results = model.get_evaluation(dataset)
+        except HFValidationError:
+            print(f"Loading Evaluations failed for {model.name}, skipping ...")
+            continue
 
         plot_hist(
             results=results,
