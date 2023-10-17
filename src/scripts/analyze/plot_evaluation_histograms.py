@@ -46,13 +46,13 @@ def plot_hist(results: Evaluation, name: str, save_path: Path):
         histogram(data, metric, "Frequency", save_path, title=name)
 
 
-def plot_hist_comp(results_raw, results_sota, name: str, save_path: Path):
+def plot_hist_comp(results, label, results_sota, name: str, save_path: Path):
     metrics = [
         name for name, _type in Result.__annotations__.items() if _type in (float, int)
     ]
     for metric in metrics:
         data_raw = [
-            getattr(result, metric) for result in results_raw.individual_results
+            getattr(result, metric) for result in results.individual_results
         ]
         data_sota = [
             getattr(result, metric) for result in results_sota.individual_results
@@ -66,7 +66,7 @@ def plot_hist_comp(results_raw, results_sota, name: str, save_path: Path):
             title=name,
             alpha=0.5,
             color="blue",
-            label="raw",
+            label=label,
         )
         histogram(
             data=data_sota,
@@ -108,7 +108,8 @@ if __name__ == '__main__':
 
         if model.name != QAModel.GermanQuad.name:
             plot_hist_comp(
-                results_raw=model.get_evaluation(dataset),
+                results=model.get_evaluation(dataset),
+                label=model.name.split(".")[-1],
                 results_sota=QAModel.GermanQuad.get_evaluation(dataset),
                 name=f"{model.name} vs sota - {dataset.name}",
                 save_path=Path(PLOTS_PATH) / f"{model.name}vsSOTA" / dataset.name,
