@@ -1,3 +1,5 @@
+import sys
+
 import tqdm
 
 from src.io.filepaths import Datasets
@@ -10,12 +12,11 @@ from src.utils.logging import get_logger
 logger = get_logger(__file__, script=True)
 
 
-def main():
+def main(trg_ds: Dataset):
     threshold = 2/3
     english_qa_model: QAModel = QAModel.EnglishQA
 
     src_ds: Dataset = Dataset.Squad1.TRAIN
-    trg_ds: Dataset = Dataset.Raw.TRAIN
     back_ds: Dataset = Dataset(data=[])
 
     translator = Translator()
@@ -41,8 +42,13 @@ def main():
                 if compute_f1(orignial_prediction.text, back_prediction.text) >= threshold:
                     back_ds.add_cqa_tuple(trg_paragraph.context, trg_qa.question, trg_qa.answers[0], trg_qa.id)
 
-    back_ds.save(Datasets.Squad1.Translated.BACK.Raw.TRAIN, "raw-back")
+    back_ds.save(Datasets.Squad1.Translated.Raw.TRAIN_BACK, "raw-back")  # todo, set according to dataset
 
 
 if __name__ == "__main__":
-    main()
+    if len(sys.argv) == 2:
+        fuzzy_dataset_name = sys.argv[1]
+        dataset = Dataset.from_fuzzy(fuzzy_dataset_name)
+        main(dataset)
+    else:
+        logger.info("Please specify the dataset you want to run trough back as the first and only arg")
