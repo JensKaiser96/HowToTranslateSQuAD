@@ -7,11 +7,11 @@ from src.math.arithmetic import log10_0
 from src.nlp_tools.token import get_token_count
 from src.plot import scatter, histogram
 from src.qa.dataset import Dataset
-from src.qa.evaluate import Evaluation, Result
+from src.qa.evaluate import PredictionEvaluation, Result
 from src.qa.qamodel import QAModel
 
 
-def plot_scatter(results: Evaluation, name: str, save_path: Path):
+def plot_scatter(results: PredictionEvaluation, name: str, save_path: Path):
     # confidence, f1
     # recall vs precision
     # confidence start, confidence end
@@ -37,7 +37,7 @@ def plot_scatter(results: Evaluation, name: str, save_path: Path):
         scatter(xlabel, xdata, ylabel, ydata, save_path, name, new_fig=True)
 
 
-def plot_hist(results: Evaluation, name: str, save_path: Path):
+def plot_hist(results: PredictionEvaluation, name: str, save_path: Path):
     metrics = [
         name for name, _type in Result.__annotations__.items() if _type in (float, int)
     ]
@@ -83,7 +83,7 @@ def plot_hist_comp(results, label, results_sota, name: str, save_path: Path):
 
 
 if __name__ == '__main__':
-    dataset: Dataset = Dataset.GermanQUAD.TEST
+    dataset: Dataset = Dataset.GermanQUAD.DEV
     QAModel.lazy_loading = True
     for model in QAModel.get_lazy_qa_instances():
         if model.name == QAModel.EnglishQA.name or model.name == QAModel.RawClean4.name:

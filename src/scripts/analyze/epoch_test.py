@@ -3,7 +3,7 @@ import os
 import matplotlib.pyplot as plt
 
 from src.io.filepaths import PREDICTIONS_PATH, PLOTS_PATH
-from src.qa.evaluate import Evaluation
+from src.qa.evaluate import PredictionEvaluation
 from src.utils.logging import get_logger
 
 logger = get_logger(__file__, script=True)
@@ -17,7 +17,7 @@ def main():
     logger.info("Loading Evaluation files...")
     lr = "lr1e-5"
     evals = {
-        extract_steps(file): Evaluation.load(f"{PREDICTIONS_PATH}epoch_eval_{lr}/{file}")
+        extract_steps(file): PredictionEvaluation.load(f"{PREDICTIONS_PATH}epoch_eval_{lr}/{file}")
         for file in os.listdir(PREDICTIONS_PATH + "/epoch_eval_" + lr)
         if file.startswith("checkpoints.")
     }

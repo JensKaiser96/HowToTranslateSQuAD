@@ -5,7 +5,7 @@ from src.io.filepaths import Models, PREDICTIONS_PATH
 from src.nlp_tools.span import Span
 from src.nlp_tools.token import Tokenizer
 from src.qa.dataset import Dataset
-from src.qa.evaluate import ModelOutput, Evaluation, evaluate
+from src.qa.evaluate import ModelOutput, PredictionEvaluation, get_predictions_evaluation
 from src.utils.decorators import classproperty
 from src.utils.logging import get_logger
 
@@ -43,12 +43,12 @@ class QAModel:
 
         self.model.to("cuda:0")
 
-    def get_evaluation(self, dataset: Dataset, redo=False) -> Evaluation:
+    def get_evaluation(self, dataset: Dataset, redo=False) -> PredictionEvaluation:
         if not redo and self.has_results_file(dataset.name):
             logger.info("Found Evaluation file of model on provided Dataset."
                         "Loading existing Evaluation.")
-            return Evaluation.load(self.results_path(dataset.name))
-        return evaluate(self, dataset)
+            return PredictionEvaluation.load(self.results_path(dataset.name))
+        return get_predictions_evaluation(self, dataset)
 
     @property
     def name(self):

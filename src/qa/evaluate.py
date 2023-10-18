@@ -37,7 +37,7 @@ class Result(BaseModel):
     confidence_end: float
 
 
-class Evaluation(BaseModel):
+class PredictionEvaluation(BaseModel):
     EM: float
     F1: float
     recall: float
@@ -53,7 +53,7 @@ class Evaluation(BaseModel):
         to_json(self.json(indent=4), path=path)
 
     @classmethod
-    def load(cls, path: str) -> "Evaluation":
+    def load(cls, path: str) -> "PredictionEvaluation":
         return cls.parse_file(path)
 
     def summarize_results(self):
@@ -73,13 +73,13 @@ class Evaluation(BaseModel):
         )
 
 
-def evaluate(model, dataset: Dataset):
+def get_predictions_evaluation(model, dataset: Dataset):
     """
     generates predictions on the dataset, saves them to the out_file, and then calls the evaluation script on it
     partially stolen from: https://rajpurkar.github.io/SQuAD-explorer/ -> "Evaluation Script"
     """
     logger.info(f"Evaluating {model.name} on {dataset.name} ...")
-    evaluation = Evaluation(
+    evaluation = PredictionEvaluation(
         EM=0,
         F1=0,
         recall=0,
@@ -95,7 +95,7 @@ def evaluate(model, dataset: Dataset):
             for qa in paragraph.qas:
                 prediction = model.prompt(qa.question, context)
                 evaluation.individual_results.append(
-                    processing(prediction, qa.answers, qa.id)
+                    get_prediction_result(prediction, qa.answers, qa.id)
                 )
 
     evaluation.summarize_results()
@@ -115,7 +115,7 @@ def evaluate(model, dataset: Dataset):
     return evaluation
 
 
-def processing(prediction: ModelOutput, gold_answers: list[Answer], _id):
+def get_prediction_result(prediction: ModelOutput, gold_answers: list[Answer], _id):
     exact_scores = [compute_exact(a.text, prediction.text) for a in gold_answers]
     f1_scores = [compute_f1(a.text, prediction.text) for a in gold_answers]
     best_em = max(exact_scores)
