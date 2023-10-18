@@ -5,6 +5,7 @@ should be a yaml, but eh, maybe one day
 
 PLOTS_PATH = "./data/plots/"
 PREDICTIONS_PATH = "data/predictions/"
+RESULTS_PATH = "./data/results/"
 
 DATASETS_PATH = "./data/datasets/"
 MODELS_PATH = "./data/models/"

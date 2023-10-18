@@ -1,10 +1,12 @@
+import os.path
 from typing import Optional
 
 from pydantic import BaseModel, PrivateAttr
 
-from src.io.filepaths import Datasets, StressTest, DATASETS_PATH
+from src.io.filepaths import Datasets, StressTest, DATASETS_PATH, RESULTS_PATH
 from src.io.utils import to_json
 from src.nlp_tools.fuzzy import fuzzy_match
+from src.qa.evaluate_dataset import DatasetEvaluation, get_dataset_evaluation
 from src.utils.decorators import classproperty
 from src.utils.logging import get_logger
 
@@ -199,6 +201,18 @@ class Dataset(BaseModel):
             for paragraph_no, paragraph in enumerate(article.paragraphs):
                 for qa_no, qa in enumerate(paragraph.qas):
                     self._qa_by_id[qa.id] = (article_no, paragraph_no, qa_no)
+
+    def get_evaluation(self, redo=False) -> DatasetEvaluation:
+        if not redo and self.has_evaluation_file():
+            logger.info("Found Evaluation file of dataset, loading existing evaluation ...")
+            return DatasetEvaluation.load(self.evaluation_path())
+        return get_dataset_evaluation(self)
+
+    def evaluation_path(self):
+        return f"{RESULTS_PATH}datasets/{self.name}.json"
+
+    def has_evaluation_file(self):
+        return os.path.isfile(self.evaluation_path())
 
     def get_qa_by_id(self, _id) -> tuple[int, int, int]:
         if not self._qa_by_id:
