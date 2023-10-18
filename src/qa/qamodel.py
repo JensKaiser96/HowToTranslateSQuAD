@@ -1,11 +1,11 @@
 import os
 from enum import Enum, auto
 
-from src.io.filepaths import Models, PREDICTIONS_PATH
+from src.io.filepaths import Models, RESULTS_PATH
 from src.nlp_tools.span import Span
 from src.nlp_tools.token import Tokenizer
 from src.qa.dataset import Dataset
-from src.qa.evaluate import ModelOutput, PredictionEvaluation, get_predictions_evaluation
+from src.qa.evaluate_predictions import ModelOutput, PredictionEvaluation, get_predictions_evaluation
 from src.utils.decorators import classproperty
 from src.utils.logging import get_logger
 
@@ -121,7 +121,7 @@ class QAModel:
         return models
 
     def results_path(self, dataset_name: str):
-        return f"{PREDICTIONS_PATH}{self.name}_{dataset_name}.json"
+        return f"{RESULTS_PATH}/models/{self.name}_{dataset_name}.json"
 
     def has_results_file(self, dataset_name: str):
         return os.path.isfile(self.results_path(dataset_name))
