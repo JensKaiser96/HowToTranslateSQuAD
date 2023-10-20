@@ -6,7 +6,6 @@ from tqdm import tqdm
 
 from src.io.utils import to_json
 from src.nlp_tools.token import get_token_count
-from src.qa.dataset import Dataset
 from src.qa.squad_eval_script import get_tokens
 from src.utils.logging import get_logger
 
@@ -91,7 +90,7 @@ def record_answer_type(answer: str, counter: Counter):
         counter["lower"] += 1
 
 
-def get_dataset_evaluation(dataset: Dataset) -> DatasetEvaluation:
+def get_dataset_evaluation(dataset) -> DatasetEvaluation:
     # todo, english version
     question_words = {
         "was": {"was", "worauf", "wovon", "wodurch", "woraus", "woran", "wofür", "worüber", "worin", "worum", "womit", "wovor"},
