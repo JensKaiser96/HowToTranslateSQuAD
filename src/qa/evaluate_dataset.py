@@ -1,5 +1,5 @@
 import re
-from collections import Counter
+from collections import defaultdict
 
 from pydantic import BaseModel
 from tqdm import tqdm
@@ -11,14 +11,53 @@ from src.utils.logging import get_logger
 
 logger = get_logger(__name__)
 
+question_words_de = {
+    "was": {
+        "was",
+        "worauf",
+        "wovon",
+        "wodurch",
+        "woraus",
+        "woran",
+        "wofür",
+        "worüber",
+        "worin",
+        "worum",
+        "womit",
+        "wovor",
+    },
+    "wie": {
+        "wie",
+    },
+    "wann": {
+        "wann",
+    },
+    "wer": {"wer", "wen", "wem", "wessen"},
+    "wo": {"wo", "woher", "wohin"},
+    "welche": {"welche", "welch", "welcher", "welches", "welchem", "welchen"},
+    "warum": {"warum", "wozu"},
+}
+question_words_en = {
+    "what": {"what"},
+    "how": {"how"},
+    "when": {"when"},
+    "who": {"who"},
+    "where": {"where"},
+    "which": {"which"},
+    "why": {"why"},
+}
+
+months_de = "Januar Februar März April Mai Juni Juli August September Oktober November Dezember"
+months_en = "January February March April May June July August September October November December"
+
 
 class DatasetEvaluation(BaseModel):
     dataset_name: str
     number_qa_pairs: int
-    context_lengths: list[int]
-    question_types: dict[str, int]
+    question_types: defaultdict[str, int]
+    answer_types: defaultdict[str, int]
     answer_lengths: list[int]
-    answer_types: dict[str, int]
+    context_lengths: list[int]
 
     def save(self, path: str):
         to_json(self.json(indent=4), path=path)
@@ -28,7 +67,7 @@ class DatasetEvaluation(BaseModel):
         return cls.parse_file(path)
 
 
-def record_question_type(question: str, question_words_dict: dict[str, set[str]], counter: Counter):
+def record_question_type(question: str, question_words_dict: dict[str, set[str]], counter: dict):
     question_tokens = [token.lower() for token in get_tokens(question)]
 
     possible_types = []
@@ -50,7 +89,7 @@ def record_question_type(question: str, question_words_dict: dict[str, set[str]]
         logger.info(f"Could not determine type of Question, found '{len(possible_types)} possible types': {question}")
 
 
-def record_answer_type(answer: str, counter: Counter):
+def record_answer_type(answer: str, counter: dict, en=False):
     """
     Date 8.9% 19 October 1512
     Other Numeric 10.9% 12
@@ -68,11 +107,12 @@ def record_answer_type(answer: str, counter: Counter):
         return bool(re.match(r"^\d+$", text))
 
     def contains_date(text):
-        date_pattern = (
-            r"\d{2}\.(?: Januar | Februar | März | April | Mai | Juni | Juli | August | September | "
-            r"Oktober | November | Dezember |\d{2}\.)\d{4}"
-        )
-        return bool(re.match(date_pattern, text))
+        date_pattern = r"\d{2}\.(?: months |\d{2}\.)\d{4}"
+        if en:
+            pattern = date_pattern.replace("months", months_en)
+        else:
+            pattern = date_pattern.replace("months", months_de)
+        return bool(re.match(pattern, text))
 
     def all_capital_first(s):
         return all([word[0].isupper() for word in s.split()])
@@ -90,25 +130,14 @@ def record_answer_type(answer: str, counter: Counter):
         counter["lower"] += 1
 
 
-def get_dataset_evaluation(dataset) -> DatasetEvaluation:
-    # todo, english version
-    question_words = {
-        "was": {"was", "worauf", "wovon", "wodurch", "woraus", "woran", "wofür", "worüber", "worin", "worum", "womit", "wovor"},
-        "wie": {"wie", },
-        "wann": {"wann", },
-        "wer": {"wer", "wen", "wem", "wessen"},
-        "wo": {"wo", "woher", "wohin"},
-        "welche": {"welche", "welch", "welcher", "welches", "welchem", "welchen"},
-        "warum": {"warum", "wozu"}
-    }
-
+def get_dataset_evaluation(dataset, en=False) -> DatasetEvaluation:
     dataset_evaluation = DatasetEvaluation(
         dataset_name=dataset.name,
         number_qa_pairs=0,
-        context_lengths=[],
-        question_types=Counter(),
+        question_types=defaultdict(int),
+        answer_types=defaultdict(int),
         answer_lengths=[],
-        answer_types=Counter()
+        context_lengths=[],
     )
 
     for article in tqdm(dataset.data):
@@ -123,10 +152,14 @@ def get_dataset_evaluation(dataset) -> DatasetEvaluation:
                         dataset_evaluation.number_qa_pairs += 1
                         answer = answer.text
                         dataset_evaluation.answer_lengths.append(get_token_count(answer))
-                        record_answer_type(answer, dataset_evaluation.answer_types)
+                        record_answer_type(answer, dataset_evaluation.answer_types, en=en)
                 if valid_answer:
                     question = qa.question
-                    record_question_type(question, question_words, dataset_evaluation.question_types)
+                    if en:
+                        qword_types = question_words_en
+                    else:
+                        qword_types = question_words_de
+                    record_question_type(question, qword_types, dataset_evaluation.question_types)
 
     dataset_evaluation.save(dataset.evaluation_path())
     return dataset_evaluation

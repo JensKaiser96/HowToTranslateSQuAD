@@ -206,7 +206,7 @@ class Dataset(BaseModel):
         if not redo and self.has_evaluation_file():
             logger.info("Found Evaluation file of dataset, loading existing evaluation ...")
             return DatasetEvaluation.load(self.evaluation_path())
-        return get_dataset_evaluation(self)
+        return get_dataset_evaluation(self, self.name == self.Squad1.TRAIN.name)
 
     def evaluation_path(self):
         return f"{RESULTS_PATH}datasets/{self.name}.json"
