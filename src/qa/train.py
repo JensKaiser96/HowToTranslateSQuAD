@@ -22,6 +22,7 @@ def train(
         tokenizer=base_model.tokenizer.model,
         max_length=base_model.model.config.max_position_embeddings,
     )
+    train_dataset.shuffle()
     if validation_dataset is not None:
         validation_dataset = validation_dataset.as_hf_dataset(
             tokenizer=base_model.tokenizer.model,
