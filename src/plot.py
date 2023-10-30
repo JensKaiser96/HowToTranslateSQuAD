@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from src.io.utils import str_to_safe_path
+from src.misc.colors import RED, YELLOW, GREEN, BLUE, PURPLE, GRAY
 
 bin_size = 0.01
 margin_ratio = 0.025
@@ -22,7 +23,9 @@ def scatter(
 ):
     # default args
     if "marker" not in kwargs:
-        kwargs["marker"] = "x"
+        kwargs["marker"] = "o"
+    if "alpha" not in kwargs:
+        kwargs["alpha"] = 0.1
     if limits is None:
         limits = (
             min(0, min(xdata)),
@@ -47,13 +50,14 @@ def scatter(
     if grid:
         plt.grid(True, linestyle="--", alpha=0.5)
 
-    plt.title(title)
+    # plt.title(title)
+    plt.tight_layout()
 
     if save_path:
         plot_path = str_to_safe_path(
             save_path / f"scatter_{xlabel}_{ylabel}_{title}.png", replace=True, verbose=False
         )
-        plt.savefig(plot_path, dpi=DPI)
+        plt.savefig(plot_path, dpi=DPI, transparent=True)
         plt.close()
 
 
@@ -93,7 +97,8 @@ def histogram(
     # Add labels and title
     plt.xlabel(xlabel)
     plt.ylabel(ylabel)
-    plt.title(title)
+    # plt.title(title)
+    plt.tight_layout()
 
     if grid:
         plt.grid(axis="y", linestyle="--", alpha=0.7)
@@ -103,5 +108,65 @@ def histogram(
         plot_path = str_to_safe_path(
             save_path / f"hist_{xlabel}_{title}", ".png", replace=True, verbose=False
         )
-        plt.savefig(plot_path, dpi=DPI)
+        plt.savefig(plot_path, dpi=DPI, transparent=True)
         plt.close()
+
+
+def plot_4bars(keys, squad_values, raw_values, tar_values, quote_values, save_path):
+    # Define bar width and positions
+    bar_width = 0.2
+    bar_positions = np.arange(len(keys))
+
+    # Create the bar graph
+    plt.bar(bar_positions - 1.5 * bar_width, squad_values, width=bar_width, label='squad', color=RED)
+    plt.bar(bar_positions - 0.5 * bar_width, raw_values, width=bar_width, label='raw', color=YELLOW)
+    plt.bar(bar_positions + 0.5 * bar_width, tar_values, width=bar_width, label='tar', color=GREEN)
+    plt.bar(bar_positions + 1.5 * bar_width, quote_values, width=bar_width, label='quote', color=BLUE)
+
+    plt.ylabel('%')
+    plt.xticks(bar_positions, keys)
+    plt.grid(True, linestyle="--", alpha=0.5, axis="y")
+    plt.legend()
+    plt.tight_layout()
+    plt.savefig(save_path, dpi=DPI, transparent=True)
+
+
+def plot_3bars(keys, raw_values, tar_values, quote_values, save_path):
+    # Define bar width and positions
+    bar_width = 0.25
+    bar_positions = np.arange(len(keys))
+
+    # Create the bar graph
+    plt.bar(bar_positions - 1 * bar_width, raw_values, width=bar_width, label='raw', color=YELLOW)
+    plt.bar(bar_positions + 0 * bar_width, tar_values, width=bar_width, label='tar', color=GREEN)
+    plt.bar(bar_positions + 1 * bar_width, quote_values, width=bar_width, label='quote', color=BLUE)
+
+    plt.ylabel('% correct')
+    plt.xticks(bar_positions, keys)
+    plt.grid(True, linestyle="--", alpha=0.5, axis="y")
+    plt.legend()
+    plt.tight_layout()
+    plt.savefig(save_path, dpi=DPI, transparent=True)
+
+
+def plot_51bars(keys, values, big_values, save_path):
+    # Define bar width and positions
+    bar_width = 1/6
+    bar_positions = np.arange(len(keys))
+
+    # Create the bar graph
+    plt.bar(bar_positions - 1 * bar_width, values["date"], width=bar_width, label='date', color=RED)
+    plt.bar(bar_positions - 0.5 * bar_width, values["number"], width=bar_width, label='number', color=YELLOW)
+    plt.bar(bar_positions + 0 * bar_width, values["capital"], width=bar_width, label='capital', color=GREEN)
+    plt.bar(bar_positions + 0.5 * bar_width, values["lower"], width=bar_width, label='lower', color=BLUE)
+    plt.bar(bar_positions + 1 * bar_width, values["none"], width=bar_width, label='none', color=PURPLE)
+
+    plt.bar(bar_positions, big_values, width=1, alpha=0.3, color=GRAY)
+
+    plt.ylabel('% answer type / % correct')
+    plt.xlabel('gold answer types')
+    plt.xticks(bar_positions, keys)
+    plt.grid(True, linestyle="--", alpha=0.5, axis="y")
+    plt.legend()
+    plt.tight_layout()
+    plt.savefig(save_path, dpi=DPI, transparent=True)

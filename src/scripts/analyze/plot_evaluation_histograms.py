@@ -7,7 +7,7 @@ from src.math.arithmetic import log10_0
 from src.nlp_tools.token import get_token_count
 from src.plot import scatter, histogram
 from src.qa.dataset import Dataset
-from src.qa.evaluate import PredictionEvaluation, Result
+from src.qa.evaluate_predictions import PredictionEvaluation, Result
 from src.qa.qamodel import QAModel
 
 
