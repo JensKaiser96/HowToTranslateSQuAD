@@ -1,4 +1,4 @@
-# https://coolors.co/f94144-f3722c-f8961e-f9c74f-90be6d-43aa8b-577590
+# https://coolors.co/f0e9d1-82817d-2f280f-f94144-f8961e-ecdd3c-90be6d-577590-7a526a
 
 RED = "#F94144"
 ORANGE = "F3722C"
