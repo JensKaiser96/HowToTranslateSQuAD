@@ -150,7 +150,7 @@ def get_answer_type(answer: str, en=False):
     return None
 
 
-def get_answers_type(answers: list, en=en):
+def get_answers_type(answers: list, en=False):
     types = []
     for answer in answers:
         type_ = get_answer_type(answer.text, en)
