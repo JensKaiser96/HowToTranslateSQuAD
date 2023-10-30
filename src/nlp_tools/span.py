@@ -4,8 +4,6 @@ from typing import Sequence, Union
 import torch
 from transformers.tokenization_utils_base import BatchEncoding
 
-from src.qa.dataset import Answer
-
 
 @dataclass
 class Span:
@@ -20,7 +18,7 @@ class Span:
             self.end = end
 
     @classmethod
-    def from_answer(cls, answer: Answer):
+    def from_answer(cls, answer):
         start = answer.answer_start
         end = start + len(answer.text)
         return cls(start, end)
