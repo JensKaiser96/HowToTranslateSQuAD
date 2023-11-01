@@ -10,6 +10,7 @@ from src.qa.qamodel import QAModel
 def plot_question_types(dataset_question_type_counter, raw_correct_question_type_counter, tar_correct_question_type_counter, quote_correct_question_type_counter):
     keys = list(dataset_question_type_counter.keys())
 
+    print(dataset_question_type_counter)
     raw_values = [raw_correct_question_type_counter[key] / dataset_question_type_counter[key] for key in keys]
     tar_values = [tar_correct_question_type_counter[key] / dataset_question_type_counter[key] for key in keys]
     quote_values = [quote_correct_question_type_counter[key] / dataset_question_type_counter[key] for key in keys]
@@ -19,10 +20,11 @@ def plot_question_types(dataset_question_type_counter, raw_correct_question_type
 
 
 def plot_answer_types(model_name, answer_type_counter, correct_answer_type_counter):
-    keys = ["date", "number", "capital", "lower", "none"]
+    keys = ["date", "number", "capital", "lower", None]
     # values date, has all the times the prediction was date
-    values = {key1: [answer_type_counter[(key2, key1)] for key2 in keys] for key1 in keys}
-    big_values = [correct_answer_type_counter[key] for key in keys]
+
+    values = {key1: [answer_type_counter[(key2, key1)] / sum([answer_type_counter[(key3, key1)] for key3 in keys]) for key2 in keys] for key1 in keys}
+    big_values = [correct_answer_type_counter[key] / sum([answer_type_counter[(key, key1)] for key1 in keys]) for key in keys]
 
     save_path = PLOTS_PATH + f"model_analysis/answer_types_{model_name}"
     plot_51bars(keys, values, big_values, save_path)
