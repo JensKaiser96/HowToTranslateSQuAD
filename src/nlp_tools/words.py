@@ -85,7 +85,7 @@ months_en = [
 ]
 
 
-def get_question_type(question: str, en=False):
+def get_question_type(question: str, en=False, verbose=False):
     question_tokens = [token.lower() for token in get_tokens(question)]
 
     possible_types = []
@@ -104,7 +104,8 @@ def get_question_type(question: str, en=False):
         return possible_types.pop()
 
     else:
-        logger.info(f"Could not determine type of Question, found '{len(possible_types)} possible types': {question}")
+        if verbose:
+            logger.info(f"Could not determine type of Question, found '{len(possible_types)} possible types': {question}")
         return None
 
 
