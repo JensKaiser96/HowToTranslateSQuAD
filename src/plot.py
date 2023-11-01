@@ -133,6 +133,7 @@ def plot_4bars(keys, squad_values, raw_values, tar_values, quote_values, save_pa
 
 def plot_3bars(keys, raw_values, tar_values, quote_values, save_path):
     # Define bar width and positions
+    plt.figure()
     bar_width = 0.25
     bar_positions = np.arange(len(keys))
 
@@ -142,6 +143,8 @@ def plot_3bars(keys, raw_values, tar_values, quote_values, save_path):
     plt.bar(bar_positions + 1 * bar_width, quote_values, width=bar_width, label='quote', color=BLUE)
 
     plt.ylabel('% correct')
+    keys.remove(None)
+    keys.append("None")
     plt.xticks(bar_positions, keys)
     plt.grid(True, linestyle="--", alpha=0.5, axis="y")
     plt.legend()
@@ -150,23 +153,27 @@ def plot_3bars(keys, raw_values, tar_values, quote_values, save_path):
 
 
 def plot_51bars(keys, values, big_values, save_path):
+    plt.figure()
     # Define bar width and positions
     bar_width = 1/6
     bar_positions = np.arange(len(keys))
 
     # Create the bar graph
-    plt.bar(bar_positions - 1 * bar_width, values["date"], width=bar_width, label='date', color=RED)
-    plt.bar(bar_positions - 0.5 * bar_width, values["number"], width=bar_width, label='number', color=YELLOW)
+    plt.bar(bar_positions - 2 * bar_width, values["date"], width=bar_width, label='date', color=RED)
+    plt.bar(bar_positions - 1 * bar_width, values["number"], width=bar_width, label='number', color=YELLOW)
     plt.bar(bar_positions + 0 * bar_width, values["capital"], width=bar_width, label='capital', color=GREEN)
-    plt.bar(bar_positions + 0.5 * bar_width, values["lower"], width=bar_width, label='lower', color=BLUE)
-    plt.bar(bar_positions + 1 * bar_width, values["none"], width=bar_width, label='none', color=PURPLE)
+    plt.bar(bar_positions + 1 * bar_width, values["lower"], width=bar_width, label='lower', color=BLUE)
+    plt.bar(bar_positions + 2 * bar_width, values[None], width=bar_width, label='None', color=PURPLE)
 
-    plt.bar(bar_positions, big_values, width=1, alpha=0.3, color=GRAY)
+    plt.bar(bar_positions, big_values, width=0.8, alpha=0.3, color=GRAY)
 
     plt.ylabel('% answer type / % correct')
     plt.xlabel('gold answer types')
+    keys.remove(None)
+    keys.append("None")
     plt.xticks(bar_positions, keys)
+    plt.ylim(0,1)
     plt.grid(True, linestyle="--", alpha=0.5, axis="y")
-    plt.legend()
+    plt.legend(loc='lower right')
     plt.tight_layout()
     plt.savefig(save_path, dpi=DPI, transparent=True)
