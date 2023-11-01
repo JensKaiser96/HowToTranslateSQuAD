@@ -2,6 +2,7 @@ import os
 from enum import Enum, auto
 
 from src.io.filepaths import Models, RESULTS_PATH
+from src.nlp_tools.fuzzy import fuzzy_match
 from src.nlp_tools.span import Span
 from src.nlp_tools.token import Tokenizer
 from src.qa.dataset import Dataset
@@ -49,6 +50,14 @@ class QAModel:
                         "Loading existing Evaluation.")
             return PredictionEvaluation.load(self.results_path(dataset.name))
         return get_predictions_evaluation(self, dataset)
+
+    @classmethod
+    def from_fuzzy(cls, fuzzy_name):
+        model_name = fuzzy_match(fuzzy_name, cls.get_model_names())
+        if model_name is None:
+            raise ValueError(f"Could not find definite match for '{fuzzy_name}'")
+        logger.info(f"Loading Model {model_name}")
+        return getattr(cls, model_name)
 
     @property
     def name(self):
@@ -107,6 +116,21 @@ class QAModel:
     @classproperty
     def QUOTE(cls)->"QAModel":
         return QAModel(Models.QA.Gelectra.quote)
+
+    @classmethod
+    @classproperty
+    def RAW_BACK(cls)->"QAModel":
+        return QAModel(Models.QA.Gelectra.raw_back)
+
+    @classmethod
+    @classproperty
+    def TAR_BACK(cls)->"QAModel":
+        return QAModel(Models.QA.Gelectra.tar_back)
+
+    @classmethod
+    @classproperty
+    def QUOTE_BACK(cls)->"QAModel":
+        return QAModel(Models.QA.Gelectra.quote_back)
 
     @classmethod
     def get_model_names(cls):
