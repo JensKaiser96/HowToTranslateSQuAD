@@ -87,5 +87,8 @@ class Models:
             raw_clean_2 = _dir_path + "raw_clean_2/"
             raw_clean_3 = _dir_path + "raw_clean_3/"
             raw_clean_4 = _dir_path + "raw_clean_4/"
+            raw_back = _dir_path + "raw_back"
             tar = _dir_path + "tar/"
+            tar_back = _dir_path + "tar_back"
             quote = _dir_path + "quote/"
+            quote_back = _dir_path + "quote_back"
