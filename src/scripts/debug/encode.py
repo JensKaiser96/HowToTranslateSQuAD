@@ -1,6 +1,6 @@
-from src.qa.gelectra import Gelectra
+from src.qa.qamodel import QAModel
 
-model = Gelectra.GermanQuad
+model = QAModel.GermanQuad
 
 short_input = """
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vel maximus mauris. Suspendisse mi velit, euismod eget dolor quis, lacinia mollis dui. Mauris convallis semper vestibulum. Suspendisse id magna quis risus mattis convallis ac eu neque. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aliquam malesuada vehicula tellus eu efficitur. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.

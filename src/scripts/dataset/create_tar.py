@@ -1,59 +1,79 @@
 import re
 
+from tqdm import tqdm
+
 from src.io.filepaths import Datasets
 from src.nlp_tools.span import Span
-from src.qa.quad import QUAD
+from src.qa.dataset import Dataset, Article, Paragraph, QA, Answer
 from src.tar.retrive import retrieve
 from src.utils.logging import get_logger
 
 logger = get_logger(__file__)
 
+stats = {"trivial": 0, "option": 0, "tar": 0, "fails": 0}
 
-def tar(context, answer):
+
+def tar(src_context: str, src_answer: Answer, trg_context: str, possible_spans: list[Span]):
     """
     returns the answer start index using the TAR method
     """
-    possible_spans = [Span(*match.span()) for match in re.finditer(answer, context)]
+    try:
+        retrieved_answer_span = retrieve(
+            source_text=src_context,
+            source_span=Span.from_answer(src_answer),
+            target_text=trg_context
+        )
+    except (ValueError, RuntimeError):
+        return None
     if len(possible_spans) == 0:
-        return retrieve(source_text=, source_span=, target_text=context).start
-    if len(possible_spans) == 1:
-        return possible_spans.pop().start
-    # len > 1
-    return next_best(possible_spans, context, answer)
+        stats["tar"] += 1
+        answer_span = retrieved_answer_span
+    else:
+        # sort after smallest difference to retrieved_answer_span and take first element
+        stats["option"] += 1
+        answer_span = sorted(possible_spans, key=lambda element: retrieved_answer_span.compare(element)).pop()
+    return Answer(answer_start=answer_span.start, text=answer_span(trg_context))
 
 
 def main():
-    raw = QUAD.Raw.TRAIN
-    squad = QUAD.Squad1.TRAIN
-    dataset = QUAD()
-    for article_no, article in enumerate(raw.data._data):
-        clean_article = article.copy()
-        clean_article["paragraphs"] = []
-        for paragraph_no, paragraph in enumerate(["paragraphs"]):
-            clean_paragraph = paragraph.copy()
-            clean_paragraph["qas"] = []
-            context = paragraph["context"]
-            for qa_no, qa in enumerate(paragraph["qas"]):
-                clean_qa = qa.copy()
-                answer = clean_qa["answers"][0]
-                possible_spans = [Span(*match.span()) for match in re.finditer(answer, context)]
+    raw: Dataset = Dataset.Raw.TRAIN
+    squad: Dataset = Dataset.Squad1.TRAIN
+    dataset = Dataset(data=[])
+    for article_no, article in enumerate(tqdm(raw.data, position=0)):
+        tar_article = Article(paragraphs=[])
+        for paragraph_no, paragraph in enumerate(tqdm(article.paragraphs, position=1)):
+            context = paragraph.context
+            tar_paragraph = Paragraph(context=context, qas=[])
+            for qa_no, qa in enumerate(paragraph.qas):
+                answer = qa.answers[0]
+                possible_spans = [Span(*match.span()) for match in re.finditer(re.escape(answer.text), context)]
+                # trivial
                 if len(possible_spans) == 1:
-                    answer["answer_start"] = possible_spans.pop().start
-                else:
-                    squad_paragraph = squad.data._data[article_no]["paragraphs"][paragraph_no]
-                    source_context = squad_paragraph["context"]
-                    source_answer_start = squad_paragraph["qas"][qa_no]['answers'][0]['answer_start']
-                    answer["answer_start"] = tar(context, answer["text"])
-                clean_paragraph["qas"].append(clean_qa)
-            if clean_paragraph["qas"]:
-                clean_article["paragraphs"].append(clean_paragraph)
-        dataset.data._data.append(clean_article)
+                    stats["trivial"] += 1
+                    retrieved_answer = Answer(text=answer.text, answer_start=possible_spans.pop().start)
+                else:  # use tar
+                    # load source references
+                    squad_paragraph = squad.data[article_no].paragraphs[paragraph_no]
+                    source_context = squad_paragraph.context
+                    source_answer = squad_paragraph.qas[qa_no].answers[0]
+                    # retrieve answer using TAR, AR
+                    retrieved_answer = tar(source_context, source_answer, context, possible_spans)
+                    if not retrieved_answer:
+                        stats["fails"] += 1
+                        continue
+                tar_paragraph.qas.append(
+                    QA(question=qa.question, answers=[retrieved_answer], id=qa.id)
+                )
+            if tar_paragraph.qas:
+                tar_article.paragraphs.append(tar_paragraph)
+        dataset.data.append(tar_article)
+    logger.info(stats)
     dataset.save(
         Datasets.Squad1.Translated.Tar.TRAIN,
         version="TAR: v1. do alignment sentence wise, e.g. use nltk to split both target, and source into list of "
         "sentences, if the lists have different length, omit the extra sentences of the longer one. Seems to "
         "work 50% of the time (total: 672, success: 378, soft: 77, hard: 217) soft means one span is a sub span"
-        " of the other",
+        " of the other. tar stats=" + str(stats)
     )
 
 

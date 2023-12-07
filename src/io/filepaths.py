@@ -5,6 +5,7 @@ should be a yaml, but eh, maybe one day
 
 PLOTS_PATH = "./data/plots/"
 PREDICTIONS_PATH = "data/predictions/"
+RESULTS_PATH = "./data/results/"
 
 DATASETS_PATH = "./data/datasets/"
 MODELS_PATH = "./data/models/"
@@ -16,21 +17,31 @@ class Datasets:
         SMALL = _dir_path + "GermanQUAD_small.json"
         TEST = _dir_path + "GermanQuAD_test.json"
         TRAIN = _dir_path + "GermanQuAD_train.json"
+        DEV = _dir_path + "GermanQuAD_dev.json"
+        TRAIN_WO_DEV = _dir_path + "GermanQuAD_train_wo_dev.json"
 
     class Squad1:
         _dir_path = DATASETS_PATH + "SQuAD/"
         TRAIN = _dir_path + "train-v1.1.json"
         DEV = _dir_path + "dev-v1.1.json"
+        TRAIN_SMALL = _dir_path + "train-v1.1.small.json"
 
         class Translated:
             class Raw:
                 _dir_path = DATASETS_PATH + "RAW_SQUAD/"
                 TRAIN = _dir_path + "train-v1.0.json"
                 TRAIN_CLEAN = _dir_path + "train_clean-v1.0.json"
+                TRAIN_BACK = _dir_path + "train_clean_back-v1.1.json"
 
             class Tar:
                 _dir_path = DATASETS_PATH + "TAR/"
                 TRAIN = _dir_path + "train-v1.1.json"
+                TRAIN_BACK = _dir_path + "train_back-v1.1.json"
+
+            class Quote:
+                _dir_path = DATASETS_PATH + "QUOTE/"
+                TRAIN = _dir_path + "train-v1.1.json"
+                TRAIN_BACK = _dir_path + "train_back-v1.1.json"
 
     class Squad2:
         _dir_path = DATASETS_PATH + "SQuAD/"
@@ -72,3 +83,12 @@ class Models:
         class Gelectra:
             _dir_path = MODELS_PATH + "gelectra/"
             raw_clean = _dir_path + "raw_clean/"
+            raw_clean_1 = _dir_path + "raw_clean_1/"
+            raw_clean_2 = _dir_path + "raw_clean_2/"
+            raw_clean_3 = _dir_path + "raw_clean_3/"
+            raw_clean_4 = _dir_path + "raw_clean_4/"
+            raw_back = _dir_path + "raw_back"
+            tar = _dir_path + "tar/"
+            tar_back = _dir_path + "tar_back"
+            quote = _dir_path + "quote/"
+            quote_back = _dir_path + "quote_back"

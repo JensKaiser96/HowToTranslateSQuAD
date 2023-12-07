@@ -9,6 +9,8 @@ def flatten_quad(batch):
     for entry in batch["paragraphs"]:
         for sub_entry in entry:
             for qa in sub_entry["qas"]:
+                if qa["answers"][0]["answer_start"] < 0 or not qa["answers"][0]["text"]:
+                    continue
                 result["id"].append(qa["id"])
                 result["title"].append("")
                 result["context"].append(sub_entry["context"])

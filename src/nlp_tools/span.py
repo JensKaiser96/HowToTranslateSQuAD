@@ -4,23 +4,21 @@ from typing import Sequence, Union
 import torch
 from transformers.tokenization_utils_base import BatchEncoding
 
-from src.qa.quad import Answer
-
 
 @dataclass
 class Span:
     start: int
     end: int
 
-    def __init__(self, start: int, end: int, absolute=True):
+    def __init__(self, start: int, end: int, relative=False):
         self.start = start
-        if absolute:
-            self.end = end
-        else:
+        if relative:
             self.end = start + end
+        else:
+            self.end = end
 
     @classmethod
-    def from_answer(cls, answer: Answer):
+    def from_answer(cls, answer):
         start = answer.answer_start
         end = start + len(answer.text)
         return cls(start, end)
@@ -47,6 +45,12 @@ class Span:
 
     def __add__(self, other: "Span") -> "Span":
         return Span(start=min(self.start, other.start), end=max(self.end, other.end))
+
+    def compare(self, other: "Span") -> int:
+        """
+        returns the sum of the difference of start and end
+        """
+        return abs(self.start - other.start) + abs(self.end - other.end)
 
     @property
     def is_empty(self) -> bool:

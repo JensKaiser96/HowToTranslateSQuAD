@@ -1,7 +1,7 @@
 import tqdm
 
 from src.io.filepaths import StressTest
-from src.qa.quad import QUAD
+from src.qa.dataset import Dataset
 from src.scripts.utils.formatter import Formatter
 from src.utils.logging import get_logger
 
@@ -17,10 +17,10 @@ unanswerable question. All new questions are saved to the annotated dataset.
 
 def main():
     f = Formatter()
-    not_base = QUAD.StressTest.Base.NOT
-    not_annotated = QUAD.StressTest.NOT
-    for entry in tqdm.tqdm(not_base.data):
-        for paragraph in entry:
+    not_base: Dataset = Dataset.StressTest.Base.NOT
+    not_annotated: Dataset = Dataset.StressTest.NOT
+    for article in tqdm.tqdm(not_base.data):
+        for paragraph in article.paragraphs:
             context = paragraph.context
             f.print(f"\n\n{context}\n")
             for qa in paragraph.qas:

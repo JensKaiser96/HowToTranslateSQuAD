@@ -2,6 +2,7 @@ import datetime
 import json
 import os
 from pathlib import Path
+from typing import Union
 
 from src.io.filepaths import PLOTS_PATH
 
@@ -14,11 +15,14 @@ def save_plt(plt, path: str):
     plt.savefig(path, transparent=True)
 
 
-def to_json(data: dict, path: str):
+def to_json(data: Union[dict, str], path: str):
     suffix = ".json"
     path = str_to_safe_path(path, suffix)
     with open(path, "w", encoding="utf-8") as f_out:
-        json.dump(data, f_out, ensure_ascii=False, indent=4)
+        if isinstance(data, dict):
+            json.dump(data, f_out, ensure_ascii=False, indent=4)
+        else:
+            f_out.write(data)
 
 
 def _fix_relative_paths(path: str) -> str:
@@ -38,8 +42,13 @@ def _rename_old_file(path: Path, verbose=False):
     os.rename(path, new_file_name)
 
 
-def str_to_safe_path(filepath: str, suffix: str = "", verbose=False):
+def str_to_safe_path(
+    filepath: Union[str, Path], suffix: str = "", verbose=True, replace=False, dir_ok=False
+):
+    if isinstance(filepath, Path):
+        filepath = str(filepath)
     fixed_path = _fix_relative_paths(filepath)
+    fixed_path = fixed_path.replace(" ", "_")  # replace space with '_'
     path = Path(fixed_path)
     if (
         suffix and path.suffix != suffix
@@ -52,5 +61,11 @@ def str_to_safe_path(filepath: str, suffix: str = "", verbose=False):
     path.parent.mkdir(exist_ok=True, parents=True)  # create parent dir
 
     if os.path.exists(path):
-        _rename_old_file(path, verbose)
+        if path.is_dir() and dir_ok:
+            pass  # dont create new dir
+        elif replace:  # do nothing, maybe say what you replace
+            if verbose:
+                print(f"src.io.utils.str_to_safe_path.py [I]:\nREPLACING '{path}' with new file")
+        else:
+            _rename_old_file(path)
     return path

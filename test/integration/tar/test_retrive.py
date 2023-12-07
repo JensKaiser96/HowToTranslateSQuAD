@@ -1,5 +1,5 @@
 from src.nlp_tools.span import Span
-from src.qa.quad import QUAD
+from src.qa.dataset import Dataset
 
 from src.tar.retrive import retrieve
 from src.utils.logging import get_logger
@@ -7,9 +7,11 @@ from src.utils.logging import get_logger
 logger = get_logger(__name__)
 
 
-def extract_suitable_test_pairs(source_dataset, target_dataset):
+def extract_suitable_test_pairs(source_dataset: Dataset, target_dataset: Dataset):
     for source_article, target_article in zip(source_dataset.data, target_dataset.data):
-        for source_paragraph, target_paragraph in zip(source_article, target_article):
+        for source_paragraph, target_paragraph in zip(
+            source_article.paragraphs, target_article.paragraphs
+        ):
             # extract context
             source_text = source_paragraph.context
             target_text = target_paragraph.context
@@ -24,8 +26,8 @@ def extract_suitable_test_pairs(source_dataset, target_dataset):
 
 
 def test_answer_extraction():
-    squad = QUAD.Squad1.TRAIN
-    raw_squad = QUAD.Raw.TRAIN
+    squad: Dataset = Dataset.Squad1.TRAIN
+    raw_squad: Dataset = Dataset.Raw.TRAIN
 
     total_samples = 0
     successes = 0
@@ -35,23 +37,9 @@ def test_answer_extraction():
     for test_pairs in extract_suitable_test_pairs(squad, raw_squad):
         total_samples += 1
         source_text, source_answer, target_text, target_answer = test_pairs
-        # logger.info(
-        #     f"\n ====== Test Case: ====== \n"
-        #     f"\n ====== Source text: ====== \n"
-        #     f"{source_text}\n"
-        #     f"\n ====== Source answer: ====== \n"
-        #     f"{source_answer.text}\n"
-        #     f"\n ====== Target text: ====== \n"
-        #     f"{target_text}\n"
-        #     f"\n ====== Target answer: ====== \n"
-        #     f"{target_answer.text}\n"
-        # )
         retrieved_span = retrieve(
             source_text, Span.from_answer(source_answer), target_text
         )
-        # logger.info(f"{retrieved_span=}")
-        # logger.info(f"\n====== Extracted answer ======\n{retrieved_span(target_text)}")
-
         # fix target_span, at this time (2023-07-21) the answer.answer_start
         # values are not correctly set
         target_span = Span(
@@ -68,13 +56,12 @@ def test_answer_extraction():
         else:
             hard_fails += 1
 
-        print(
-            f"total: {total_samples}, success: {successes}, soft: {soft_fails}, hard: {hard_fails}"
-        )
+    print(
+        f"total: {total_samples}, success: {successes}, soft: {soft_fails}, hard: {hard_fails}"
+    )
 
 
 # todo, find this case and fix it
 """
- ['Fr', 'édé', 'ric', 'François', 'Cho', 'pin', ...], padding_char = ''
- .['pronuncia', 'tion', ':', '[', 'f', 'ʁ']...
+"context": "Frédéric François Chopin (/ˈʃoʊpæn/; French pronunciation: ​[fʁe.de.ʁik fʁɑ̃.swa ʃɔ.pɛ̃]; 22 February or 1 March 1810 – 17 October 1849), born Fryderyk Franciszek Chopin,[n 1] was a Polish and French (by citizenship and birth of father) composer and a virtuoso pianist of the Romantic era, who wrote primarily for the solo piano. He gained and has maintained renown worldwide as one of the leading musicians of his era, whose \"poetic genius was based on a professional technique that was without equal in his generation.\" Chopin was born in what was then the Duchy of Warsaw, and grew up in Warsaw, which after 1815 became part of Congress Poland. A child prodigy, he completed his musical education and composed his earlier works in Warsaw before leaving Poland at the age of 20, less than a month before the outbreak of the November 1830 Uprising.",
 """
