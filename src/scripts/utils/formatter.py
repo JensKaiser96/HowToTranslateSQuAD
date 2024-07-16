@@ -3,38 +3,38 @@ class Formatter:
     _current_line = ""
 
     def __init__(self):
-        self.line_lenght = 0
-        while not self.line_lenght:
-            self.line_lenght = self.get_line_length()
+        self.line_length = 0
+        while not self.line_length:
+            self.line_length = self.get_line_length()
             self.confirm_line_length()
 
     def get_line_length(self):
         user_input = input(
-            f"Enter the number of '_'s and the last numberin the first "
+            f"Enter the number of '_'s and the last number in the first "
             f"line, must be in (1-{10*Formatter._MAX_LENGTH-1})\n"
             f"{self._scale}\n:"
         )
 
         try:
             line_lenght = int(user_input)
-            assert self.line_lenght in range(10 * Formatter._MAX_LENGTH)
+            assert self.line_length in range(10 * Formatter._MAX_LENGTH)
             return line_lenght
         except ValueError:
             print(f"Could not parse '{user_input}' as number. please try " "again.")
         except AssertionError:
             print(
-                f"'{self.line_lenght}' is not in " f"range({10*Formatter._MAX_LENGTH})"
+                f"'{self.line_length}' is not in range({10 * Formatter._MAX_LENGTH})"
             )
         return 0
 
     def confirm_line_length(self):
         user_input = input(
-            f"Line length is set to {self.line_lenght}, the following "
+            f"Line length is set to {self.line_length}, the following "
             f"sequence of '='s should not have any line breaks\n"
-            f"{'='*self.line_lenght}\nEverythin looking good? (y/N):"
+            f"{'='*self.line_length}\nEverything looking good? (y/N):"
         )
         if user_input.lower() != "y":
-            self.line_lenght = 0
+            self.line_length = 0
 
     def print(self, message: str):
         paragraphs = [
@@ -43,15 +43,15 @@ class Formatter:
         print("\n\n".join(paragraphs))
 
     def format_paragraph(self, paragraph: str):
-        if len(paragraph) <= self.line_lenght:
+        if len(paragraph) <= self.line_length:
             return paragraph
         words = paragraph.split(" ")
         output = ""
         current_line = ""
         for word in words:
             word = word.replace("\t", " " * 4)  # replace TAB with four spaces
-            # check if addind next the next makes the line too long
-            if len(current_line) + len(word) > self.line_lenght:
+            # check if adding next the next makes the line too long
+            if len(current_line) + len(word) > self.line_length:
                 output += current_line + "\n"
                 current_line = ""
             current_line += " " + word

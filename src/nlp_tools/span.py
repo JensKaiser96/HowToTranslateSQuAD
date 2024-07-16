@@ -38,7 +38,7 @@ class Span:
             sequence = sequence.input_ids
             if isinstance(sequence, torch.Tensor) and sequence.dim() > 1:
                 sequence = sequence.flatten()
-        return sequence[self.start : self.end]
+        return sequence[self.start: self.end]
 
     def __len__(self) -> int:
         return self.end - self.start

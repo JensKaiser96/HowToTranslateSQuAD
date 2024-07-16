@@ -1,23 +1,20 @@
 import logging
 from pathlib import Path
 
-from src.io.utils import str_to_safe_path
+from src.io.utils import make_path_safe
 
 _default_log_dir = "logs/"
 _default_log_name = "log.log"
 _default_log_path = _default_log_dir + _default_log_name
-_log_path = str_to_safe_path(_default_log_path)
+_log_path = make_path_safe(_default_log_path)
 
 
 def set_log_path(path: str):
     global _log_path
     global _default_log_path
     if str(_log_path) != _default_log_path:
-        logger.warn(
-            f"custom log path already set {_log_path} "
-            f"new path will be respected nonetheless"
-        )
-    _log_path = str_to_safe_path(path, ".log")
+        logger.warning(f"custom log path already set {_log_path} new path will be respected nonetheless")
+    _log_path = make_path_safe(path, ".log")
 
 
 def set_log_name(name: str):

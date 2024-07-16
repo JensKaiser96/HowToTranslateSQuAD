@@ -8,7 +8,7 @@ def log10_0(number):
 
 
 def linear_interpolate_zeros(values: list[int]):
-    # if value inbetween non zero values is zero, interpolate
+    # if value in between non zero values is zero, interpolate
     # check every value except first and last
     non_zerod = []
     for i, value in enumerate(values):
@@ -37,5 +37,3 @@ def linear_interpolate_zeros(values: list[int]):
         else:
             non_zerod.append(value)
     return non_zerod
-
-

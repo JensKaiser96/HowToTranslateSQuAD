@@ -3,6 +3,7 @@ from collections import Counter
 import matplotlib.pyplot as plt
 
 from src.io.utils import save_plt
+from src.io.filepaths import Datasets
 from src.qa.dataset import Dataset
 from src.utils.logging import get_logger
 
@@ -10,7 +11,7 @@ logger = get_logger(__file__, script=True)
 
 
 def get_answer_counts():
-    squad_raw: Dataset = Dataset.Raw.TRAIN
+    squad_raw = Dataset.load(Datasets.SQuAD.Translated.Raw.TRAIN_CLEAN)
     answer_counts = Counter()
     for article in squad_raw.data:
         for paragraph in article.paragraphs:

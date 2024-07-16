@@ -9,6 +9,8 @@ logger = get_logger(__name__)
 
 
 class Translator:
+    # https://pytorch.org/hub/pytorch_fairseq_translation/
+    # https://github.com/facebookresearch/fairseq/blob/main/examples/translation/README.md
     _en2de_model_name = "transformer.wmt19.en-de"
     _de2en_model_name = "transformer.wmt19.de-en"
     _repo = "pytorch/fairseq"

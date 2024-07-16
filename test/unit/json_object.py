@@ -19,6 +19,7 @@ class JSONObject:
             json.dumps(self, default=lambda o: getattr(o, '__dict__', str(o)))
         )
 
+    # TODO: add optional support
     @classmethod
     def from_dict(cls, __dict: dict):
         if __dict.keys() == cls.__annotations__.keys():

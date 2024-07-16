@@ -7,27 +7,23 @@ from src.io.filepaths import Models
 from src.math.matrix import dimensionalwise_normalize
 from src.nlp_tools.span import Span
 from src.nlp_tools.token import Tokenizer
-from src.tar.utils import Direction
+from src.tar.utils import Directions
 from src.utils.logging import get_logger
 
 logger = get_logger(__name__)
 
 # load and set model config
-_model_config = XLMRobertaConfig.from_pretrained(Models.Alignment.config)
+_model_config = XLMRobertaConfig.from_pretrained(Models.Alignment.CONFIG)
 _model_config.output_hidden_states = True
 _model_config.return_dict = False
 
 # load alignment model
-model = XLMRobertaModel.from_pretrained(
-    Models.Alignment.model_path, config=_model_config
-)
+model = XLMRobertaModel.from_pretrained(Models.Alignment.MODEL_PATH, config=_model_config)
 
-tokenizer = Tokenizer(XLMRobertaTokenizer.from_pretrained(Models.Alignment.model_path))
+tokenizer = Tokenizer(XLMRobertaTokenizer.from_pretrained(Models.Alignment.MODEL_PATH))
 
 
-def align(
-    source_text: str, target_text: str, direction: Direction = Direction.forwards
-):
+def align(source_text: str, target_text: str, direction: Directions = Directions.forwards):
     """
     returns the alignment between the tokens in text_1 and sentence2
     as well as the tokens in source_text and target_text, without [BOS] and
@@ -40,7 +36,6 @@ def align(
 
     # check if we have an equal amount of sentences
     if len(source_text_splits) != len(target_text_splits):
-        # logger.debug("sentence split failed, trunkating, sowwy")
         min_length = min(len(source_text_splits), len(target_text_splits))
         source_text_splits = source_text_splits[:min_length]
         target_text_splits = target_text_splits[:min_length]
@@ -78,25 +73,21 @@ def _get_model_output(encoding: BatchEncoding = None) -> torch.Tensor:
     return torch.bmm(output, output.transpose(1, 2))[0]
 
 
-def _get_alignment_from_model_output(
-    output: torch.Tensor, source_span: Span, target_span: Span, direction: Direction
-):
+def _get_alignment_from_model_output(output: torch.Tensor, source_span: Span, target_span: Span, direction: Directions):
     # crop array to exclude tokens outside the spans
-    relevant_output = output[
-        source_span.start : source_span.end, target_span.start : target_span.end
-    ]
+    relevant_output = output[source_span.start: source_span.end, target_span.start: target_span.end]
     normalized_output = dimensionalwise_normalize(relevant_output)
 
     # actual alignment
-    if direction == Direction.forwards:
+    if direction == Directions.forwards:
         best_match = normalized_output.argmax(axis=1)
         return [[i, int(t)] for i, t in enumerate(best_match)]
 
-    elif direction == Direction.backwards:
+    elif direction == Directions.backwards:
         best_match = normalized_output.argmax(axis=0)
         return [[i, int(t)] for i, t in enumerate(best_match)]
 
-    elif direction == Direction.bidirectional:
+    elif direction == Directions.bidirectional:
         # sinkhorn algorithm
         m, n = normalized_output.size()
         forward = torch.eye(n)[normalized_output.argmax(dim=1)]
@@ -104,10 +95,7 @@ def _get_alignment_from_model_output(
         inter = forward * backward.T
         return inter.nonzero()
 
-    else:
-        raise ValueError(
-            f"Direction argument must be a Direction, one of: {Direction._member_names_}"
-        )
+    raise ValueError(f"Direction argument must be a Direction, one of: {Directions.__members__.name}")
 
 
 def split_encoding(encoding: BatchEncoding) -> tuple[Span, Span]:

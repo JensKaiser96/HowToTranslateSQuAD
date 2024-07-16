@@ -1,12 +1,20 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-from src.io.utils import str_to_safe_path
+from src.io.utils import make_path_safe
 from src.misc.colors import RED, YELLOW, GREEN, BLUE, PURPLE, GRAY
+import matplotlib
+matplotlib.use('TkAgg')
 
 bin_size = 0.01
 margin_ratio = 0.025
 DPI = 300
+
+# creating a dictionary
+font = {"size": 14}
+
+# using rc function
+plt.rc("font", **font)
 
 
 def scatter(
@@ -54,7 +62,7 @@ def scatter(
     plt.tight_layout()
 
     if save_path:
-        plot_path = str_to_safe_path(
+        plot_path = make_path_safe(
             save_path / f"scatter_{xlabel}_{ylabel}_{title}.png", replace=True, verbose=False
         )
         plt.savefig(plot_path, dpi=DPI, transparent=True)
@@ -105,8 +113,8 @@ def histogram(
     if legend:
         plt.legend()
     if save_path:
-        plot_path = str_to_safe_path(
-            save_path / f"hist_{xlabel}_{title}", ".png", replace=True, verbose=False
+        plot_path = make_path_safe(
+            save_path / f"hist_{xlabel}_{title}", ".pdf", replace=True, verbose=False
         )
         plt.savefig(plot_path, dpi=DPI, transparent=True)
         plt.close()
@@ -118,10 +126,10 @@ def plot_4bars(keys, squad_values, raw_values, tar_values, quote_values, save_pa
     bar_positions = np.arange(len(keys))
 
     # Create the bar graph
-    plt.bar(bar_positions - 1.5 * bar_width, squad_values, width=bar_width, label='squad', color=RED)
-    plt.bar(bar_positions - 0.5 * bar_width, raw_values, width=bar_width, label='raw', color=YELLOW)
-    plt.bar(bar_positions + 0.5 * bar_width, tar_values, width=bar_width, label='tar', color=GREEN)
-    plt.bar(bar_positions + 1.5 * bar_width, quote_values, width=bar_width, label='quote', color=BLUE)
+    plt.bar(bar_positions - 0.5 * bar_width, raw_values, width=bar_width, label='RAW', color=YELLOW)
+    plt.bar(bar_positions + 0.5 * bar_width, tar_values, width=bar_width, label='TAR', color=GREEN)
+    plt.bar(bar_positions + 1.5 * bar_width, quote_values, width=bar_width, label='QUOTE', color=BLUE)
+    plt.bar(bar_positions - 1.5 * bar_width, squad_values, width=bar_width, label='DEV', color=PURPLE)
 
     plt.ylabel('%')
     plt.xticks(bar_positions, keys)

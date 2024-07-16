@@ -14,7 +14,7 @@ logger = get_logger(__file__)
 # ''  9 / 11
 # "" 12 / 8
 # () 12 / 8
-# article missmatch, no translation
+# article mismatch, no translation
 quote_start_symbol = '"'
 quote_end_symbol = quote_start_symbol
 
@@ -66,7 +66,7 @@ def retrieve_answer(de_context, de_answer, en_context, en_answer, debug=False):
         answer_start = de_context.find(en_answer)
         return answer_start, de_context, en_answer
 
-    # last resort, take whatever matches best inbetween two quotes, but make sure the de_context has two more quotes than the english
+    # last resort, take whatever matches best in between two quotes, but make sure the de_context has two more quotes than the english
     if en_context.count("\"") + 2 <= de_context.count("\""):
         options = extreact_between_quotes(de_context)
         best_answer = fuzzy_match(de_answer, options)
@@ -85,8 +85,8 @@ def retrieve_answer(de_context, de_answer, en_context, en_answer, debug=False):
 
 
 def main():
-    squad: Dataset = Dataset.Squad1.TRAIN
-    quote_ds: Dataset = Dataset(data=[])
+    squad = Dataset.load(Datasets.SQuAD.TRAIN)
+    quote_ds = Dataset()
 
     t = Translator()
     successes = 0
@@ -120,7 +120,7 @@ def main():
 
         print(f"... - ({successes}/{fails+successes})")
     print(f"Done - ({successes}/{fails+successes})")
-    quote_ds.save(Datasets.Squad1.Translated.Quote.TRAIN)
+    quote_ds.save(Datasets.SQuAD.Translated.Quote.TRAIN)
 
 
 if __name__ == "__main__":

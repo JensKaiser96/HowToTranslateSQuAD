@@ -79,6 +79,7 @@ def get_predictions_evaluation(model, dataset: Dataset):
     partially stolen from: https://rajpurkar.github.io/SQuAD-explorer/ -> "Evaluation Script"
     """
     logger.info(f"Evaluating {model.name} on {dataset.name} ...")
+    model.load_weights()
     evaluation = PredictionEvaluation(
         EM=0,
         F1=0,

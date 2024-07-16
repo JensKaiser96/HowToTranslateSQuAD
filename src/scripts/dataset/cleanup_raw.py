@@ -1,13 +1,13 @@
 from src.io.filepaths import Datasets
-from src.qa.quad import QUAD
+from src.qa.dataset import Dataset
 from src.utils.logging import get_logger
 
 logger = get_logger(__file__)
 
 
 def main():
-    raw = QUAD.Raw.TRAIN
-    raw_clean = QUAD()
+    raw = Dataset.load(Datasets.SQuAD.Translated.Raw.TRAIN)
+    raw_clean = Dataset()
     for article in raw.data._data:
         clean_article = article.copy()
         clean_article["paragraphs"] = []

@@ -20,7 +20,7 @@ class Tokenizer:
         )
 
     def encode_qa(self, question: str, context: str):
-        return self.model(
+        output = self.model(
             question,
             context,
             return_tensors="pt",
@@ -31,13 +31,15 @@ class Tokenizer:
             return_offsets_mapping=True,
             padding="max_length",
         )
+        output.to("cuda:0")
+        return output
 
     def decode(self, tokens_ids: Sequence) -> list[str]:
         return [self.model.decode(token_id) for token_id in tokens_ids]
 
 
 def blank_or_weird_char(text: str, curser_pos: int) -> bool:
-    char = text[curser_pos : curser_pos + 1]
+    char = text[curser_pos: curser_pos + 1]
     return char in string.whitespace or char not in string.printable
 
 

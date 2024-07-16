@@ -2,7 +2,7 @@ from pathlib import Path
 
 from huggingface_hub.utils import HFValidationError
 
-from src.io.filepaths import PLOTS_PATH
+from src.io.filepaths import PLOTS, Models, Datasets
 from src.math.arithmetic import log10_0
 from src.nlp_tools.token import get_token_count
 from src.plot import scatter, histogram
@@ -83,10 +83,10 @@ def plot_hist_comp(results, label, results_sota, name: str, save_path: Path):
 
 
 if __name__ == '__main__':
-    dataset: Dataset = Dataset.GermanQUAD.DEV
+    dataset = Dataset.load(Datasets.GermanQuad.DEV)
     QAModel.lazy_loading = True
-    for model in QAModel.get_lazy_qa_instances():
-        if model.name == QAModel.EnglishQA.name or model.name == QAModel.RawClean4.name:
+    for model in QAModel.get_all_models():
+        if model.path == Models.QA.Distilbert.ENGLISH_QA or model.path == Models.QA.Gelectra.RAW_CLEAN_4:
             continue
         try:
             results = model.get_evaluation(dataset)
@@ -97,20 +97,20 @@ if __name__ == '__main__':
         plot_hist(
             results=results,
             name=f"{model.name} {dataset.name}",
-            save_path=Path(PLOTS_PATH) / model.name / dataset.name,
+            save_path=Path(PLOTS) / model.name / dataset.name,
         )
 
         plot_scatter(
             results=results,
             name=f"{model.name} {dataset.name}",
-            save_path=Path(PLOTS_PATH) / model.name / dataset.name,
+            save_path=Path(PLOTS) / model.name / dataset.name,
         )
 
-        if model.name != QAModel.GermanQuad.name:
+        if model.path != Models.QA.Gelectra.GERMAN_QUAD:
             plot_hist_comp(
                 results=model.get_evaluation(dataset),
                 label=model.name.split(".")[-1],
-                results_sota=QAModel.GermanQuad.get_evaluation(dataset),
+                results_sota=QAModel(Models.QA.Gelectra.GERMAN_QUAD).get_evaluation(dataset),
                 name=f"{model.name} vs sota - {dataset.name}",
-                save_path=Path(PLOTS_PATH) / f"{model.name}vsSOTA" / dataset.name,
+                save_path=Path(PLOTS) / f"{model.name}vsSOTA" / dataset.name,
             )

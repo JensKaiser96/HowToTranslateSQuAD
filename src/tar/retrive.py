@@ -28,7 +28,6 @@ def retrieve(source_text: str, source_span: Span, target_text: str) -> Span:
     # get the tokens in the target span
     # todo: this should work more elegant
     mapping_dict = {entry[0]: entry[1] for entry in alignment}
-    # logger.debug(f"{mapping_dict=}")
     target_span_tokens = [
         mapping_dict[token_id]
         for token_id in source_span_token_ids

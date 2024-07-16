@@ -7,6 +7,10 @@ name = "pypi"
 tqdm = "*"
 pytest = "*"
 matplotlib = "*"
+pydantic = "*"
+transformers = "*"
+scipy = "*"
+torch = "*"
 
 [dev-packages]
 

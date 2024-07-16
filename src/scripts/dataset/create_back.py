@@ -2,7 +2,7 @@ import sys
 
 import tqdm
 
-from src.io.filepaths import Datasets
+from src.io.filepaths import Datasets, Models
 from src.qa.dataset import Dataset
 from src.qa.qamodel import QAModel
 from src.qa.squad_eval_script import compute_f1
@@ -13,11 +13,11 @@ logger = get_logger(__file__, script=True)
 
 
 def main(trg_ds: Dataset):
-    threshold = 2/3
-    english_qa_model: QAModel = QAModel.EnglishQA
+    threshold = 2/3  # this threshold is way too high
+    english_qa_model = QAModel(Models.QA.Distilbert.ENGLISH_QA)
 
-    src_ds: Dataset = Dataset.Squad1.TRAIN
-    back_ds: Dataset = Dataset(data=[])
+    src_ds = Dataset.load(Datasets.SQuAD.TRAIN)
+    back_ds = Dataset()
 
     translator = Translator()
 
@@ -50,7 +50,7 @@ def main(trg_ds: Dataset):
                     else:
                         stats["fail"] += 1
 
-    back_ds.save(Datasets.Squad1.Translated.Quote.TRAIN_BACK, f"quote-back {stats=}")  # todo, set according to dataset
+    back_ds.save(Datasets.SQuAD.Translated.Quote.TRAIN_BACK, f"quote-back {stats=}")  # todo, set according to dataset
 
 
 if __name__ == "__main__":

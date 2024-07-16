@@ -36,9 +36,9 @@ def tar(src_context: str, src_answer: Answer, trg_context: str, possible_spans: 
 
 
 def main():
-    raw: Dataset = Dataset.Raw.TRAIN
-    squad: Dataset = Dataset.Squad1.TRAIN
-    dataset = Dataset(data=[])
+    raw = Dataset.load(Datasets.SQuAD.Translated.Raw.TRAIN)
+    squad = Dataset.load(Datasets.SQuAD.TRAIN)
+    dataset = Dataset()
     for article_no, article in enumerate(tqdm(raw.data, position=0)):
         tar_article = Article(paragraphs=[])
         for paragraph_no, paragraph in enumerate(tqdm(article.paragraphs, position=1)):
@@ -69,7 +69,7 @@ def main():
         dataset.data.append(tar_article)
     logger.info(stats)
     dataset.save(
-        Datasets.Squad1.Translated.Tar.TRAIN,
+        Datasets.SQuAD.Translated.Tar.TRAIN,
         version="TAR: v1. do alignment sentence wise, e.g. use nltk to split both target, and source into list of "
         "sentences, if the lists have different length, omit the extra sentences of the longer one. Seems to "
         "work 50% of the time (total: 672, success: 378, soft: 77, hard: 217) soft means one span is a sub span"

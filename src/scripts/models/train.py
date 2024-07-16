@@ -1,5 +1,6 @@
 import sys
 
+from src.io.filepaths import Models
 from src.qa.dataset import Dataset
 from src.qa.qamodel import QAModel
 from src.qa.train import train
@@ -18,7 +19,7 @@ if __name__ == '__main__':
     fuzzy_model = sys.argv[2]
     save_model = QAModel.from_fuzzy(fuzzy_model)
     train(
-        base_model=QAModel.Base,
+        base_model=QAModel(Models.QA.Gelectra.BASE),
         train_dataset=train_dataset,
         validation_dataset=Dataset.GermanQUAD.DEV,
         save_path=save_model,

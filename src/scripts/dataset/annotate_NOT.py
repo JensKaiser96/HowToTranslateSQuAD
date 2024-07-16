@@ -17,8 +17,8 @@ unanswerable question. All new questions are saved to the annotated dataset.
 
 def main():
     f = Formatter()
-    not_base: Dataset = Dataset.StressTest.Base.NOT
-    not_annotated: Dataset = Dataset.StressTest.NOT
+    not_base = Dataset.load(StressTest.Base.NOT)
+    not_annotated = Dataset.load(StressTest.NOT)
     for article in tqdm.tqdm(not_base.data):
         for paragraph in article.paragraphs:
             context = paragraph.context

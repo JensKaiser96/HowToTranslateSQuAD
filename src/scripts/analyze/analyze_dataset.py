@@ -1,6 +1,6 @@
 from collections import Counter
 
-from src.io.filepaths import PLOTS_PATH
+from src.io.filepaths import PLOTS
 from src.nlp_tools.words import question_word_mapping_en_de as mapping
 from src.plot import plot_4bars
 from src.qa.dataset import Dataset
@@ -28,7 +28,7 @@ def plot_answer_types(squad, raw, tar, quote):
     tar_values = [tar.question_types[mapping[key]]/tar.number_qa_pairs * 100 for key in keys]
     quote_values = [quote.question_types[mapping[key]]/quote.number_qa_pairs * 100 for key in keys]
 
-    save_path = PLOTS_PATH + "dataset_analysis/question_types"
+    save_path = PLOTS + "dataset_analysis/question_types"
     plot_4bars(keys, squad_values, raw_values, tar_values, quote_values, save_path)
 
 
@@ -45,7 +45,7 @@ def plot_answer_lengths(squad, raw, tar, quote):
     tar_values = [tar_bins[key]/tar.number_qa_pairs * 100 for key in keys]
     quote_values = [quote_bins[key]/quote.number_qa_pairs * 100 for key in keys]
 
-    save_path = PLOTS_PATH + "dataset_analysis/answer_lengths"
+    save_path = PLOTS + "dataset_analysis/answer_lengths_dev.pdf"
 
     plot_4bars(keys, squad_values, raw_values, tar_values, quote_values, save_path)
 
@@ -63,20 +63,19 @@ def plot_context_lengths(squad, raw, tar, quote):
     tar_values = [tar_bins[key] / len(tar.context_lengths) * 100 for key in keys]
     quote_values = [quote_bins[key] / len(quote.context_lengths) * 100 for key in keys]
 
-    save_path = PLOTS_PATH + "dataset_analysis/context_lengths"
+    save_path = PLOTS + "dataset_analysis/context_lengths"
 
     plot_4bars(keys, squad_values, raw_values, tar_values, quote_values, save_path)
 
 
 def main():
-    squad:DatasetEvaluation = Dataset.Squad1.TRAIN.get_evaluation()
+    squad:DatasetEvaluation = Dataset.GermanQUAD.DEV.get_evaluation()
     raw:DatasetEvaluation = Dataset.Raw.TRAIN_CLEAN.get_evaluation()
     tar:DatasetEvaluation = Dataset.Tar.TRAIN.get_evaluation()
     quote:DatasetEvaluation = Dataset.Quote.TRAIN.get_evaluation()
-    evals = {"squad": squad, "raw": raw, "tar":tar, "quote":quote}
     #plot_answer_types(squad, raw, tar, quote)
-    #plot_answer_lengths(squad, raw, tar, quote)
-    plot_context_lengths(squad, raw, tar, quote)
+    plot_answer_lengths(squad, raw, tar, quote)
+    #plot_context_lengths(squad, raw, tar, quote)
 
 
 

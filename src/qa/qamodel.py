@@ -1,41 +1,48 @@
 import os
 from enum import Enum, auto
+from pathlib import Path
 
-from src.io.filepaths import Models, RESULTS_PATH
+from src.io.filepaths import Models, RESULTS, MODELS
+from src.utils.misc import get_inner_fields_recursive
 from src.nlp_tools.fuzzy import fuzzy_match
 from src.nlp_tools.span import Span
 from src.nlp_tools.token import Tokenizer
 from src.qa.dataset import Dataset
 from src.qa.evaluate_predictions import ModelOutput, PredictionEvaluation, get_predictions_evaluation
-from src.utils.decorators import classproperty
 from src.utils.logging import get_logger
 
 logger = get_logger(__name__)
 
 
 class QAModel:
-    class Type(Enum):
+    class ModelTypes(Enum):
         Gelectra = auto()
         DistilBert = auto()
 
-    lazy_loading = False
+        @classmethod
+        def from_path(cls, path: Path) -> "ModelTypes":
+            for model_type in cls:
+                if model_type.name.lower() in path.as_posix().lower():
+                    return model_type
+            raise AttributeError(f"Could not infer model type from path: '{path}', path must contain one of {cls.__members__.keys()}")
 
-    def __init__(self, path: str, type_: Type = Type.Gelectra):
-        self.path = path
+    def __init__(self, path: Path, model_type: ModelTypes = None):
+        self.path: Path = path
         self.tokenizer = None
         self.model = None
-        self.type = type_
-        if not QAModel.lazy_loading:
-            self.load_weights()
+        if model_type is None:
+            self.model_type = self.ModelTypes.from_path(path)
+        else:
+            self.type = model_type
 
-    def load_weights(self):
+    def load_weights(self) -> None:
         logger.info(f"Loading {self.type} model {self.name} ...")
-        if self.type == self.Type.Gelectra:
+        if self.type == self.ModelTypes.Gelectra:
             from transformers.models.electra.modeling_electra import ElectraForQuestionAnswering
             from transformers.models.electra.tokenization_electra_fast import ElectraTokenizerFast
             self.tokenizer = Tokenizer(ElectraTokenizerFast.from_pretrained(self.path))
             self.model = ElectraForQuestionAnswering.from_pretrained(self.path)
-        elif self.type == self.Type.DistilBert:
+        elif self.type == self.ModelTypes.DistilBert:
             from transformers import DistilBertTokenizerFast, DistilBertForQuestionAnswering
             self.tokenizer = Tokenizer(DistilBertTokenizerFast.from_pretrained(self.path))
             self.model = DistilBertForQuestionAnswering.from_pretrained(self.path)
@@ -52,102 +59,31 @@ class QAModel:
         return get_predictions_evaluation(self, dataset)
 
     @classmethod
-    def from_fuzzy(cls, fuzzy_name):
-        model_name = fuzzy_match(fuzzy_name, cls.get_model_names())
+    def from_fuzzy(cls, fuzzy_name) -> "QAModel":
+        models = cls.get_model_names()
+        model_name = fuzzy_match(fuzzy_name, list(models.keys()))
         if model_name is None:
             raise ValueError(f"Could not find definite match for '{fuzzy_name}'")
         logger.info(f"Loading Model {model_name}")
-        return getattr(cls, model_name)
+        return QAModel(models[model_name])
 
     @property
-    def name(self):
-        return QAModel.path2name(self.path)
-
-    @staticmethod
-    def path2name(path: str):
-        return ".".join(path.strip("/").split("/")[-2:])
+    def name(self) -> str:
+        return self.path.relative_to(MODELS).with_suffix('').as_posix().replace('/', '.')
 
     @classmethod
-    @classproperty
-    def Base(cls) -> "QAModel":
-        return QAModel("deepset/gelectra-large")
+    def get_model_names(cls) -> dict[str: Path]:
+        return get_inner_fields_recursive(Models.QA)
 
     @classmethod
-    @classproperty
-    def GermanQuad(cls) -> "QAModel":
-        return QAModel("deepset/gelectra-large-germanquad")
-
-    @classmethod
-    @classproperty
-    def RawClean(cls) -> "QAModel":
-        return QAModel(Models.QA.Gelectra.raw_clean)
-
-    @classmethod
-    @classproperty
-    def RawClean1(cls) -> "QAModel":
-        return QAModel(Models.QA.Gelectra.raw_clean_1)
-
-    @classmethod
-    @classproperty
-    def RawClean2(cls) -> "QAModel":
-        return QAModel(Models.QA.Gelectra.raw_clean_2)
-
-    @classmethod
-    @classproperty
-    def RawClean3(cls) -> "QAModel":
-        return QAModel(Models.QA.Gelectra.raw_clean_3)
-
-    @classmethod
-    @classproperty
-    def RawClean4(cls) -> "QAModel":
-        return QAModel(Models.QA.Gelectra.raw_clean_4)
-
-    @classmethod
-    @classproperty
-    def EnglishQA(cls)-> "QAModel":
-        return QAModel("distilbert-base-cased-distilled-squad", type_=QAModel.Type.DistilBert)
-
-    @classmethod
-    @classproperty
-    def TAR(cls)-> "QAModel":
-        return QAModel(Models.QA.Gelectra.tar)
-
-    @classmethod
-    @classproperty
-    def QUOTE(cls)->"QAModel":
-        return QAModel(Models.QA.Gelectra.quote)
-
-    @classmethod
-    @classproperty
-    def RAW_BACK(cls)->"QAModel":
-        return QAModel(Models.QA.Gelectra.raw_back)
-
-    @classmethod
-    @classproperty
-    def TAR_BACK(cls)->"QAModel":
-        return QAModel(Models.QA.Gelectra.tar_back)
-
-    @classmethod
-    @classproperty
-    def QUOTE_BACK(cls)->"QAModel":
-        return QAModel(Models.QA.Gelectra.quote_back)
-
-    @classmethod
-    def get_model_names(cls):
-        return [name for name in dir(cls) if not name.startswith("_") and name[0].isupper() and name != "Type"]
-
-    @classmethod
-    def get_lazy_qa_instances(cls) -> list["QAModel"]:
-        prev = cls.lazy_loading
-        cls.lazy_loading = True
-        models = [getattr(cls, model_name) for model_name in cls.get_model_names() if model_name != "Base"]
-        cls.lazy_loading = prev
+    def get_all_models(cls) -> list["QAModel"]:
+        models = [cls(model_path) for model_name, model_path in cls.get_model_names().items() if model_name != "Base"]
         return models
 
-    def results_path(self, dataset_name: str):
-        return f"{RESULTS_PATH}/models/{self.name}_{dataset_name}.json"
+    def results_path(self, dataset_name: str) -> Path:
+        return RESULTS / "models" / f"{self.name}_{dataset_name}.json"
 
-    def has_results_file(self, dataset_name: str):
+    def has_results_file(self, dataset_name: str) -> bool:
         return os.path.isfile(self.results_path(dataset_name))
 
     @staticmethod
@@ -160,7 +96,6 @@ class QAModel:
         if self.model is None or self.tokenizer is None:
             self.load_weights()
         model_input = self.tokenizer.encode_qa(question, context)
-        model_input.to("cuda:0")
         with torch.no_grad():
             output = self.model(**QAModel.filter_dict_for_model_input(model_input))
 
