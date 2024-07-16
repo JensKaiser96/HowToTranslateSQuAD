@@ -2,7 +2,7 @@ import os
 from enum import Enum, auto
 from pathlib import Path
 
-from src.io.filepaths import Models, RESULTS, MODELS
+from src.io.filepaths import Models, Paths
 from src.utils.misc import get_inner_fields_recursive
 from src.nlp_tools.fuzzy import fuzzy_match
 from src.nlp_tools.span import Span
@@ -69,7 +69,7 @@ class QAModel:
 
     @property
     def name(self) -> str:
-        return self.path.relative_to(MODELS).with_suffix('').as_posix().replace('/', '.')
+        return self.path.relative_to(Paths.MODELS).with_suffix('').as_posix().replace('/', '.')
 
     @classmethod
     def get_model_names(cls) -> dict[str: Path]:
@@ -81,7 +81,7 @@ class QAModel:
         return models
 
     def results_path(self, dataset_name: str) -> Path:
-        return RESULTS / "models" / f"{self.name}_{dataset_name}.json"
+        return Paths.RESULTS / "models" / f"{self.name}_{dataset_name}.json"
 
     def has_results_file(self, dataset_name: str) -> bool:
         return os.path.isfile(self.results_path(dataset_name))

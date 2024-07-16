@@ -1,6 +1,6 @@
 from transformers import TrainingArguments, Trainer
 
-from src.io.utils import str_to_safe_path
+from src.io.utils import make_path_safe
 from src.qa.dataset import Dataset
 from src.qa.qamodel import QAModel
 from src.utils.logging import get_logger
@@ -70,4 +70,4 @@ def train(
     trainer.train()
 
     logger.info("Saving Model ...")
-    trainer.save_model(str_to_safe_path(save_path, dir_ok=True))
+    trainer.save_model(make_path_safe(save_path, dir_ok=True))

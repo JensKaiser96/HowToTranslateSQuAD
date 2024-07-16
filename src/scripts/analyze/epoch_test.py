@@ -2,7 +2,7 @@ import os
 
 import matplotlib.pyplot as plt
 
-from src.io.filepaths import PREDICTIONS, PLOTS
+from src.io.filepaths import Paths
 from src.qa.evaluate_predictions import PredictionEvaluation
 from src.utils.logging import get_logger
 
@@ -17,8 +17,8 @@ def main():
     logger.info("Loading Evaluation files...")
     lr = "lr1e-5"
     evals = {
-        extract_steps(file): PredictionEvaluation.load(f"{PREDICTIONS}epoch_eval_{lr}/{file}")
-        for file in os.listdir(PREDICTIONS + "/epoch_eval_" + lr)
+        extract_steps(file): PredictionEvaluation.load(f"{Paths.PREDICTIONS}epoch_eval_{lr}/{file}")
+        for file in os.listdir(Paths.PREDICTIONS + "/epoch_eval_" + lr)
         if file.startswith("checkpoints.")
     }
     logger.info("Extracting Data ...")
@@ -47,7 +47,7 @@ def main():
     # Show the plot
     plt.grid(True)
     plt.tight_layout()
-    plt.savefig(f"{PLOTS}epoch_eval_{lr}.png")
+    plt.savefig(f"{Paths.PLOTS}epoch_eval_{lr}.png")
 
 
 if __name__ == '__main__':

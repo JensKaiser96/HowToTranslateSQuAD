@@ -4,13 +4,13 @@ import os
 from pathlib import Path
 from typing import Union
 
-from src.io.filepaths import PLOTS
+from src.io.filepaths import Paths
 
 
 def save_plt(plt, path: str):
     suffix = ".pdf"
     if "/plots" not in path:
-        path = PLOTS / path
+        path = Paths.PLOTS / path
     path = make_path_safe(path, suffix)
     plt.savefig(path, transparent=True)
 

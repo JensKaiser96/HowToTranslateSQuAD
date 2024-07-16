@@ -1,6 +1,6 @@
 from collections import Counter
 
-from src.io.filepaths import PLOTS
+from src.io.filepaths import Paths
 from src.nlp_tools.words import get_question_type, get_answer_type, get_answers_type
 from src.plot import plot_3bars, plot_51bars
 from src.qa.dataset import Dataset
@@ -15,7 +15,7 @@ def plot_question_types(dataset_question_type_counter, raw_correct_question_type
     tar_values = [tar_correct_question_type_counter[key] / dataset_question_type_counter[key] for key in keys]
     quote_values = [quote_correct_question_type_counter[key] / dataset_question_type_counter[key] for key in keys]
 
-    save_path = PLOTS + "model_analysis/question_types"
+    save_path = Paths.PLOTS + "model_analysis/question_types"
     plot_3bars(keys, raw_values, tar_values, quote_values, save_path)
 
 
@@ -26,7 +26,7 @@ def plot_answer_types(model_name, answer_type_counter, correct_answer_type_count
     values = {key1: [answer_type_counter[(key2, key1)] / sum([answer_type_counter[(key3, key1)] for key3 in keys]) for key2 in keys] for key1 in keys}
     big_values = [correct_answer_type_counter[key] / sum([answer_type_counter[(key, key1)] for key1 in keys]) for key in keys]
 
-    save_path = PLOTS + f"model_analysis/answer_types_{model_name}"
+    save_path = Paths.PLOTS + f"model_analysis/answer_types_{model_name}"
     plot_51bars(keys, values, big_values, save_path)
 
 

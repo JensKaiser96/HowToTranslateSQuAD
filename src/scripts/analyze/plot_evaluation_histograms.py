@@ -2,7 +2,7 @@ from pathlib import Path
 
 from huggingface_hub.utils import HFValidationError
 
-from src.io.filepaths import PLOTS, Models, Datasets
+from src.io.filepaths import Paths, Models, Datasets
 from src.math.arithmetic import log10_0
 from src.nlp_tools.token import get_token_count
 from src.plot import scatter, histogram
@@ -97,13 +97,13 @@ if __name__ == '__main__':
         plot_hist(
             results=results,
             name=f"{model.name} {dataset.name}",
-            save_path=Path(PLOTS) / model.name / dataset.name,
+            save_path=Path(Paths.PLOTS) / model.name / dataset.name,
         )
 
         plot_scatter(
             results=results,
             name=f"{model.name} {dataset.name}",
-            save_path=Path(PLOTS) / model.name / dataset.name,
+            save_path=Path(Paths.PLOTS) / model.name / dataset.name,
         )
 
         if model.path != Models.QA.Gelectra.GERMAN_QUAD:

@@ -4,7 +4,7 @@ from pathlib import Path
 
 from pydantic import BaseModel, PrivateAttr, Field
 
-from src.io.filepaths import Datasets, DATASETS, RESULTS
+from src.io.filepaths import Datasets, Paths
 from src.io.utils import to_json
 from src.nlp_tools.fuzzy import fuzzy_match
 from src.qa.evaluate_dataset import DatasetEvaluation, get_dataset_evaluation
@@ -39,7 +39,7 @@ class Dataset(BaseModel):
     version: str = ""
     data: list[Article] = Field(default_factory=list)
     # fields which will not be written to file
-    _path: Path = PrivateAttr(default=Path(DATASETS / "unnamed.json"))
+    _path: Path = PrivateAttr(default=Path(Paths.DATASETS / "unnamed.json"))
     _qa_by_id: dict = PrivateAttr(default_factory=dict)
 
     @classmethod
@@ -50,7 +50,7 @@ class Dataset(BaseModel):
 
     @property
     def name(self):
-        return self._path.relative_to(DATASETS).with_suffix('').as_posix().replace('/', '.')
+        return self._path.relative_to(Paths.DATASETS).with_suffix('').as_posix().replace('/', '.')
 
     @classmethod
     def get_dataset_names(cls) -> dict:
@@ -89,7 +89,7 @@ class Dataset(BaseModel):
         return get_dataset_evaluation(self, self.name == self.Squad1.TRAIN.name)
 
     def evaluation_path(self):
-        return (RESULTS / "datasets" / self.name).with_suffix("json")
+        return (Paths.RESULTS / "datasets" / self.name).with_suffix("json")
 
     def has_evaluation_file(self):
         return os.path.isfile(self.evaluation_path())
